@@ -697,4 +697,416 @@ if(myListing.published){
 
 }
 
+<script>
+
+let myListing = {
+  published: false,
+  title: "",
+  category: "",
+  url: "",
+  country: "",
+  description: "",
+  boosts: 0,
+  lastFresh: 0
+};
+
+
+/* =========================
+   STORAGE
+========================= */
+
+function saveMyListing() {
+  localStorage.setItem(
+    "topme_listing",
+    JSON.stringify(myListing)
+  );
+}
+
+function loadMyListing() {
+
+  const saved = localStorage.getItem("topme_listing");
+
+  if (!saved) return;
+
+  try {
+    myListing = JSON.parse(saved);
+  } catch (e) {
+    console.log("Storage error:", e);
+  }
+}
+
+
+/* =========================
+   MODAL
+========================= */
+
+function openListingModal() {
+
+  const modal = document.getElementById("listingModal");
+
+  if (!modal) {
+    alert("Modal not found");
+    return;
+  }
+
+  modal.classList.add("open");
+  document.body.style.overflow = "hidden";
+
+  if (myListing.published) {
+    showSuccess();
+  } else {
+    showForm();
+  }
+}
+
+
+function closeListingModal() {
+
+  const modal = document.getElementById("listingModal");
+
+  if (modal) {
+    modal.classList.remove("open");
+  }
+
+  document.body.style.overflow = "";
+}
+
+
+/* =========================
+   FORM
+========================= */
+
+function showForm() {
+
+  document.getElementById("listingForm").style.display = "block";
+  document.getElementById("checkout").style.display = "none";
+  document.getElementById("success").style.display = "none";
+}
+
+
+function showCheckout() {
+
+  document.getElementById("listingForm").style.display = "none";
+  document.getElementById("checkout").style.display = "block";
+  document.getElementById("success").style.display = "none";
+}
+
+
+function showSuccess() {
+
+  document.getElementById("listingForm").style.display = "none";
+  document.getElementById("checkout").style.display = "none";
+  document.getElementById("success").style.display = "block";
+
+  updateBoostCount();
+}
+
+
+/* =========================
+   START LISTING
+========================= */
+
+function startListingCheckout() {
+
+  const title = document
+    .getElementById("title")
+    .value
+    .trim();
+
+  const url = document
+    .getElementById("url")
+    .value
+    .trim();
+
+  if (!title) {
+    showToast("Enter a name or title first.");
+    return;
+  }
+
+  if (!url) {
+    showToast("Enter your profile or item link.");
+    return;
+  }
+
+  myListing.title = title;
+
+  myListing.category =
+    document.getElementById("category").value;
+
+  myListing.url = url;
+
+  myListing.country =
+    document.getElementById("country").value;
+
+  myListing.description =
+    document.getElementById("description").value.trim();
+
+  showCheckout();
+}
+
+
+/* =========================
+   PAYMENT
+========================= */
+
+function completeListingPayment() {
+
+  myListing.published = true;
+  myListing.boosts = 0;
+  myListing.lastFresh = Date.now();
+
+  saveMyListing();
+
+  showSuccess();
+
+  showToast("🔥 Listing published!");
+}
+
+
+/* =========================
+   BACK
+========================= */
+
+function backToForm() {
+  showForm();
+}
+
+
+/* =========================
+   BOOST
+========================= */
+
+function boostMyListing() {
+
+  if (!myListing.published) {
+
+    showToast(
+      "You need to publish your listing first."
+    );
+
+    return;
+  }
+
+  myListing.boosts++;
+
+  myListing.lastFresh = Date.now();
+
+  saveMyListing();
+
+  updateBoostCount();
+
+  showToast(
+    "🔥 Fresh TOP position activated!"
+  );
+
+  closeListingModal();
+
+  setTimeout(function() {
+    scrollToBoard();
+  }, 200);
+}
+
+
+function boostDemo(name) {
+
+  const confirmed = confirm(
+    "🔥 Fresh Boost for " +
+    name +
+    "\n\nPrice: ₹49\n\nDemo payment only."
+  );
+
+  if (!confirmed) return;
+
+  showToast(
+    "🔥 " + name + " boosted!"
+  );
+}
+
+
+/* =========================
+   BOOST COUNT
+========================= */
+
+function updateBoostCount() {
+
+  const element =
+    document.getElementById("myBoostCount");
+
+  if (!element) return;
+
+  element.innerText =
+    "Fresh boosts: " +
+    myListing.boosts;
+}
+
+
+/* =========================
+   SHARE
+========================= */
+
+function shareMyListing() {
+
+  const text =
+    "I'm on TOPME 🔥\nCan you TOPME me?";
+
+  if (navigator.share) {
+
+    navigator.share({
+      title: "My TOPME listing",
+      text: text
+    }).catch(function() {});
+
+  } else if (navigator.clipboard) {
+
+    navigator.clipboard
+      .writeText(text)
+      .then(function() {
+        showToast("Share text copied!");
+      })
+      .catch(function() {
+        showToast(text);
+      });
+
+  } else {
+
+    showToast(text);
+  }
+}
+
+
+/* =========================
+   SCROLL
+========================= */
+
+function scrollToBoard() {
+
+  const board =
+    document.getElementById("explore");
+
+  if (!board) return;
+
+  board.scrollIntoView({
+    behavior: "smooth"
+  });
+}
+
+
+/* =========================
+   TOAST
+========================= */
+
+let toastTimer;
+
+function showToast(message) {
+
+  const toast =
+    document.getElementById("toast");
+
+  if (!toast) {
+    alert(message);
+    return;
+  }
+
+  toast.innerText = message;
+
+  toast.classList.add("show");
+
+  clearTimeout(toastTimer);
+
+  toastTimer = setTimeout(function() {
+    toast.classList.remove("show");
+  }, 2800);
+}
+
+
+/* =========================
+   MODAL OUTSIDE CLICK
+========================= */
+
+document.addEventListener(
+  "DOMContentLoaded",
+  function() {
+
+    loadMyListing();
+
+    const modal =
+      document.getElementById("listingModal");
+
+    if (modal) {
+
+      modal.addEventListener(
+        "click",
+        function(event) {
+
+          if (event.target === modal) {
+            closeListingModal();
+          }
+
+        }
+      );
+    }
+
+
+    /* CATEGORY CLICK */
+
+    const categories =
+      document.querySelectorAll(".category");
+
+    categories.forEach(function(category) {
+
+      category.style.cursor = "pointer";
+
+      category.addEventListener(
+        "click",
+        function() {
+
+          const name =
+            category.querySelector(".category-name");
+
+          if (name) {
+
+            showToast(
+              "Opening " +
+              name.innerText +
+              " rankings..."
+            );
+
+          }
+
+        }
+      );
+
+    });
+
+
+    /* FILTER BUTTONS */
+
+    const filters =
+      document.querySelectorAll(".filter");
+
+    filters.forEach(function(filter) {
+
+      filter.addEventListener(
+        "click",
+        function() {
+
+          filters.forEach(function(f) {
+            f.classList.remove("active");
+          });
+
+          filter.classList.add("active");
+
+          showToast(
+            filter.innerText +
+            " selected"
+          );
+
+        }
+      );
+
+    });
+
+  }
+);
+
 </script>
