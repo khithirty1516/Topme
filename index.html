@@ -1,744 +1,48 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script>
 
-<title>TOPME — What deserves to be on top?</title>
+let myListing = {
+  published: false,
+  title: "",
+  category: "",
+  url: "",
+  country: "",
+  description: "",
+  boosts: 0,
+  lastFresh: 0
+};
 
-<meta name="description"
-content="TOPME is a global ranking platform where anything can compete for the top.">
-
-<style>
-
-*{
-  box-sizing:border-box;
-  margin:0;
-  padding:0;
-}
-
-:root{
-  --bg:#07080c;
-  --card:#11131a;
-  --card2:#171a23;
-  --line:#282c38;
-  --text:#ffffff;
-  --muted:#9298a8;
-  --accent:#ff5b4d;
-  --accent2:#ff9a7d;
-  --green:#40d99a;
-  --gold:#ffd166;
-}
-
-body{
-  background:
-    radial-gradient(
-      circle at 50% -15%,
-      rgba(255,91,77,.20),
-      transparent 35%
-    ),
-    var(--bg);
-
-  color:var(--text);
-
-  font-family:
-    Inter,
-    system-ui,
-    -apple-system,
-    BlinkMacSystemFont,
-    "Segoe UI",
-    sans-serif;
-
-  min-height:100vh;
-}
-
-button,
-input,
-select,
-textarea{
-  font:inherit;
-}
-
-button{
-  cursor:pointer;
-}
-
-button:active{
-  transform:scale(.98);
-}
-
-a{
-  color:inherit;
-  text-decoration:none;
-}
+let toastTimer;
 
 
 /* =========================
-   NAV
+   STORAGE
 ========================= */
 
-.nav{
-  height:68px;
+function saveMyListing(){
 
-  position:sticky;
-  top:0;
+  localStorage.setItem(
+    "topme_listing",
+    JSON.stringify(myListing)
+  );
 
-  z-index:100;
-
-  background:rgba(7,8,12,.88);
-
-  backdrop-filter:blur(18px);
-
-  border-bottom:1px solid rgba(255,255,255,.07);
-}
-
-.nav-inner{
-  width:min(1180px,92%);
-  height:100%;
-  margin:auto;
-
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-}
-
-.logo{
-  font-size:25px;
-  font-weight:950;
-  letter-spacing:-1.5px;
-}
-
-.logo span{
-  color:var(--accent);
-}
-
-.nav-links{
-  display:flex;
-  gap:26px;
-}
-
-.nav-links a{
-  color:#aeb3c1;
-  font-size:13px;
-  font-weight:800;
-}
-
-.nav-links a:hover{
-  color:white;
-}
-
-.nav-add{
-  background:white;
-  color:#08090d;
-
-  border:0;
-
-  padding:11px 16px;
-
-  border-radius:12px;
-
-  font-size:12px;
-  font-weight:900;
 }
 
 
-/* =========================
-   HERO
-========================= */
+function loadMyListing(){
 
-.hero{
-  width:min(1050px,92%);
-  margin:auto;
+  const saved =
+    localStorage.getItem("topme_listing");
 
-  text-align:center;
+  if(saved){
 
-  padding:80px 0 45px;
-}
+    try{
+      myListing = JSON.parse(saved);
+    }catch(error){
+      console.log(error);
+    }
 
-.badge{
-  display:inline-flex;
-  align-items:center;
-  gap:8px;
+  }
 
-  padding:8px 13px;
-
-  border:1px solid rgba(255,255,255,.1);
-
-  background:rgba(255,255,255,.035);
-
-  border-radius:100px;
-
-  color:#c5c9d3;
-
-  font-size:11px;
-  font-weight:800;
-}
-
-.live{
-  width:7px;
-  height:7px;
-
-  background:var(--green);
-
-  border-radius:50%;
-
-  box-shadow:0 0 12px var(--green);
-}
-
-.hero h1{
-  margin:24px auto 15px;
-
-  font-size:
-    clamp(52px,9vw,95px);
-
-  line-height:.9;
-
-  letter-spacing:-5px;
-
-  font-weight:950;
-}
-
-.gradient{
-  background:
-    linear-gradient(
-      100deg,
-      #fff,
-      #ff8d78,
-      #ffd09c
-    );
-
-  -webkit-background-clip:text;
-
-  color:transparent;
-}
-
-.hero p{
-  max-width:620px;
-
-  margin:auto;
-
-  color:var(--muted);
-
-  line-height:1.65;
-
-  font-size:16px;
-}
-
-.hero-buttons{
-  display:flex;
-  justify-content:center;
-  gap:12px;
-
-  margin-top:28px;
-
-  flex-wrap:wrap;
-}
-
-.primary{
-  border:0;
-
-  background:var(--accent);
-
-  color:white;
-
-  padding:14px 21px;
-
-  border-radius:13px;
-
-  font-weight:900;
-
-  box-shadow:
-    0 10px 35px rgba(255,91,77,.20);
-}
-
-.secondary{
-  border:1px solid var(--line);
-
-  background:#11131a;
-
-  color:white;
-
-  padding:14px 21px;
-
-  border-radius:13px;
-
-  font-weight:850;
-}
-
-
-/* =========================
-   STATS
-========================= */
-
-.stats{
-  width:min(850px,92%);
-
-  margin:5px auto 65px;
-
-  display:grid;
-
-  grid-template-columns:
-    repeat(3,1fr);
-
-  border:1px solid var(--line);
-
-  border-radius:18px;
-
-  overflow:hidden;
-
-  background:rgba(255,255,255,.025);
-}
-
-.stat{
-  text-align:center;
-
-  padding:19px;
-
-  border-right:
-    1px solid var(--line);
-}
-
-.stat:last-child{
-  border-right:0;
-}
-
-.stat strong{
-  display:block;
-
-  font-size:22px;
-}
-
-.stat span{
-  display:block;
-
-  margin-top:4px;
-
-  color:var(--muted);
-
-  font-size:11px;
-}
-
-
-/* =========================
-   SECTIONS
-========================= */
-
-.section{
-  width:min(1180px,92%);
-
-  margin:
-    0 auto 75px;
-}
-
-.section-head{
-  display:flex;
-
-  align-items:end;
-
-  justify-content:space-between;
-
-  margin-bottom:20px;
-}
-
-.section-title{
-  font-size:28px;
-
-  font-weight:950;
-
-  letter-spacing:-1px;
-}
-
-.section-sub{
-  color:var(--muted);
-
-  margin-top:5px;
-
-  font-size:13px;
-}
-
-
-/* =========================
-   CATEGORIES
-========================= */
-
-.categories{
-  display:grid;
-
-  grid-template-columns:
-    repeat(4,1fr);
-
-  gap:12px;
-}
-
-.category{
-  min-height:105px;
-
-  padding:19px;
-
-  border:
-    1px solid var(--line);
-
-  border-radius:17px;
-
-  background:
-    linear-gradient(
-      145deg,
-      #141720,
-      #0e1016
-    );
-
-  transition:.2s;
-}
-
-.category:hover{
-  transform:translateY(-2px);
-
-  border-color:#484d5c;
-}
-
-.icon{
-  font-size:24px;
-}
-
-.category-name{
-  margin-top:12px;
-
-  font-weight:900;
-}
-
-.category-count{
-  color:var(--muted);
-
-  margin-top:4px;
-
-  font-size:11px;
-}
-
-
-/* =========================
-   BOARD
-========================= */
-
-.board{
-  border:
-    1px solid var(--line);
-
-  border-radius:20px;
-
-  overflow:hidden;
-
-  background:#0e1016;
-}
-
-.filters{
-  padding:14px;
-
-  display:flex;
-
-  gap:8px;
-
-  overflow:auto;
-
-  border-bottom:
-    1px solid var(--line);
-}
-
-.filter{
-  white-space:nowrap;
-
-  border:
-    1px solid var(--line);
-
-  background:#151821;
-
-  color:#9ca1b0;
-
-  padding:8px 13px;
-
-  border-radius:100px;
-
-  font-size:11px;
-
-  font-weight:850;
-}
-
-.filter.active{
-  color:white;
-
-  background:#292d38;
-
-  border-color:#464b59;
-}
-
-.rank-row{
-  display:grid;
-
-  grid-template-columns:
-    55px 1fr auto;
-
-  align-items:center;
-
-  gap:14px;
-
-  padding:17px;
-
-  border-bottom:
-    1px solid rgba(255,255,255,.055);
-}
-
-.rank-row:last-child{
-  border-bottom:0;
-}
-
-.rank{
-  text-align:center;
-
-  color:#686e7d;
-
-  font-size:15px;
-
-  font-weight:950;
-}
-
-.rank.top{
-  color:var(--accent);
-
-  font-size:19px;
-}
-
-.item{
-  display:flex;
-
-  align-items:center;
-
-  gap:12px;
-
-  min-width:0;
-}
-
-.avatar{
-  width:46px;
-  height:46px;
-
-  flex:none;
-
-  display:grid;
-  place-items:center;
-
-  border:
-    1px solid #353948;
-
-  border-radius:13px;
-
-  background:
-    linear-gradient(
-      135deg,
-      #2a2e3c,
-      #171923
-    );
-
-  font-size:20px;
-}
-
-.item-info{
-  min-width:0;
-}
-
-.item-name{
-  font-size:14px;
-
-  font-weight:900;
-
-  white-space:nowrap;
-
-  overflow:hidden;
-
-  text-overflow:ellipsis;
-}
-
-.item-meta{
-  color:var(--muted);
-
-  margin-top:4px;
-
-  font-size:10px;
-}
-
-.amount{
-  text-align:right;
-}
-
-.amount strong{
-  display:block;
-
-  color:#ff967f;
-
-  font-size:15px;
-}
-
-.boost-button{
-  margin-top:6px;
-
-  border:
-    1px solid #363a48;
-
-  background:#191b24;
-
-  color:white;
-
-  padding:7px 10px;
-
-  border-radius:8px;
-
-  font-size:10px;
-
-  font-weight:850;
-}
-
-
-/* =========================
-   PRICING
-========================= */
-
-.pricing{
-  display:grid;
-
-  grid-template-columns:
-    repeat(2,1fr);
-
-  gap:16px;
-
-  margin-top:20px;
-}
-
-.price-card{
-  padding:25px;
-
-  border:
-    1px solid var(--line);
-
-  border-radius:20px;
-
-  background:
-    linear-gradient(
-      145deg,
-      #151821,
-      #0e1016
-    );
-}
-
-.price-card.highlight{
-  border-color:
-    rgba(255,91,77,.45);
-
-  box-shadow:
-    0 15px 50px
-    rgba(255,91,77,.08);
-}
-
-.price-label{
-  color:var(--muted);
-
-  font-size:11px;
-
-  font-weight:850;
-}
-
-.price{
-  margin-top:8px;
-
-  font-size:40px;
-
-  font-weight:950;
-
-  letter-spacing:-2px;
-}
-
-.price-desc{
-  margin-top:7px;
-
-  color:var(--muted);
-
-  font-size:12px;
-
-  line-height:1.5;
-}
-
-.price-button{
-  width:100%;
-
-  margin-top:18px;
-
-  padding:13px;
-
-  border:0;
-
-  border-radius:11px;
-
-  background:var(--accent);
-
-  color:white;
-
-  font-weight:900;
-}
-
-.small-note{
-  color:#777d8d;
-
-  margin-top:9px;
-
-  font-size:10px;
-
-  line-height:1.5;
-}
-
-
-/* =========================
-   HOW
-========================= */
-
-.how{
-  display:grid;
-
-  grid-template-columns:
-    repeat(3,1fr);
-
-  gap:15px;
-}
-
-.how-card{
-  padding:24px;
-
-  border:
-    1px solid var(--line);
-
-  border-radius:18px;
-
-  background:#101219;
-}
-
-.step{
-  color:var(--accent);
-
-  font-size:11px;
-
-  font-weight:950;
-}
-
-.how-card h3{
-  margin-top:12px;
-
-  font-size:17px;
-}
-
-.how-card p{
-  color:var(--muted);
-
-  margin-top:8px;
-
-  font-size:12px;
-
-  line-height:1.6;
 }
 
 
@@ -746,297 +50,528 @@ a{
    MODAL
 ========================= */
 
-.modal{
-  position:fixed;
+function openListingModal(){
 
-  inset:0;
+  const modal =
+    document.getElementById("listingModal");
 
-  z-index:200;
+  modal.classList.add("open");
 
-  display:none;
+  document.body.style.overflow = "hidden";
 
-  align-items:center;
+  if(myListing.published){
 
-  justify-content:center;
+    showSuccess();
 
-  padding:18px;
+  }else{
 
-  background:
-    rgba(0,0,0,.78);
+    showForm();
 
-  backdrop-filter:blur(8px);
+  }
+
 }
 
-.modal.open{
-  display:flex;
+
+function closeListingModal(){
+
+  document
+    .getElementById("listingModal")
+    .classList.remove("open");
+
+  document.body.style.overflow = "";
+
 }
 
-.modal-box{
-  width:min(540px,100%);
 
-  max-height:90vh;
+function showForm(){
 
-  overflow:auto;
+  document.getElementById("listingForm")
+    .style.display = "block";
 
-  padding:25px;
+  document.getElementById("checkout")
+    .style.display = "none";
 
-  border:
-    1px solid #343845;
+  document.getElementById("success")
+    .style.display = "none";
 
-  border-radius:22px;
-
-  background:#101219;
-
-  box-shadow:
-    0 30px 100px
-    rgba(0,0,0,.55);
 }
 
-.modal-head{
-  display:flex;
 
-  align-items:center;
+function showCheckout(){
 
-  justify-content:space-between;
+  document.getElementById("listingForm")
+    .style.display = "none";
 
-  margin-bottom:20px;
+  document.getElementById("checkout")
+    .style.display = "block";
+
+  document.getElementById("success")
+    .style.display = "none";
+
 }
 
-.modal-head h2{
-  font-size:22px;
-}
 
-.close{
-  width:36px;
-  height:36px;
+function showSuccess(){
 
-  border:
-    1px solid var(--line);
+  document.getElementById("listingForm")
+    .style.display = "none";
 
-  background:#191b24;
+  document.getElementById("checkout")
+    .style.display = "none";
 
-  color:white;
+  document.getElementById("success")
+    .style.display = "block";
 
-  border-radius:10px;
+  updateBoostCount();
 
-  font-size:20px;
-}
-
-.form-group{
-  margin-bottom:15px;
-}
-
-.form-group label{
-  display:block;
-
-  margin-bottom:7px;
-
-  color:#b9bdc9;
-
-  font-size:11px;
-
-  font-weight:850;
-}
-
-.form-group input,
-.form-group select,
-.form-group textarea{
-  width:100%;
-
-  padding:13px;
-
-  border:
-    1px solid #2d303c;
-
-  border-radius:11px;
-
-  background:#0a0c10;
-
-  color:white;
-
-  outline:none;
-}
-
-.form-group textarea{
-  min-height:85px;
-
-  resize:vertical;
-}
-
-.form-group input:focus,
-.form-group select:focus,
-.form-group textarea:focus{
-  border-color:#656a7a;
-}
-
-.entry-box{
-  padding:15px;
-
-  margin:
-    17px 0;
-
-  border:
-    1px solid rgba(255,91,77,.25);
-
-  border-radius:13px;
-
-  background:
-    rgba(255,91,77,.06);
-}
-
-.entry-box strong{
-  display:block;
-
-  color:#ff967f;
-
-  font-size:20px;
-}
-
-.entry-box span{
-  display:block;
-
-  color:var(--muted);
-
-  margin-top:4px;
-
-  font-size:10px;
-}
-
-.checkout{
-  display:none;
-
-  text-align:center;
-}
-
-.checkout-icon{
-  font-size:52px;
-}
-
-.checkout h2{
-  margin-top:12px;
-}
-
-.checkout-price{
-  margin:20px 0;
-
-  padding:20px;
-
-  border:
-    1px solid var(--line);
-
-  border-radius:15px;
-
-  background:#090b0f;
-}
-
-.checkout-price span{
-  display:block;
-
-  color:var(--muted);
-
-  font-size:11px;
-}
-
-.checkout-price strong{
-  display:block;
-
-  margin-top:3px;
-
-  font-size:38px;
 }
 
 
 /* =========================
-   SUCCESS
+   LISTING FORM
 ========================= */
 
-.success{
-  display:none;
+function startListingCheckout(){
 
-  text-align:center;
-}
+  const title =
+    document.getElementById("title")
+      .value.trim();
 
-.success-icon{
-  font-size:55px;
-}
+  const url =
+    document.getElementById("url")
+      .value.trim();
 
-.success h2{
-  margin-top:12px;
-}
+  if(!title){
 
-.big-rank{
-  margin:20px 0;
+    showToast(
+      "Enter a name or title first."
+    );
 
-  padding:20px;
+    return;
+  }
 
-  border:
-    1px solid var(--line);
+  if(!url){
 
-  border-radius:17px;
+    showToast(
+      "Enter your profile or item link."
+    );
 
-  background:#090b0f;
-}
+    return;
+  }
 
-.big-rank span{
-  display:block;
+  myListing.title = title;
 
-  color:var(--muted);
+  myListing.category =
+    document.getElementById("category").value;
 
-  font-size:10px;
-}
+  myListing.url = url;
 
-.big-rank strong{
-  display:block;
+  myListing.country =
+    document.getElementById("country").value;
 
-  margin-top:4px;
+  myListing.description =
+    document.getElementById("description")
+      .value.trim();
 
-  font-size:48px;
-}
+  showCheckout();
 
-.boost-count{
-  color:#ff967f;
-
-  margin-top:5px;
-
-  font-size:12px;
-
-  font-weight:850;
 }
 
 
 /* =========================
-   FOOTER
+   ₹49 ENTRY PAYMENT
 ========================= */
 
-footer{
-  padding:40px 0;
+function completeListingPayment(){
 
-  border-top:
-    1px solid var(--line);
+  myListing.published = true;
 
-  color:var(--muted);
+  myListing.boosts = 0;
+
+  myListing.lastFresh = Date.now();
+
+  saveMyListing();
+
+  addMyListingToBoard();
+
+  showSuccess();
+
+  showToast(
+    "🔥 Listing published for ₹49!"
+  );
+
 }
 
-.footer-inner{
-  width:min(1180px,92%);
 
-  margin:auto;
+/* =========================
+   ADD USER LISTING
+   TO LEADERBOARD
+========================= */
 
-  display:flex;
+function addMyListingToBoard(){
 
-  justify-content:space-between;
+  const board =
+    document.getElementById("leaderboard");
 
-  gap:20px;
+  if(!board){
+    return;
+  }
+
+  let existing =
+    document.getElementById("my-topme-row");
+
+  if(existing){
+    existing.remove();
+  }
+
+  const row =
+    document.createElement("div");
+
+  row.className = "rank-row";
+
+  row.id = "my-topme-row";
+
+  row.dataset.name =
+    myListing.title;
+
+  row.innerHTML = `
+
+    <div class="rank top">
+      #1
+    </div>
+
+    <div class="item">
+
+      <div class="avatar">
+        🔥
+      </div>
+
+      <div class="item-info">
+
+        <div class="item-name">
+          ${escapeHTML(myListing.title)}
+        </div>
+
+        <div class="item-meta">
+          ${escapeHTML(myListing.category)}
+          · ${escapeHTML(myListing.country)}
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="amount">
+
+      <strong>
+        ₹${49 + (myListing.boosts * 49)}
+      </strong>
+
+      <button
+        class="boost-button"
+        onclick="boostMyListing()">
+
+        🔥 ₹49 Boost
+
+      </button>
+
+    </div>
+
+  `;
+
+  board.prepend(row);
+
+  updateRanks();
+
 }
 
-.footer-links{
-  display:flex;
 
-  gap:18px;
+/* =========================
+   BOOST
+========================= */
 
-  flex-wrap:wrap;
+function boostMyListing(){
 
-  font-size:11px;
+  if(!myListing.published){
+
+    showToast(
+      "You need to publish your listing first."
+    );
+
+    return;
+  }
+
+  /*
+    DEMO PAYMENT:
+
+    Every click represents
+    another ₹49 successful boost.
+
+    Real payment gateway can
+    be connected later.
+  */
+
+  const confirmed =
+    confirm(
+      "🔥 Fresh Boost\n\n" +
+      "Price: ₹49\n\n" +
+      "Your listing will move to #1."
+    );
+
+  if(!confirmed){
+    return;
+  }
+
+  myListing.boosts++;
+
+  myListing.lastFresh =
+    Date.now();
+
+  saveMyListing();
+
+  addMyListingToBoard();
+
+  showSuccess();
+
+  showToast(
+    "🔥 Boost successful! You are #1."
+  );
+
+  setTimeout(function(){
+
+    scrollToBoard();
+
+  },500);
+
+}
+
+
+/* =========================
+   DEMO EXISTING LISTING BOOST
+========================= */
+
+function boostDemo(name){
+
+  const confirmed =
+    confirm(
+      "🔥 Fresh Boost for " +
+      name +
+      "\n\n" +
+      "Price: ₹49\n\n" +
+      "Demo payment only."
+    );
+
+  if(!confirmed){
+    return;
+  }
+
+  showToast(
+    "🔥 " + name +
+    " received a fresh boost!"
+  );
+
+}
+
+
+/* =========================
+   UPDATE RANKS
+========================= */
+
+function updateRanks(){
+
+  const rows =
+    Array.from(
+      document.querySelectorAll(
+        "#leaderboard .rank-row"
+      )
+    );
+
+  rows.forEach(function(row,index){
+
+    const rank =
+      row.querySelector(".rank");
+
+    if(!rank){
+      return;
+    }
+
+    rank.innerText =
+      "#" + (index + 1);
+
+    rank.classList.remove("top");
+
+    if(index === 0){
+
+      rank.classList.add("top");
+
+    }
+
+  });
+
+}
+
+
+/* =========================
+   BOOST COUNT
+========================= */
+
+function updateBoostCount(){
+
+  const element =
+    document.getElementById(
+      "myBoostCount"
+    );
+
+  if(element){
+
+    element.innerText =
+      "Fresh boosts: " +
+      myListing.boosts;
+
+  }
+
+}
+
+
+/* =========================
+   FILTERS
+========================= */
+
+function setupFilters(){
+
+  const filters =
+    document.querySelectorAll(
+      ".filter"
+    );
+
+  filters.forEach(function(button){
+
+    button.addEventListener(
+      "click",
+      function(){
+
+        filters.forEach(function(btn){
+
+          btn.classList.remove(
+            "active"
+          );
+
+        });
+
+        this.classList.add("active");
+
+        showToast(
+          this.innerText.trim() +
+          " selected"
+        );
+
+      }
+    );
+
+  });
+
+}
+
+
+/* =========================
+   CATEGORIES
+========================= */
+
+function setupCategories(){
+
+  const categories =
+    document.querySelectorAll(
+      ".category"
+    );
+
+  categories.forEach(function(card){
+
+    card.style.cursor = "pointer";
+
+    card.addEventListener(
+      "click",
+      function(){
+
+        const category =
+          this.querySelector(
+            ".category-name"
+          );
+
+        if(category){
+
+          showToast(
+            category.innerText +
+            " selected"
+          );
+
+          scrollToBoard();
+
+        }
+
+      }
+    );
+
+  });
+
+}
+
+
+/* =========================
+   SHARE
+========================= */
+
+function shareMyListing(){
+
+  const text =
+    "I'm on TOPME 🔥\n" +
+    "Can you TOPME me?";
+
+  if(navigator.share){
+
+    navigator.share({
+
+      title: "My TOPME listing",
+
+      text: text
+
+    }).catch(function(){});
+
+  }else{
+
+    navigator.clipboard
+      .writeText(text)
+      .then(function(){
+
+        showToast(
+          "Share text copied!"
+        );
+
+      });
+
+  }
+
+}
+
+
+/* =========================
+   SCROLL
+========================= */
+
+function scrollToBoard(){
+
+  const board =
+    document.getElementById(
+      "explore"
+    );
+
+  if(board){
+
+    board.scrollIntoView({
+      behavior: "smooth"
+    });
+
+  }
+
 }
 
 
@@ -1044,696 +579,122 @@ footer{
    TOAST
 ========================= */
 
-.toast{
-  position:fixed;
+function showToast(message){
 
-  z-index:300;
+  const toast =
+    document.getElementById(
+      "toast"
+    );
 
-  left:50%;
-  bottom:24px;
+  if(!toast){
+    return;
+  }
 
-  transform:
-    translate(-50%,20px);
+  toast.innerText =
+    message;
 
-  opacity:0;
+  toast.classList.add("show");
 
-  pointer-events:none;
+  clearTimeout(toastTimer);
 
-  padding:12px 17px;
+  toastTimer =
+    setTimeout(function(){
 
-  border-radius:12px;
+      toast.classList.remove(
+        "show"
+      );
 
-  background:white;
+    },2800);
 
-  color:#090a0d;
-
-  font-size:12px;
-
-  font-weight:900;
-
-  transition:.25s;
-
-  box-shadow:
-    0 15px 40px
-    rgba(0,0,0,.4);
-}
-
-.toast.show{
-  opacity:1;
-
-  transform:
-    translate(-50%,0);
 }
 
 
 /* =========================
-   MOBILE
+   BACK
 ========================= */
 
-@media(max-width:760px){
+function backToForm(){
 
-  .nav{
-    height:60px;
-  }
+  showForm();
 
-  .nav-links{
-    display:none;
-  }
-
-  .nav-add{
-    padding:9px 11px;
-
-    font-size:10px;
-  }
-
-  .hero{
-    padding:55px 0 35px;
-  }
-
-  .hero h1{
-    font-size:57px;
-
-    letter-spacing:-3px;
-  }
-
-  .hero p{
-    font-size:13px;
-  }
-
-  .stats{
-    margin-bottom:50px;
-  }
-
-  .stat{
-    padding:13px 5px;
-  }
-
-  .stat strong{
-    font-size:17px;
-  }
-
-  .stat span{
-    font-size:9px;
-  }
-
-  .categories{
-    grid-template-columns:
-      repeat(2,1fr);
-  }
-
-  .category{
-    min-height:92px;
-
-    padding:15px;
-  }
-
-  .pricing{
-    grid-template-columns:1fr;
-  }
-
-  .how{
-    grid-template-columns:1fr;
-  }
-
-  .rank-row{
-    grid-template-columns:
-      32px 1fr auto;
-
-    gap:8px;
-
-    padding:14px 10px;
-  }
-
-  .avatar{
-    width:39px;
-    height:39px;
-
-    border-radius:11px;
-  }
-
-  .item{
-    gap:8px;
-  }
-
-  .item-name{
-    font-size:12px;
-  }
-
-  .item-meta{
-    font-size:8px;
-  }
-
-  .amount strong{
-    font-size:12px;
-  }
-
-  .boost-button{
-    font-size:8px;
-
-    padding:6px 7px;
-  }
-
-  .footer-inner{
-    flex-direction:column;
-  }
 }
 
-</style>
-</head>
 
+/* =========================
+   ESCAPE HTML
+========================= */
 
-<body>
+function escapeHTML(value){
 
+  return String(value)
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
 
-<!-- =========================
-     NAVIGATION
-========================= -->
+}
 
-<nav class="nav">
 
-  <div class="nav-inner">
+/* =========================
+   MODAL OUTSIDE CLICK
+========================= */
 
-    <a class="logo" href="#">
-      TOP<span>ME</span>
-    </a>
+const modal =
+  document.getElementById(
+    "listingModal"
+  );
 
-    <div class="nav-links">
+if(modal){
 
-      <a href="#explore">
-        Explore
-      </a>
+  modal.addEventListener(
+    "click",
+    function(event){
 
-      <a href="#categories">
-        Categories
-      </a>
+      if(event.target === this){
 
-      <a href="#pricing">
-        Pricing
-      </a>
+        closeListingModal();
 
-      <a href="#how">
-        How it works
-      </a>
+      }
 
-    </div>
+    }
+  );
 
-    <button
-      class="nav-add"
-      onclick="openListingModal()">
+}
 
-      + Put on TOPME
 
-    </button>
+/* =========================
+   ESC KEY
+========================= */
 
-  </div>
+document.addEventListener(
+  "keydown",
+  function(event){
 
-</nav>
+    if(event.key === "Escape"){
 
+      closeListingModal();
 
-<!-- =========================
-     HERO
-========================= -->
+    }
 
-<header class="hero">
+  }
+);
 
-  <div class="badge">
 
-    <span class="live"></span>
+/* =========================
+   STARTUP
+========================= */
 
-    TOPME is live
+loadMyListing();
 
-  </div>
+setupFilters();
 
+setupCategories();
 
-  <h1>
+if(myListing.published){
 
-    What deserves<br>
+  addMyListingToBoard();
 
-    to be
+}
 
-    <span class="gradient">
-      on top?
-    </span>
-
-  </h1>
-
-
-  <p>
-
-    Put anything worth noticing on the board.
-    Get discovered, climb the rankings and
-    keep your spot fresh.
-
-  </p>
-
-
-  <div class="hero-buttons">
-
-    <button
-      class="primary"
-      onclick="openListingModal()">
-
-      + Put Something on TOPME
-
-    </button>
-
-
-    <button
-      class="secondary"
-      onclick="scrollToBoard()">
-
-      Explore Rankings
-
-    </button>
-
-  </div>
-
-</header>
-
-
-<!-- =========================
-     STATS
-========================= -->
-
-<div class="stats">
-
-  <div class="stat">
-
-    <strong>
-      12,481
-    </strong>
-
-    <span>
-      Listings
-    </span>
-
-  </div>
-
-
-  <div class="stat">
-
-    <strong>
-      86
-    </strong>
-
-    <span>
-      Countries
-    </span>
-
-  </div>
-
-
-  <div class="stat">
-
-    <strong>
-      ₹18.4L
-    </strong>
-
-    <span>
-      Board Value
-    </span>
-
-  </div>
-
-</div>
-
-
-<!-- =========================
-     CATEGORIES
-========================= -->
-
-<section
-  class="section"
-  id="categories">
-
-  <div class="section-head">
-
-    <div>
-
-      <div class="section-title">
-        Explore categories
-      </div>
-
-      <div class="section-sub">
-        Find what people are putting on top.
-      </div>
-
-    </div>
-
-  </div>
-
-
-  <div class="categories">
-
-
-    <div class="category">
-
-      <div class="icon">
-        👤
-      </div>
-
-      <div class="category-name">
-        Creators
-      </div>
-
-      <div class="category-count">
-        3,842 listings
-      </div>
-
-    </div>
-
-
-    <div class="category">
-
-      <div class="icon">
-        🎵
-      </div>
-
-      <div class="category-name">
-        Music
-      </div>
-
-      <div class="category-count">
-        2,193 listings
-      </div>
-
-    </div>
-
-
-    <div class="category">
-
-      <div class="icon">
-        ▶️
-      </div>
-
-      <div class="category-name">
-        Videos
-      </div>
-
-      <div class="category-count">
-        1,981 listings
-      </div>
-
-    </div>
-
-
-    <div class="category">
-
-      <div class="icon">
-        📦
-      </div>
-
-      <div class="category-name">
-        Products
-      </div>
-
-      <div class="category-count">
-        1,745 listings
-      </div>
-
-    </div>
-
-
-    <div class="category">
-
-      <div class="icon">
-        🚀
-      </div>
-
-      <div class="category-name">
-        Startups
-      </div>
-
-      <div class="category-count">
-        1,204 listings
-      </div>
-
-    </div>
-
-
-    <div class="category">
-
-      <div class="icon">
-        🏢
-      </div>
-
-      <div class="category-name">
-        Businesses
-      </div>
-
-      <div class="category-count">
-        942 listings
-      </div>
-
-    </div>
-
-
-    <div class="category">
-
-      <div class="icon">
-        🌐
-      </div>
-
-      <div class="category-name">
-        Websites
-      </div>
-
-      <div class="category-count">
-        731 listings
-      </div>
-
-    </div>
-
-
-    <div class="category">
-
-      <div class="icon">
-        🎨
-      </div>
-
-      <div class="category-name">
-        Art
-      </div>
-
-      <div class="category-count">
-        515 listings
-      </div>
-
-    </div>
-
-  </div>
-
-</section>
-
-
-<!-- =========================
-     LEADERBOARD
-========================= -->
-
-<section
-  class="section"
-  id="explore">
-
-  <div class="section-head">
-
-    <div>
-
-      <div class="section-title">
-        🔥 Trending right now
-      </div>
-
-      <div class="section-sub">
-        Freshest listings appear on top.
-      </div>
-
-    </div>
-
-  </div>
-
-
-  <div class="board">
-
-
-    <div class="filters">
-
-      <button
-        class="filter active">
-        All
-      </button>
-
-      <button class="filter">
-        👤 Creators
-      </button>
-
-      <button class="filter">
-        🎵 Music
-      </button>
-
-      <button class="filter">
-        ▶️ Videos
-      </button>
-
-      <button class="filter">
-        📦 Products
-      </button>
-
-      <button class="filter">
-        🌎 Worldwide
-      </button>
-
-      <button class="filter">
-        🇮🇳 India
-      </button>
-
-    </div>
-
-
-    <div id="leaderboard">
-
-
-      <div
-        class="rank-row"
-        data-name="MrBeast">
-
-        <div class="rank top">
-          #1
-        </div>
-
-        <div class="item">
-
-          <div class="avatar">
-            🔥
-          </div>
-
-          <div class="item-info">
-
-            <div class="item-name">
-              MrBeast
-            </div>
-
-            <div class="item-meta">
-              Creator · 🇺🇸 USA
-            </div>
-
-          </div>
-
-        </div>
-
-        <div class="amount">
-
-          <strong>
-            ₹49
-          </strong>
-
-          <button
-            class="boost-button"
-            onclick="boostDemo('MrBeast')">
-
-            🔥 ₹49 Boost
-
-          </button>
-
-        </div>
-
-      </div>
-
-
-      <div
-        class="rank-row"
-        data-name="The Weeknd">
-
-        <div class="rank">
-          #2
-        </div>
-
-        <div class="item">
-
-          <div class="avatar">
-            🎵
-          </div>
-
-          <div class="item-info">
-
-            <div class="item-name">
-              The Weeknd
-            </div>
-
-            <div class="item-meta">
-              Music · 🇨🇦 Canada
-            </div>
-
-          </div>
-
-        </div>
-
-        <div class="amount">
-
-          <strong>
-            ₹49
-          </strong>
-
-          <button
-            class="boost-button"
-            onclick="boostDemo('The Weeknd')">
-
-            🔥 ₹49 Boost
-
-          </button>
-
-        </div>
-
-      </div>
-
-
-      <div
-        class="rank-row"
-        data-name="Nike Air Max">
-
-        <div class="rank">
-          #3
-        </div>
-
-        <div class="item">
-
-          <div class="avatar">
-            👟
-          </div>
-
-          <div class="item-info">
-
-            <div class="item-name">
-              Nike Air Max
-            </div>
-
-            <div class="item-meta">
-              Product · 🇺🇸 USA
-            </div>
-
-          </div>
-
-        </div>
-
-        <div class="amount">
-
-          <strong>
-            ₹49
-          </strong>
-
-          <button
-            class="boost-button"
-            onclick="boostDemo('Nike Air Max')">
-
-            🔥 ₹49 Boost
-
-          </button>
-
-        </div>
-
-      </div>
-
-
-      <div
-        class="rank-row"
-        data-name="Khitish Tandi">
-
-  
+</script>
