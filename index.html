@@ -2429,6 +2429,20 @@ document.addEventListener(
 );
 
 </script>
+<!-- SUPABASE CONNECTION -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
+<script>
+const SUPABASE_URL = "https://sogycjikzbgddbbuzpwh.supabase.co";
+const SUPABASE_ANON_KEY = "sb_publishable_RkGopz1DNcsdyfeOF4uWWw_QxtZOuFB";
+
+const supabaseClient = supabase.createClient(
+  SUPABASE_URL,
+  SUPABASE_ANON_KEY
+);
+
+console.log("TOPME Supabase connected");
+</script>
+</script>
 </body>
 </html>
