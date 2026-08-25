@@ -2063,42 +2063,102 @@ const toast =
 function openListingModal(){
 
   listingModal.classList.add("open");
+async function submitListing(event){
 
-  document.body.style.overflow = "hidden";
+  event.preventDefault();
 
-  setTimeout(() => {
+  const name =
+    document.getElementById("listingName").value.trim();
 
-    const nameInput =
-      document.getElementById("listingName");
+  const category =
+    document.getElementById("listingCategory").value;
 
-    if(nameInput){
-      nameInput.focus();
+  const country =
+    document.getElementById("listingCountry").value;
+
+  const link =
+    document.getElementById("listingLink").value.trim();
+
+  const description =
+    document.getElementById("listingDescription").value.trim();
+
+
+  if(!name || !category || !country || !link){
+
+    showToast("Please fill all required fields.");
+
+    return;
+
+  }
+
+
+  const submitButton =
+    listingForm.querySelector(".submit");
+
+  submitButton.disabled = true;
+
+  submitButton.textContent = "Saving...";
+
+
+  try{
+
+    const { data, error } = await supabaseClient
+      .from("listings")
+      .insert([
+        {
+          name: name,
+          category: category,
+          country: country,
+          link: link,
+          description: description
+        }
+      ])
+      .select()
+      .single();
+
+
+    if(error){
+
+      console.error("Supabase error:", error);
+
+      showToast(
+        "Could not create listing. Please try again."
+      );
+
+      submitButton.disabled = false;
+
+      submitButton.textContent = "Continue — ₹49";
+
+      return;
+
     }
 
-  },100);
+
+    console.log("Listing created:", data);
+
+
+    listingForm.style.display = "none";
+
+    successScreen.classList.add("show");
+
+    showToast("Listing created successfully 🚀");
+
+
+  }catch(error){
+
+    console.error("Unexpected error:", error);
+
+    showToast(
+      "Something went wrong. Please try again."
+    );
+
+    submitButton.disabled = false;
+
+    submitButton.textContent = "Continue — ₹49";
+
+  }
 
 }
-
-
-/* =========================================================
-   CLOSE MODAL
-========================================================= */
-
-function closeListingModal(){
-
-  listingModal.classList.remove("open");
-
-  document.body.style.overflow = "";
-
-  listingForm.style.display = "block";
-
-  successScreen.classList.remove("show");
-
-  listingForm.reset();
-
-}
-
-
 /* =========================================================
    CLOSE WHEN CLICKING OUTSIDE
 ========================================================= */
