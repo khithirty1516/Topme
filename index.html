@@ -2,19 +2,43 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-
-<meta name="viewport"
-      content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>TOPME — What deserves to be on top?</title>
 
 <meta name="description"
-      content="TOPME is a global ranking platform where anything can compete for the top.">
+content="TOPME is a global ranking platform where anything can compete for the top.">
 
 <style>
 
 /* =========================================================
-   RESET
+   01 — DESIGN SYSTEM
+========================================================= */
+
+:root{
+  --bg:#05070a;
+  --bg2:#080c11;
+  --card:rgba(15,20,27,.78);
+  --card-solid:#10151c;
+  --line:rgba(255,255,255,.09);
+  --line-strong:rgba(255,255,255,.16);
+
+  --text:#fff;
+  --muted:#929baa;
+  --muted2:#697280;
+
+  --accent:#a8ff3e;
+  --accent-soft:rgba(168,255,62,.12);
+  --blue:#69a7ff;
+  --red:#ff6262;
+  --yellow:#ffd84d;
+
+  --radius:18px;
+  --shadow:0 25px 80px rgba(0,0,0,.38);
+}
+
+/* =========================================================
+   02 — RESET
 ========================================================= */
 
 *{
@@ -28,8 +52,10 @@ html{
 }
 
 body{
-  background:#070a0e;
-  color:#ffffff;
+  min-height:100vh;
+  overflow-x:hidden;
+  background:var(--bg);
+  color:var(--text);
   font-family:
     Inter,
     ui-sans-serif,
@@ -38,8 +64,7 @@ body{
     BlinkMacSystemFont,
     "Segoe UI",
     sans-serif;
-  min-height:100vh;
-  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
 }
 
 button,
@@ -53,42 +78,217 @@ button{
   cursor:pointer;
 }
 
+button:disabled{
+  cursor:not-allowed;
+  opacity:.55;
+}
+
 a{
   color:inherit;
   text-decoration:none;
 }
 
 /* =========================================================
-   ROOT VARIABLES
+   03 — PREMIUM BACKGROUND
 ========================================================= */
 
-:root{
-  --bg:#070a0e;
-  --card:#10141a;
-  --card2:#151a21;
-  --line:#252c35;
-  --text:#ffffff;
-  --muted:#9299a8;
-  --accent:#a8ff3e;
-  --green:#a8ff3e;
-  --red:#ff5c5c;
-  --yellow:#ffd54a;
-  --blue:#62a8ff;
+.site-bg{
+  position:fixed;
+  inset:0;
+  z-index:-10;
+  overflow:hidden;
+  pointer-events:none;
+  background:
+    radial-gradient(
+      circle at 50% -10%,
+      rgba(168,255,62,.10),
+      transparent 34%
+    ),
+    radial-gradient(
+      circle at 100% 40%,
+      rgba(65,120,255,.06),
+      transparent 30%
+    ),
+    var(--bg);
+}
+
+.site-bg::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  opacity:.34;
+  background-image:
+    linear-gradient(
+      rgba(255,255,255,.025) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      90deg,
+      rgba(255,255,255,.025) 1px,
+      transparent 1px
+    );
+  background-size:70px 70px;
+  mask-image:linear-gradient(
+    to bottom,
+    black,
+    transparent 80%
+  );
+}
+
+.orb{
+  position:absolute;
+  width:380px;
+  height:380px;
+  border-radius:50%;
+  filter:blur(90px);
+  opacity:.08;
+  will-change:transform;
+}
+
+.orb.one{
+  top:8%;
+  left:-160px;
+  background:var(--accent);
+  animation:orbOne 14s ease-in-out infinite alternate;
+}
+
+.orb.two{
+  right:-180px;
+  top:35%;
+  background:#448cff;
+  animation:orbTwo 17s ease-in-out infinite alternate;
+}
+
+@keyframes orbOne{
+  to{
+    transform:translate3d(100px,80px,0);
+  }
+}
+
+@keyframes orbTwo{
+  to{
+    transform:translate3d(-80px,-100px,0);
+  }
 }
 
 /* =========================================================
-   GLOBAL
+   04 — PAGE REVEAL
+========================================================= */
+
+body{
+  animation:pageReveal .7s ease both;
+}
+
+@keyframes pageReveal{
+  from{
+    opacity:0;
+  }
+  to{
+    opacity:1;
+  }
+}
+
+.reveal{
+  opacity:0;
+  transform:translateY(18px);
+  animation:revealUp .7s cubic-bezier(.2,.8,.2,1) forwards;
+}
+
+@keyframes revealUp{
+  to{
+    opacity:1;
+    transform:translateY(0);
+  }
+}
+
+/* =========================================================
+   05 — NAVIGATION
+========================================================= */
+
+nav{
+  position:sticky;
+  top:0;
+  z-index:100;
+  height:68px;
+  border-bottom:1px solid rgba(255,255,255,.07);
+  background:rgba(5,7,10,.76);
+  backdrop-filter:blur(18px);
+  -webkit-backdrop-filter:blur(18px);
+}
+
+.nav-inner{
+  width:min(1180px,92%);
+  height:100%;
+  margin:auto;
+
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:20px;
+}
+
+.logo{
+  font-size:25px;
+  font-weight:950;
+  letter-spacing:-1.7px;
+}
+
+.logo span{
+  color:var(--accent);
+}
+
+.nav-links{
+  display:flex;
+  align-items:center;
+  gap:26px;
+}
+
+.nav-links a{
+  color:#aeb6c3;
+  font-size:12px;
+  font-weight:750;
+  transition:color .2s ease;
+}
+
+.nav-links a:hover{
+  color:#fff;
+}
+
+.nav-add{
+  border:0;
+  border-radius:11px;
+  padding:11px 16px;
+  background:#fff;
+  color:#07090c;
+  font-size:11px;
+  font-weight:950;
+  transition:
+    transform .2s ease,
+    box-shadow .2s ease;
+}
+
+.nav-add:hover{
+  transform:translateY(-2px);
+  box-shadow:0 8px 28px rgba(255,255,255,.12);
+}
+
+.nav-add:active{
+  transform:scale(.97);
+}
+
+/* =========================================================
+   06 — COMMON
 ========================================================= */
 
 .container{
   width:min(1180px,92%);
-  margin:0 auto;
+  margin:auto;
 }
 
 .section{
   width:min(1180px,92%);
-  margin:0 auto;
-  padding:80px 0;
+  margin:auto;
+  padding:82px 0;
 }
 
 .section-head{
@@ -101,13 +301,14 @@ a{
 
 .section-title{
   font-size:28px;
-  font-weight:900;
-  letter-spacing:-.7px;
+  line-height:1;
+  font-weight:950;
+  letter-spacing:-1px;
 }
 
 .section-sub{
+  margin-top:8px;
   color:var(--muted);
-  margin-top:7px;
   font-size:13px;
 }
 
@@ -115,171 +316,122 @@ a{
   display:inline-flex;
   align-items:center;
   gap:8px;
-  padding:8px 13px;
-  border:1px solid rgba(255,255,255,.1);
+  padding:8px 12px;
+  border:1px solid var(--line);
+  border-radius:999px;
   background:rgba(255,255,255,.035);
-  border-radius:100px;
-  color:#c7ccd5;
-  font-size:11px;
-  font-weight:700;
+  color:#c5cbd4;
+  font-size:10px;
+  font-weight:850;
+  white-space:nowrap;
 }
 
 .live-dot{
   width:7px;
   height:7px;
   border-radius:50%;
-  background:var(--green);
-  box-shadow:0 0 12px var(--green);
+  background:var(--accent);
+  box-shadow:0 0 14px var(--accent);
 }
 
 /* =========================================================
-   NAV
-========================================================= */
-
-nav{
-  height:68px;
-  position:sticky;
-  top:0;
-  z-index:100;
-  background:rgba(7,10,14,.82);
-  backdrop-filter:blur(14px);
-  border-bottom:1px solid rgba(255,255,255,.07);
-}
-
-.nav-inner{
-  width:min(1180px,92%);
-  height:100%;
-  margin:auto;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:20px;
-}
-
-.logo{
-  font-size:25px;
-  font-weight:950;
-  letter-spacing:-1.5px;
-}
-
-.logo span{
-  color:var(--accent);
-}
-
-.nav-links{
-  display:flex;
-  gap:25px;
-  align-items:center;
-}
-
-.nav-links a{
-  color:#aeb5c1;
-  font-size:13px;
-  font-weight:650;
-  transition:.2s;
-}
-
-.nav-links a:hover{
-  color:#fff;
-}
-
-.nav-add{
-  background:#fff;
-  color:#080a0d;
-  border:0;
-  padding:11px 17px;
-  border-radius:12px;
-  font-size:12px;
-  font-weight:900;
-  transition:.2s;
-}
-
-.nav-add:hover{
-  transform:translateY(-2px);
-}
-
-.nav-add:active{
-  transform:scale(.97);
-}
-
-/* =========================================================
-   HERO
+   07 — HERO
 ========================================================= */
 
 .hero{
   width:min(1050px,92%);
   margin:auto;
+  padding:105px 0 82px;
   text-align:center;
-  padding:95px 0 80px;
 }
 
 .hero .badge{
-  margin-bottom:22px;
+  margin-bottom:23px;
 }
 
 .hero h1{
-  font-size:clamp(48px,8vw,88px);
-  line-height:.95;
-  letter-spacing:-5px;
-  font-weight:950;
   max-width:950px;
   margin:auto;
+
+  font-size:clamp(52px,8.5vw,94px);
+  line-height:.92;
+  letter-spacing:-6px;
+  font-weight:950;
 }
 
 .gradient{
   background:
     linear-gradient(
-      100deg,
-      #ffffff,
-      #a8ff3e,
-      #ffffff
+      105deg,
+      #fff 5%,
+      #a8ff3e 45%,
+      #fff 95%
     );
+  background-size:200% auto;
+
   -webkit-background-clip:text;
   background-clip:text;
   color:transparent;
+
+  animation:gradientMove 5s linear infinite;
+}
+
+@keyframes gradientMove{
+  to{
+    background-position:200% center;
+  }
 }
 
 .hero p{
-  max-width:620px;
-  margin:24px auto 0;
-  color:#9ca4b2;
-  line-height:1.7;
+  max-width:650px;
+  margin:25px auto 0;
+  color:#9ba4b2;
   font-size:15px;
+  line-height:1.75;
 }
 
 .hero-buttons{
   display:flex;
   justify-content:center;
-  gap:12px;
-  margin-top:28px;
   flex-wrap:wrap;
+  gap:12px;
+  margin-top:29px;
 }
 
 .primary,
 .secondary{
-  border:0;
-  padding:14px 22px;
   border-radius:13px;
-  font-weight:900;
-  font-size:13px;
-  transition:.2s;
+  padding:14px 21px;
+  border:0;
+  font-size:12px;
+  font-weight:950;
+  transition:
+    transform .2s ease,
+    box-shadow .2s ease,
+    border-color .2s ease;
 }
 
 .primary{
   background:var(--accent);
-  color:#081000;
-  box-shadow:0 8px 30px rgba(168,255,62,.14);
+  color:#071000;
+  box-shadow:
+    0 8px 35px rgba(168,255,62,.14);
 }
 
 .secondary{
   border:1px solid var(--line);
-  background:#11161d;
+  background:rgba(255,255,255,.045);
   color:#fff;
 }
 
 .primary:hover,
 .secondary:hover{
-  transform:translateY(-2px);
+  transform:translateY(-3px);
+}
+
+.primary:hover{
+  box-shadow:
+    0 14px 45px rgba(168,255,62,.22);
 }
 
 .primary:active,
@@ -288,23 +440,27 @@ nav{
 }
 
 /* =========================================================
-   STATS
+   08 — STATS
 ========================================================= */
 
 .stats{
   width:min(950px,92%);
-  margin:0 auto;
+  margin:auto;
+
   display:grid;
   grid-template-columns:repeat(3,1fr);
+
   border:1px solid var(--line);
-  border-radius:16px;
+  border-radius:18px;
   overflow:hidden;
-  background:rgba(255,255,255,.015);
+
+  background:rgba(255,255,255,.025);
+  box-shadow:var(--shadow);
 }
 
 .stat{
+  padding:22px;
   text-align:center;
-  padding:20px;
   border-right:1px solid var(--line);
 }
 
@@ -314,18 +470,20 @@ nav{
 
 .stat strong{
   display:block;
-  font-size:24px;
+  font-size:25px;
+  font-weight:950;
 }
 
 .stat span{
   display:block;
   margin-top:5px;
   color:var(--muted);
-  font-size:11px;
+  font-size:10px;
+  font-weight:700;
 }
 
 /* =========================================================
-   CATEGORIES
+   09 — CATEGORIES
 ========================================================= */
 
 .categories{
@@ -335,94 +493,153 @@ nav{
 }
 
 .category{
-  min-height:108px;
+  position:relative;
+  overflow:hidden;
+  min-height:112px;
   padding:18px;
+
   border:1px solid var(--line);
-  border-radius:17px;
+  border-radius:18px;
+
   background:
     radial-gradient(
       circle at 100% 0,
-      rgba(168,255,62,.08),
-      transparent 45%
+      rgba(168,255,62,.09),
+      transparent 48%
     ),
-    #10151b;
-  transition:.2s;
-  position:relative;
-  overflow:hidden;
+    rgba(15,20,27,.72);
+
+  transition:
+    transform .25s ease,
+    border-color .25s ease,
+    box-shadow .25s ease;
+}
+
+.category::after{
+  content:"";
+  position:absolute;
+  inset:-1px;
+  border-radius:inherit;
+  opacity:0;
+  background:
+    linear-gradient(
+      120deg,
+      transparent 35%,
+      rgba(255,255,255,.08),
+      transparent 65%
+    );
+  transform:translateX(-100%);
+  transition:opacity .25s ease;
 }
 
 .category:hover{
-  transform:translateY(-3px);
-  border-color:#44505d;
+  transform:translateY(-5px);
+  border-color:var(--line-strong);
+  box-shadow:0 15px 45px rgba(0,0,0,.25);
+}
+
+.category:hover::after{
+  opacity:1;
+  animation:cardShine .7s ease;
+}
+
+@keyframes cardShine{
+  to{
+    transform:translateX(100%);
+  }
 }
 
 .category.selected{
-  border-color:var(--accent);
-  box-shadow:0 0 0 1px rgba(168,255,62,.12);
+  border-color:rgba(168,255,62,.65);
+  box-shadow:
+    0 0 0 1px rgba(168,255,62,.12),
+    0 15px 45px rgba(168,255,62,.06);
 }
 
 .category-icon{
-  font-size:24px;
+  font-size:25px;
 }
 
 .category-name{
   margin-top:12px;
+  font-size:14px;
   font-weight:900;
 }
 
 .category-count{
-  color:var(--muted);
   margin-top:5px;
-  font-size:11px;
+  color:var(--muted);
+  font-size:10px;
 }
 
 /* =========================================================
-   BOARD
+   10 — BOARD
 ========================================================= */
 
 .board{
-  border:1px solid var(--line);
-  border-radius:18px;
   overflow:hidden;
-  background:#0c1015;
+  border:1px solid var(--line);
+  border-radius:19px;
+  background:rgba(10,14,19,.82);
+  box-shadow:var(--shadow);
 }
 
 .filters{
-  padding:14px;
   display:flex;
   gap:8px;
   overflow-x:auto;
+  padding:13px;
   border-bottom:1px solid var(--line);
 }
 
 .filters::-webkit-scrollbar{
-  height:0;
+  display:none;
 }
 
 .filter{
-  white-space:nowrap;
-  border:1px solid #252c35;
+  flex:none;
+  padding:9px 13px;
+  border:1px solid var(--line);
+  border-radius:999px;
   background:#11161d;
   color:#aab2bf;
-  border-radius:100px;
-  padding:9px 13px;
-  font-size:11px;
-  font-weight:750;
+  font-size:10px;
+  font-weight:850;
+  transition:.2s ease;
+}
+
+.filter:hover{
+  border-color:#4a5562;
+  color:#fff;
 }
 
 .filter.active{
-  background:var(--accent);
   border-color:var(--accent);
+  background:var(--accent);
   color:#071000;
 }
 
 .rank-row{
   display:grid;
-  grid-template-columns:55px 1fr 120px;
+  grid-template-columns:55px 1fr 125px;
   align-items:center;
   gap:15px;
-  padding:16px;
+
+  padding:17px;
   border-bottom:1px solid rgba(255,255,255,.055);
+
+  animation:rowIn .45s ease both;
+}
+
+@keyframes rowIn{
+  from{
+    opacity:0;
+    transform:translateY(8px);
+  }
+  to{
+    opacity:1;
+    transform:translateY(0);
+  }
 }
 
 .rank-row:last-child{
@@ -431,36 +648,41 @@ nav{
 
 .rank{
   text-align:center;
-  color:#8c94a2;
+  color:#7d8795;
   font-size:15px;
-  font-weight:900;
+  font-weight:950;
 }
 
 .rank.top{
   color:var(--accent);
+  text-shadow:0 0 18px rgba(168,255,62,.25);
 }
 
 .item{
+  min-width:0;
   display:flex;
   align-items:center;
   gap:12px;
-  min-width:0;
 }
 
 .avatar{
   width:46px;
   height:46px;
-  border-radius:13px;
+  flex:none;
+
   display:grid;
   place-items:center;
-  flex:none;
+
   border:1px solid #303946;
+  border-radius:13px;
+
   background:
     linear-gradient(
       135deg,
       #172029,
-      #27313c
+      #28333f
     );
+
   font-size:20px;
 }
 
@@ -469,17 +691,17 @@ nav{
 }
 
 .item-name{
-  font-size:14px;
-  font-weight:850;
-  white-space:nowrap;
   overflow:hidden;
   text-overflow:ellipsis;
+  white-space:nowrap;
+  font-size:14px;
+  font-weight:900;
 }
 
 .item-meta{
-  color:var(--muted);
   margin-top:4px;
-  font-size:11px;
+  color:var(--muted);
+  font-size:10px;
 }
 
 .amount{
@@ -488,27 +710,61 @@ nav{
 
 .amount strong{
   display:block;
-  font-size:15px;
+  font-size:14px;
 }
 
 .boost-button{
   margin-top:7px;
+  padding:7px 10px;
+
   border:1px solid #34404c;
+  border-radius:9px;
+
   background:#151c24;
   color:#fff;
-  border-radius:9px;
-  padding:7px 10px;
-  font-size:10px;
-  font-weight:850;
+
+  font-size:9px;
+  font-weight:900;
+
+  transition:.2s ease;
 }
 
 .boost-button:hover{
   border-color:var(--accent);
   color:var(--accent);
+  transform:translateY(-1px);
 }
 
 /* =========================================================
-   PRICING
+   11 — EMPTY / LOADING
+========================================================= */
+
+.board-state{
+  padding:45px 20px;
+  text-align:center;
+  color:var(--muted);
+}
+
+.spinner{
+  width:24px;
+  height:24px;
+  margin:0 auto 12px;
+
+  border:2px solid rgba(255,255,255,.12);
+  border-top-color:var(--accent);
+  border-radius:50%;
+
+  animation:spin .7s linear infinite;
+}
+
+@keyframes spin{
+  to{
+    transform:rotate(360deg);
+  }
+}
+
+/* =========================================================
+   12 — PRICING
 ========================================================= */
 
 .pricing{
@@ -518,64 +774,79 @@ nav{
 }
 
 .price-card{
-  padding:24px;
+  position:relative;
+  padding:25px;
+
   border:1px solid var(--line);
-  border-radius:18px;
+  border-radius:19px;
+
   background:
     radial-gradient(
       circle at 50% 0,
-      rgba(168,255,62,.08),
-      transparent 45%
+      rgba(168,255,62,.07),
+      transparent 48%
     ),
-    #10151b;
+    rgba(15,20,27,.75);
 }
 
 .price-card.highlight{
   border-color:rgba(168,255,62,.55);
-  box-shadow:0 15px 50px rgba(168,255,62,.06);
+  box-shadow:
+    0 20px 70px rgba(168,255,62,.06);
 }
 
 .price-label{
   color:var(--muted);
-  font-size:11px;
-  font-weight:850;
-  text-transform:uppercase;
+  font-size:10px;
+  font-weight:900;
+  letter-spacing:.7px;
 }
 
 .price{
-  margin-top:10px;
-  font-size:40px;
+  margin-top:9px;
+  font-size:41px;
   font-weight:950;
   letter-spacing:-2px;
 }
 
 .price-desc{
+  min-height:55px;
   margin-top:8px;
-  color:#9ca4b1;
-  font-size:12px;
-  line-height:1.6;
+  color:#9ca5b2;
+  font-size:11px;
+  line-height:1.65;
 }
 
 .price-button{
   width:100%;
   margin-top:20px;
   padding:13px;
+
   border:0;
   border-radius:11px;
+
   background:var(--accent);
   color:#071000;
-  font-weight:900;
+
+  font-size:11px;
+  font-weight:950;
+
+  transition:.2s ease;
+}
+
+.price-button:hover{
+  transform:translateY(-2px);
 }
 
 .small-note{
-  color:#777f8c;
   margin-top:10px;
-  font-size:10px;
+  color:#707986;
+  font-size:9px;
   line-height:1.5;
 }
 
 /* =========================================================
-   HOW
+   13 — HOW
 ========================================================= */
 
 .how{
@@ -585,32 +856,32 @@ nav{
 }
 
 .how-card{
-  padding:22px;
+  padding:23px;
   border:1px solid var(--line);
   border-radius:18px;
-  background:#10151b;
+  background:rgba(15,20,27,.7);
 }
 
 .step{
   color:var(--accent);
-  font-size:12px;
+  font-size:11px;
   font-weight:950;
 }
 
 .how-card h3{
   margin-top:12px;
-  font-size:18px;
+  font-size:17px;
 }
 
 .how-card p{
-  color:var(--muted);
   margin-top:8px;
-  font-size:12px;
+  color:var(--muted);
+  font-size:11px;
   line-height:1.7;
 }
 
 /* =========================================================
-   FOOTER
+   14 — FOOTER
 ========================================================= */
 
 footer{
@@ -622,6 +893,7 @@ footer{
 .footer-inner{
   width:min(1180px,92%);
   margin:auto;
+
   display:flex;
   justify-content:space-between;
   gap:20px;
@@ -629,9 +901,9 @@ footer{
 
 .footer-links{
   display:flex;
-  gap:17px;
   flex-wrap:wrap;
-  font-size:11px;
+  gap:17px;
+  font-size:10px;
 }
 
 .footer-links a:hover{
@@ -639,34 +911,72 @@ footer{
 }
 
 /* =========================================================
-   MODAL
+   15 — MODAL
 ========================================================= */
 
 .modal{
   position:fixed;
   inset:0;
   z-index:500;
+
   display:none;
   align-items:center;
   justify-content:center;
+
   padding:18px;
-  background:rgba(0,0,0,.76);
-  backdrop-filter:blur(8px);
+
+  background:rgba(0,0,0,.78);
+  backdrop-filter:blur(12px);
+  -webkit-backdrop-filter:blur(12px);
 }
 
 .modal.open{
   display:flex;
+  animation:modalFade .22s ease both;
+}
+
+@keyframes modalFade{
+  from{
+    opacity:0;
+  }
+  to{
+    opacity:1;
+  }
 }
 
 .modal-box{
-  width:min(520px,100%);
+  width:min(540px,100%);
   max-height:90vh;
   overflow:auto;
-  border:1px solid #303845;
-  border-radius:20px;
-  background:#10151b;
-  box-shadow:0 30px 100px rgba(0,0,0,.55);
-  padding:22px;
+
+  padding:23px;
+
+  border:1px solid var(--line-strong);
+  border-radius:21px;
+
+  background:
+    radial-gradient(
+      circle at 50% 0,
+      rgba(168,255,62,.06),
+      transparent 42%
+    ),
+    #10151b;
+
+  box-shadow:
+    0 35px 120px rgba(0,0,0,.65);
+
+  animation:modalPop .32s cubic-bezier(.2,.8,.2,1) both;
+}
+
+@keyframes modalPop{
+  from{
+    opacity:0;
+    transform:translateY(18px) scale(.97);
+  }
+  to{
+    opacity:1;
+    transform:translateY(0) scale(1);
+  }
 }
 
 .modal-head{
@@ -674,20 +984,24 @@ footer{
   align-items:center;
   justify-content:space-between;
   gap:15px;
-  margin-bottom:22px;
+  margin-bottom:21px;
 }
 
 .modal-head h2{
-  font-size:22px;
+  font-size:21px;
+  font-weight:950;
 }
 
 .close{
   width:36px;
   height:36px;
+
   border:1px solid var(--line);
+  border-radius:10px;
+
   background:#151b22;
   color:#fff;
-  border-radius:10px;
+
   font-size:18px;
 }
 
@@ -698,21 +1012,27 @@ footer{
 .form-group label{
   display:block;
   margin-bottom:7px;
-  color:#aeb5c1;
-  font-size:11px;
-  font-weight:800;
+  color:#aeb6c2;
+  font-size:10px;
+  font-weight:850;
 }
 
 .form-group input,
 .form-group select,
 .form-group textarea{
   width:100%;
+
   padding:12px 13px;
+
   border:1px solid #29313b;
   border-radius:11px;
+
+  outline:none;
+
   background:#0b1015;
   color:#fff;
-  outline:none;
+
+  transition:border-color .2s ease;
 }
 
 .form-group textarea{
@@ -727,37 +1047,44 @@ footer{
 }
 
 .entry{
-  padding:14px;
-  border:1px solid rgba(168,255,62,.22);
-  border-radius:13px;
-  background:rgba(168,255,62,.045);
   margin-bottom:18px;
+  padding:14px;
+
+  border:1px solid rgba(168,255,62,.2);
+  border-radius:13px;
+
+  background:rgba(168,255,62,.045);
 }
 
 .entry strong{
   display:block;
   color:var(--accent);
+  font-size:12px;
 }
 
 .entry span{
   display:block;
-  color:var(--muted);
-  font-size:11px;
   margin-top:4px;
+  color:var(--muted);
+  font-size:10px;
 }
 
 .submit{
   width:100%;
   padding:14px;
+
   border:0;
   border-radius:12px;
+
   background:var(--accent);
   color:#071000;
+
+  font-size:12px;
   font-weight:950;
 }
 
 /* =========================================================
-   SUCCESS
+   16 — SUCCESS
 ========================================================= */
 
 .success{
@@ -768,10 +1095,11 @@ footer{
 
 .success.show{
   display:block;
+  animation:revealUp .45s ease both;
 }
 
 .success-icon{
-  font-size:52px;
+  font-size:50px;
 }
 
 .success h2{
@@ -782,21 +1110,23 @@ footer{
 .success p{
   margin-top:8px;
   color:var(--muted);
+  font-size:12px;
   line-height:1.6;
-  font-size:13px;
 }
 
 .success-rank{
   margin-top:20px;
   padding:18px;
+
   border:1px solid var(--line);
   border-radius:14px;
+
   background:#0b1015;
 }
 
 .success-rank span{
   color:var(--muted);
-  font-size:11px;
+  font-size:10px;
 }
 
 .success-rank strong{
@@ -807,25 +1137,38 @@ footer{
 }
 
 /* =========================================================
-   TOAST
+   17 — TOAST
 ========================================================= */
 
 .toast{
   position:fixed;
   z-index:800;
+
   left:50%;
   bottom:24px;
-  transform:translate(-50%,20px);
+
+  max-width:min(90vw,420px);
+
+  padding:12px 17px;
+
+  border-radius:12px;
+
+  background:#fff;
+  color:#080a0d;
+
+  font-size:11px;
+  font-weight:900;
+
+  box-shadow:0 18px 50px rgba(0,0,0,.45);
+
   opacity:0;
   pointer-events:none;
-  padding:12px 17px;
-  border-radius:12px;
-  background:#fff;
-  color:#090b0e;
-  font-size:12px;
-  font-weight:850;
-  box-shadow:0 15px 40px rgba(0,0,0,.4);
-  transition:.25s;
+
+  transform:translate(-50%,18px);
+
+  transition:
+    opacity .25s ease,
+    transform .25s ease;
 }
 
 .toast.show{
@@ -834,7 +1177,7 @@ footer{
 }
 
 /* =========================================================
-   MOBILE
+   18 — MOBILE
 ========================================================= */
 
 @media(max-width:760px){
@@ -853,20 +1196,29 @@ footer{
 
   .nav-add{
     padding:9px 12px;
-    font-size:10px;
+    font-size:9px;
   }
 
   .hero{
-    padding:70px 0 55px;
+    padding:72px 0 55px;
   }
 
   .hero h1{
-    font-size:50px;
-    letter-spacing:-3px;
+    font-size:51px;
+    letter-spacing:-3.5px;
   }
 
   .hero p{
     font-size:13px;
+  }
+
+  .hero-buttons{
+    flex-direction:column;
+  }
+
+  .primary,
+  .secondary{
+    width:100%;
   }
 
   .stats{
@@ -883,7 +1235,7 @@ footer{
   }
 
   .section{
-    padding:55px 0;
+    padding:58px 0;
   }
 
   .section-head{
@@ -894,13 +1246,17 @@ footer{
     font-size:23px;
   }
 
+  .section-head .badge{
+    margin-top:15px;
+  }
+
   .categories{
     grid-template-columns:repeat(2,1fr);
     gap:9px;
   }
 
   .category{
-    min-height:95px;
+    min-height:96px;
     padding:14px;
   }
 
@@ -909,7 +1265,7 @@ footer{
   }
 
   .category-name{
-    font-size:13px;
+    font-size:12px;
   }
 
   .rank-row{
@@ -920,11 +1276,11 @@ footer{
 
   .amount{
     grid-column:2;
-    text-align:left;
-    margin-top:-3px;
     display:flex;
     align-items:center;
-    gap:10px;
+    gap:9px;
+    text-align:left;
+    margin-top:-2px;
   }
 
   .amount .boost-button{
@@ -942,14 +1298,21 @@ footer{
   .footer-inner{
     flex-direction:column;
   }
+}
 
-  .hero-buttons{
-    flex-direction:column;
-  }
+/* =========================================================
+   19 — REDUCED MOTION
+========================================================= */
 
-  .primary,
-  .secondary{
-    width:100%;
+@media(prefers-reduced-motion:reduce){
+
+  *,
+  *::before,
+  *::after{
+    scroll-behavior:auto !important;
+    animation-duration:.01ms !important;
+    animation-iteration-count:1 !important;
+    transition-duration:.01ms !important;
   }
 }
 
@@ -958,11 +1321,22 @@ footer{
 
 <body>
 
-<!-- =======================================================
-     NAV
-======================================================== -->
+<!-- =========================================================
+     BACKGROUND
+========================================================= -->
+
+<div class="site-bg">
+  <div class="orb one"></div>
+  <div class="orb two"></div>
+</div>
+
+
+<!-- =========================================================
+     NAVIGATION
+========================================================= -->
 
 <nav>
+
   <div class="nav-inner">
 
     <a href="#top" class="logo">
@@ -978,25 +1352,34 @@ footer{
 
     <button
       class="nav-add"
-      onclick="openListingModal()">
+      type="button"
+      onclick="TOPME.UI.openListingModal()">
+
       + PUT ON TOP
+
     </button>
 
   </div>
+
 </nav>
 
 
+<!-- =========================================================
+     MAIN
+========================================================= -->
+
 <main id="top">
 
-<!-- =======================================================
-     HERO
-======================================================== -->
 
-<section class="hero">
+<!-- =========================================================
+     HERO
+========================================================= -->
+
+<section class="hero reveal">
 
   <div class="badge">
     <span class="live-dot"></span>
-    TOPME is live
+    TOPME IS LIVE
   </div>
 
   <h1>
@@ -1009,21 +1392,27 @@ footer{
   <p>
     Put anything worth noticing on the board.
     Get discovered, climb the rankings and
-    keep your spot fresh.
+    compete for the top.
   </p>
 
   <div class="hero-buttons">
 
     <button
       class="primary"
-      onclick="openListingModal()">
+      type="button"
+      onclick="TOPME.UI.openListingModal()">
+
       + Put Something on TOPME
+
     </button>
 
     <button
       class="secondary"
-      onclick="scrollToBoard()">
+      type="button"
+      onclick="TOPME.UI.scrollToBoard()">
+
       Explore Rankings
+
     </button>
 
   </div>
@@ -1031,36 +1420,36 @@ footer{
 </section>
 
 
-<!-- =======================================================
+<!-- =========================================================
      STATS
-======================================================== -->
+========================================================= -->
 
-<div class="stats">
+<div class="stats reveal">
 
   <div class="stat">
-    <strong id="listingCount">312,481</strong>
+    <strong id="listingCount">0</strong>
     <span>Listings</span>
   </div>
 
   <div class="stat">
-    <strong>64</strong>
+    <strong id="countryCount">0</strong>
     <span>Countries</span>
   </div>
 
   <div class="stat">
-    <strong>216,402</strong>
+    <strong id="viewCount">0</strong>
     <span>Board Views</span>
   </div>
 
 </div>
 
 
-<!-- =======================================================
+<!-- =========================================================
      CATEGORIES
-======================================================== -->
+========================================================= -->
 
 <section
-  class="section"
+  class="section reveal"
   id="categories">
 
   <div class="section-head">
@@ -1078,154 +1467,114 @@ footer{
   </div>
 
 
-  <div class="categories">
+  <div class="categories" id="categoryGrid">
 
-    <div
+    <button
       class="category"
-      onclick="selectCategory('Creators',this)">
+      type="button"
+      data-category="Creators">
 
       <div class="category-icon">🎨</div>
+      <div class="category-name">Creators</div>
+      <div class="category-count">Explore creators</div>
 
-      <div class="category-name">
-        Creators
-      </div>
-
-      <div class="category-count">
-        3,842 listings
-      </div>
-
-    </div>
+    </button>
 
 
-    <div
+    <button
       class="category"
-      onclick="selectCategory('Music',this)">
+      type="button"
+      data-category="Music">
 
       <div class="category-icon">🎵</div>
+      <div class="category-name">Music</div>
+      <div class="category-count">Explore music</div>
 
-      <div class="category-name">
-        Music
-      </div>
-
-      <div class="category-count">
-        2,193 listings
-      </div>
-
-    </div>
+    </button>
 
 
-    <div
+    <button
       class="category"
-      onclick="selectCategory('Videos',this)">
+      type="button"
+      data-category="Videos">
 
       <div class="category-icon">🎬</div>
+      <div class="category-name">Videos</div>
+      <div class="category-count">Explore videos</div>
 
-      <div class="category-name">
-        Videos
-      </div>
-
-      <div class="category-count">
-        1,981 listings
-      </div>
-
-    </div>
+    </button>
 
 
-    <div
+    <button
       class="category"
-      onclick="selectCategory('Products',this)">
+      type="button"
+      data-category="Products">
 
       <div class="category-icon">📦</div>
+      <div class="category-name">Products</div>
+      <div class="category-count">Explore products</div>
 
-      <div class="category-name">
-        Products
-      </div>
-
-      <div class="category-count">
-        1,415 listings
-      </div>
-
-    </div>
+    </button>
 
 
-    <div
+    <button
       class="category"
-      onclick="selectCategory('Startups',this)">
+      type="button"
+      data-category="Startups">
 
       <div class="category-icon">🚀</div>
+      <div class="category-name">Startups</div>
+      <div class="category-count">Explore startups</div>
 
-      <div class="category-name">
-        Startups
-      </div>
-
-      <div class="category-count">
-        1,204 listings
-      </div>
-
-    </div>
+    </button>
 
 
-    <div
+    <button
       class="category"
-      onclick="selectCategory('Businesses',this)">
+      type="button"
+      data-category="Businesses">
 
       <div class="category-icon">💼</div>
+      <div class="category-name">Businesses</div>
+      <div class="category-count">Explore businesses</div>
 
-      <div class="category-name">
-        Businesses
-      </div>
-
-      <div class="category-count">
-        942 listings
-      </div>
-
-    </div>
+    </button>
 
 
-    <div
+    <button
       class="category"
-      onclick="selectCategory('Websites',this)">
+      type="button"
+      data-category="Websites">
 
       <div class="category-icon">🌐</div>
+      <div class="category-name">Websites</div>
+      <div class="category-count">Explore websites</div>
 
-      <div class="category-name">
-        Websites
-      </div>
-
-      <div class="category-count">
-        731 listings
-      </div>
-
-    </div>
+    </button>
 
 
-    <div
+    <button
       class="category"
-      onclick="selectCategory('Art',this)">
+      type="button"
+      data-category="Art">
 
       <div class="category-icon">🖼️</div>
+      <div class="category-name">Art</div>
+      <div class="category-count">Explore art</div>
 
-      <div class="category-name">
-        Art
-      </div>
-
-      <div class="category-count">
-        515 listings
-      </div>
-
-    </div>
+    </button>
 
   </div>
 
 </section>
 
 
-<!-- =======================================================
-     EXPLORE / BOARD
-======================================================== -->
+<!-- =========================================================
+     LIVE BOARD
+========================================================= -->
 
 <section
-  class="section"
+  class="section reveal"
   id="explore">
 
   <div class="section-head">
@@ -1237,7 +1586,7 @@ footer{
       </div>
 
       <div class="section-sub">
-        Freshest listings appear on top.
+        Fresh listings compete for position.
       </div>
 
     </div>
@@ -1252,48 +1601,69 @@ footer{
 
   <div class="board">
 
-    <div class="filters">
+    <div class="filters" id="boardFilters">
 
       <button
         class="filter active"
-        onclick="filterBoard(this,'All')">
+        type="button"
+        data-filter="All">
+
         All
+
       </button>
 
       <button
         class="filter"
-        onclick="filterBoard(this,'Creators')">
+        type="button"
+        data-filter="Creators">
+
         🎨 Creators
+
       </button>
 
       <button
         class="filter"
-        onclick="filterBoard(this,'Music')">
+        type="button"
+        data-filter="Music">
+
         🎵 Music
+
       </button>
 
       <button
         class="filter"
-        onclick="filterBoard(this,'Videos')">
+        type="button"
+        data-filter="Videos">
+
         🎬 Videos
+
       </button>
 
       <button
         class="filter"
-        onclick="filterBoard(this,'Products')">
+        type="button"
+        data-filter="Products">
+
         📦 Products
+
       </button>
 
       <button
         class="filter"
-        onclick="filterBoard(this,'Worldwide')">
+        type="button"
+        data-filter="Worldwide">
+
         🌎 Worldwide
+
       </button>
 
       <button
         class="filter"
-        onclick="filterBoard(this,'India')">
+        type="button"
+        data-filter="India">
+
         🇮🇳 India
+
       </button>
 
     </div>
@@ -1301,243 +1671,9 @@ footer{
 
     <div id="leaderboard">
 
-      <!-- RANK 1 -->
-
-      <div
-        class="rank-row"
-        data-category="Creators"
-        data-country="USA">
-
-        <div class="rank top">
-          #1
-        </div>
-
-        <div class="item">
-
-          <div class="avatar">
-            🎨
-          </div>
-
-          <div class="item-info">
-
-            <div class="item-name">
-              MrBeast
-            </div>
-
-            <div class="item-meta">
-              Creator · 🇺🇸 USA
-            </div>
-
-          </div>
-
-        </div>
-
-        <div class="amount">
-
-          <strong>
-            ₹749
-          </strong>
-
-          <button
-            class="boost-button"
-            onclick="boostDemo('MrBeast')">
-            ⚡ ₹49 Boost
-          </button>
-
-        </div>
-
-      </div>
-
-
-      <!-- RANK 2 -->
-
-      <div
-        class="rank-row"
-        data-category="Music"
-        data-country="Canada">
-
-        <div class="rank">
-          #2
-        </div>
-
-        <div class="item">
-
-          <div class="avatar">
-            🎵
-          </div>
-
-          <div class="item-info">
-
-            <div class="item-name">
-              The Weeknd
-            </div>
-
-            <div class="item-meta">
-              Music · 🇨🇦 Canada
-            </div>
-
-          </div>
-
-        </div>
-
-        <div class="amount">
-
-          <strong>
-            ₹749
-          </strong>
-
-          <button
-            class="boost-button"
-            onclick="boostDemo('The Weeknd')">
-            ⚡ ₹49 Boost
-          </button>
-
-        </div>
-
-      </div>
-
-
-      <!-- RANK 3 -->
-
-      <div
-        class="rank-row"
-        data-category="Products"
-        data-country="USA">
-
-        <div class="rank">
-          #3
-        </div>
-
-        <div class="item">
-
-          <div class="avatar">
-            📦
-          </div>
-
-          <div class="item-info">
-
-            <div class="item-name">
-              Nike Air Max
-            </div>
-
-            <div class="item-meta">
-              Product · 🇺🇸 USA
-            </div>
-
-          </div>
-
-        </div>
-
-        <div class="amount">
-
-          <strong>
-            ₹749
-          </strong>
-
-          <button
-            class="boost-button"
-            onclick="boostDemo('Nike Air Max')">
-            ⚡ ₹49 Boost
-          </button>
-
-        </div>
-
-      </div>
-
-
-      <!-- RANK 4 -->
-
-      <div
-        class="rank-row"
-        data-category="Music"
-        data-country="India">
-
-        <div class="rank">
-          #4
-        </div>
-
-        <div class="item">
-
-          <div class="avatar">
-            🎤
-          </div>
-
-          <div class="item-info">
-
-            <div class="item-name">
-              Khitish Tandi
-            </div>
-
-            <div class="item-meta">
-              Music · 🇮🇳 India
-            </div>
-
-          </div>
-
-        </div>
-
-        <div class="amount">
-
-          <strong>
-            ₹749
-          </strong>
-
-          <button
-            class="boost-button"
-            onclick="boostDemo('Khitish Tandi')">
-            ⚡ ₹49 Boost
-          </button>
-
-        </div>
-
-      </div>
-
-
-      <!-- RANK 5 -->
-
-      <div
-        class="rank-row"
-        data-category="Creators"
-        data-country="UK">
-
-        <div class="rank">
-          #5
-        </div>
-
-        <div class="item">
-
-          <div class="avatar">
-            ⚡
-          </div>
-
-          <div class="item-info">
-
-            <div class="item-name">
-              Example Creator
-            </div>
-
-            <div class="item-meta">
-              Creator · 🇬🇧 UK
-            </div>
-
-          </div>
-
-        </div>
-
-        <div class="amount">
-
-          <strong>
-            ₹749
-          </strong>
-
-          <button
-            class="boost-button"
-            onclick="boostDemo('Example Creator')">
-            ⚡ ₹49 Boost
-          </button>
-
-        </div>
-
+      <div class="board-state">
+        <div class="spinner"></div>
+        Loading TOPME...
       </div>
 
     </div>
@@ -1547,12 +1683,12 @@ footer{
 </section>
 
 
-<!-- =======================================================
+<!-- =========================================================
      PRICING
-======================================================== -->
+========================================================= -->
 
 <section
-  class="section"
+  class="section reveal"
   id="pricing">
 
   <div class="section-head">
@@ -1564,7 +1700,7 @@ footer{
       </div>
 
       <div class="section-sub">
-        Start at ₹49. Stay on top with fresh boosts.
+        Start competing. Boost when you want more visibility.
       </div>
 
     </div>
@@ -1575,12 +1711,10 @@ footer{
   <div class="pricing">
 
 
-    <!-- BASIC -->
-
     <div class="price-card highlight">
 
       <div class="price-label">
-        LIST YOURSELF
+        LIST SOMETHING
       </div>
 
       <div class="price">
@@ -1588,24 +1722,25 @@ footer{
       </div>
 
       <div class="price-desc">
-        One-time entry fee to put your
-        listing on the TOPME board.
+        One-time entry fee to create
+        your TOPME listing.
       </div>
 
       <button
         class="price-button"
-        onclick="openListingModal()">
+        type="button"
+        onclick="TOPME.UI.openListingModal()">
+
         List Something — ₹49
+
       </button>
 
       <div class="small-note">
-        One listing • One category • One country
+        Payment required before listing creation.
       </div>
 
     </div>
 
-
-    <!-- BOOST -->
 
     <div class="price-card">
 
@@ -1618,24 +1753,25 @@ footer{
       </div>
 
       <div class="price-desc">
-        Give your listing a fresh push
-        and compete for a higher position.
+        Give an existing listing
+        another visibility push.
       </div>
 
       <button
         class="price-button"
-        onclick="showToast('Choose a listing to boost ⚡')">
+        type="button"
+        onclick="TOPME.UI.showToast('Select a listing from the board to boost ⚡')">
+
         Boost a Listing
+
       </button>
 
       <div class="small-note">
-        Each boost refreshes your position
+        Secure payment flow will be used.
       </div>
 
     </div>
 
-
-    <!-- FEATURED -->
 
     <div class="price-card">
 
@@ -1648,18 +1784,21 @@ footer{
       </div>
 
       <div class="price-desc">
-        Premium visibility options for
+        Premium visibility tools for
         creators, products and businesses.
       </div>
 
       <button
         class="price-button"
-        onclick="showToast('Featured listings are coming soon 🚀')">
+        type="button"
+        onclick="TOPME.UI.showToast('Featured listings are coming soon 🚀')">
+
         Coming Soon
+
       </button>
 
       <div class="small-note">
-        More visibility tools are on the way
+        More visibility options are being prepared.
       </div>
 
     </div>
@@ -1669,12 +1808,12 @@ footer{
 </section>
 
 
-<!-- =======================================================
+<!-- =========================================================
      HOW IT WORKS
-======================================================== -->
+========================================================= -->
 
 <section
-  class="section"
+  class="section reveal"
   id="how">
 
   <div class="section-head">
@@ -1686,7 +1825,7 @@ footer{
       </div>
 
       <div class="section-sub">
-        Three simple steps.
+        Simple for users. Structured underneath.
       </div>
 
     </div>
@@ -1698,18 +1837,16 @@ footer{
 
     <div class="how-card">
 
-      <div class="step">
-        01
-      </div>
+      <div class="step">01</div>
 
       <h3>
         Put something on TOPME
       </h3>
 
       <p>
-        Add yourself, your music, product,
-        business, video, website or anything
-        you think deserves attention.
+        Add yourself, music, product,
+        business, video, website or
+        anything worth discovering.
       </p>
 
     </div>
@@ -1717,18 +1854,16 @@ footer{
 
     <div class="how-card">
 
-      <div class="step">
-        02
-      </div>
+      <div class="step">02</div>
 
       <h3>
-        Get on the board
+        Enter the board
       </h3>
 
       <p>
-        Your listing enters its category
-        and becomes discoverable to people
-        around the world.
+        After successful payment your
+        listing enters the appropriate
+        category and becomes discoverable.
       </p>
 
     </div>
@@ -1736,17 +1871,16 @@ footer{
 
     <div class="how-card">
 
-      <div class="step">
-        03
-      </div>
+      <div class="step">03</div>
 
       <h3>
-        Boost your position
+        Compete for the top
       </h3>
 
       <p>
-        Keep your listing fresh and compete
-        for a better position on the board.
+        Boost your listing and compete
+        for stronger visibility and
+        higher ranking.
       </p>
 
     </div>
@@ -1758,9 +1892,9 @@ footer{
 </main>
 
 
-<!-- =======================================================
+<!-- =========================================================
      FOOTER
-======================================================== -->
+========================================================= -->
 
 <footer>
 
@@ -1783,14 +1917,14 @@ footer{
 </footer>
 
 
-<!-- =======================================================
+<!-- =========================================================
      LISTING MODAL
-======================================================== -->
+========================================================= -->
 
 <div
   class="modal"
   id="listingModal"
-  onclick="outsideModal(event)">
+  aria-hidden="true">
 
   <div class="modal-box">
 
@@ -1802,18 +1936,17 @@ footer{
 
       <button
         class="close"
-        onclick="closeListingModal()">
+        type="button"
+        onclick="TOPME.UI.closeListingModal()">
+
         ×
+
       </button>
 
     </div>
 
 
-    <!-- FORM -->
-
-    <form
-      id="listingForm"
-      onsubmit="submitListing(event)">
+    <form id="listingForm">
 
       <div class="entry">
 
@@ -1822,7 +1955,8 @@ footer{
         </strong>
 
         <span>
-          One-time entry fee to create your listing.
+          Your listing is created only after
+          successful payment verification.
         </span>
 
       </div>
@@ -1830,13 +1964,14 @@ footer{
 
       <div class="form-group">
 
-        <label>
+        <label for="listingName">
           What are you listing?
         </label>
 
         <input
           id="listingName"
           type="text"
+          maxlength="120"
           placeholder="e.g. My new song"
           required>
 
@@ -1845,7 +1980,7 @@ footer{
 
       <div class="form-group">
 
-        <label>
+        <label for="listingCategory">
           Category
         </label>
 
@@ -1857,37 +1992,14 @@ footer{
             Select category
           </option>
 
-          <option value="Creators">
-            🎨 Creators
-          </option>
-
-          <option value="Music">
-            🎵 Music
-          </option>
-
-          <option value="Videos">
-            🎬 Videos
-          </option>
-
-          <option value="Products">
-            📦 Products
-          </option>
-
-          <option value="Startups">
-            🚀 Startups
-          </option>
-
-          <option value="Businesses">
-            💼 Businesses
-          </option>
-
-          <option value="Websites">
-            🌐 Websites
-          </option>
-
-          <option value="Art">
-            🖼️ Art
-          </option>
+          <option value="Creators">🎨 Creators</option>
+          <option value="Music">🎵 Music</option>
+          <option value="Videos">🎬 Videos</option>
+          <option value="Products">📦 Products</option>
+          <option value="Startups">🚀 Startups</option>
+          <option value="Businesses">💼 Businesses</option>
+          <option value="Websites">🌐 Websites</option>
+          <option value="Art">🖼️ Art</option>
 
         </select>
 
@@ -1896,7 +2008,7 @@ footer{
 
       <div class="form-group">
 
-        <label>
+        <label for="listingCountry">
           Country
         </label>
 
@@ -1908,29 +2020,12 @@ footer{
             Select country
           </option>
 
-          <option value="India">
-            🇮🇳 India
-          </option>
-
-          <option value="USA">
-            🇺🇸 USA
-          </option>
-
-          <option value="UK">
-            🇬🇧 UK
-          </option>
-
-          <option value="Canada">
-            🇨🇦 Canada
-          </option>
-
-          <option value="Australia">
-            🇦🇺 Australia
-          </option>
-
-          <option value="Worldwide">
-            🌎 Worldwide
-          </option>
+          <option value="India">🇮🇳 India</option>
+          <option value="USA">🇺🇸 USA</option>
+          <option value="UK">🇬🇧 UK</option>
+          <option value="Canada">🇨🇦 Canada</option>
+          <option value="Australia">🇦🇺 Australia</option>
+          <option value="Worldwide">🌎 Worldwide</option>
 
         </select>
 
@@ -1939,13 +2034,14 @@ footer{
 
       <div class="form-group">
 
-        <label>
+        <label for="listingLink">
           Link
         </label>
 
         <input
           id="listingLink"
           type="url"
+          maxlength="500"
           placeholder="https://example.com"
           required>
 
@@ -1954,12 +2050,13 @@ footer{
 
       <div class="form-group">
 
-        <label>
+        <label for="listingDescription">
           Short description
         </label>
 
         <textarea
           id="listingDescription"
+          maxlength="500"
           placeholder="Tell people what makes this worth noticing..."></textarea>
 
       </div>
@@ -1967,16 +2064,15 @@ footer{
 
       <button
         class="submit"
+        id="listingSubmit"
         type="submit">
 
-        Continue — ₹49
+        Continue to payment — ₹49
 
       </button>
 
     </form>
 
-
-    <!-- SUCCESS -->
 
     <div
       class="success"
@@ -1991,8 +2087,8 @@ footer{
       </h2>
 
       <p>
-        Your listing has been prepared
-        and is ready to enter the board.
+        Your listing has been successfully
+        created and added to the board.
       </p>
 
       <div class="success-rank">
@@ -2001,8 +2097,8 @@ footer{
           Initial position
         </span>
 
-        <strong>
-          #47
+        <strong id="successRank">
+          —
         </strong>
 
       </div>
@@ -2010,7 +2106,8 @@ footer{
       <button
         class="primary"
         style="width:100%;margin-top:18px"
-        onclick="closeListingModal()">
+        type="button"
+        onclick="TOPME.UI.closeListingModal()">
 
         Back to TOPME
 
@@ -2023,486 +2120,1330 @@ footer{
 </div>
 
 
-<!-- =======================================================
+<!-- =========================================================
      TOAST
-======================================================== -->
+========================================================= -->
 
 <div
   class="toast"
-  id="toast">
+  id="toast"
+  role="status">
 </div>
 
 
-<!-- =======================================================
-     JAVASCRIPT
-======================================================== -->
+<!-- =========================================================
+     SUPABASE SDK
+========================================================= -->
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
 
 <script>
 
 /* =========================================================
-   ELEMENTS
+   20 — TOPME APPLICATION
 ========================================================= */
 
-const listingModal =
-  document.getElementById("listingModal");
-
-const listingForm =
-  document.getElementById("listingForm");
-
-const successScreen =
-  document.getElementById("successScreen");
-
-const toast =
-  document.getElementById("toast");
+window.TOPME = window.TOPME || {};
 
 
 /* =========================================================
-   OPEN MODAL
+   21 — SUPABASE CONFIG
 ========================================================= */
 
-function openListingModal(){
+TOPME.Config = {
 
-  listingModal.classList.add("open");
-async function submitListing(event){
+  supabaseUrl:
+    "https://sogycjikzbgddbbuzpwh.supabase.co",
 
-  event.preventDefault();
+  supabaseAnonKey:
+    "sb_publishable_RkGopz1DNcsdyfeOF4uWWw_QxtZOuFB"
 
-  const name =
-    document.getElementById("listingName").value.trim();
-
-  const category =
-    document.getElementById("listingCategory").value;
-
-  const country =
-    document.getElementById("listingCountry").value;
-
-  const link =
-    document.getElementById("listingLink").value.trim();
-
-  const description =
-    document.getElementById("listingDescription").value.trim();
+};
 
 
-  if(!name || !category || !country || !link){
+/* =========================================================
+   22 — SUPABASE CLIENT
+========================================================= */
 
-    showToast("Please fill all required fields.");
+TOPME.DB = {
+
+  client:null,
+
+  init(){
+
+    if(
+      !window.supabase ||
+      typeof window.supabase.createClient !== "function"
+    ){
+
+      console.error("Supabase SDK failed to load.");
+
+      return false;
+
+    }
+
+    this.client =
+      window.supabase.createClient(
+        TOPME.Config.supabaseUrl,
+        TOPME.Config.supabaseAnonKey
+      );
+
+    return true;
+
+  }
+
+};
+
+
+/* =========================================================
+   23 — APPLICATION STATE
+========================================================= */
+
+TOPME.State = {
+
+  listings:[],
+
+  activeFilter:"All",
+
+  isLoading:false,
+
+  toastTimer:null
+
+};
+
+
+/* =========================================================
+   24 — DOM HELPERS
+========================================================= */
+
+TOPME.DOM = {
+
+  id(id){
+    return document.getElementById(id);
+  },
+
+  all(selector){
+    return document.querySelectorAll(selector);
+  }
+
+};
+
+
+/* =========================================================
+   25 — UI
+========================================================= */
+
+TOPME.UI = {
+
+  showToast(message){
+
+    const toast =
+      TOPME.DOM.id("toast");
+
+    if(!toast) return;
+
+    clearTimeout(TOPME.State.toastTimer);
+
+    toast.textContent = message;
+
+    toast.classList.add("show");
+
+    TOPME.State.toastTimer =
+      setTimeout(() => {
+
+        toast.classList.remove("show");
+
+      },2800);
+
+  },
+
+
+  openListingModal(){
+
+    const modal =
+      TOPME.DOM.id("listingModal");
+
+    const form =
+      TOPME.DOM.id("listingForm");
+
+    const success =
+      TOPME.DOM.id("successScreen");
+
+    if(!modal) return;
+
+    if(form){
+
+      form.style.display = "block";
+
+    }
+
+    if(success){
+
+      success.classList.remove("show");
+
+    }
+
+    modal.classList.add("open");
+
+    modal.setAttribute(
+      "aria-hidden",
+      "false"
+    );
+
+    document.body.style.overflow = "hidden";
+
+    setTimeout(() => {
+
+      const input =
+        TOPME.DOM.id("listingName");
+
+      if(input) input.focus();
+
+    },120);
+
+  },
+
+
+  closeListingModal(){
+
+    const modal =
+      TOPME.DOM.id("listingModal");
+
+    if(!modal) return;
+
+    modal.classList.remove("open");
+
+    modal.setAttribute(
+      "aria-hidden",
+      "true"
+    );
+
+    document.body.style.overflow = "";
+
+  },
+
+
+  outsideModal(event){
+
+    const modal =
+      TOPME.DOM.id("listingModal");
+
+    if(
+      modal &&
+      event.target === modal
+    ){
+
+      this.closeListingModal();
+
+    }
+
+  },
+
+
+  scrollToBoard(){
+
+    const board =
+      TOPME.DOM.id("explore");
+
+    if(board){
+
+      board.scrollIntoView({
+        behavior:"smooth",
+        block:"start"
+      });
+
+    }
+
+  }
+
+};
+
+
+/* =========================================================
+   26 — DATABASE / LISTINGS
+========================================================= */
+
+TOPME.Data = {
+
+  async loadListings(){
+
+    const board =
+      TOPME.DOM.id("leaderboard");
+
+    if(!TOPME.DB.client){
+
+      if(board){
+
+        board.innerHTML = `
+          <div class="board-state">
+            Unable to connect to TOPME.
+          </div>
+        `;
+
+      }
+
+      return;
+
+    }
+
+    if(board){
+
+      board.innerHTML = `
+        <div class="board-state">
+          <div class="spinner"></div>
+          Loading TOPME...
+        </div>
+      `;
+
+    }
+
+    try{
+
+      const result =
+        await TOPME.DB.client
+          .from("listings")
+          .select("*")
+          .order("created_at",{ascending:false})
+          .limit(100);
+
+
+      if(result.error){
+
+        console.error(
+          "Supabase load error:",
+          result.error
+        );
+
+        if(board){
+
+          board.innerHTML = `
+            <div class="board-state">
+              Could not load listings right now.
+            </div>
+          `;
+
+        }
+
+        return;
+
+      }
+
+
+      TOPME.State.listings =
+        Array.isArray(result.data)
+          ? result.data
+          : [];
+
+
+      TOPME.UI.renderBoard();
+
+      TOPME.UI.updateStats();
+
+    }catch(error){
+
+      console.error(
+        "Unexpected database error:",
+        error
+      );
+
+      if(board){
+
+        board.innerHTML = `
+          <div class="board-state">
+            Something went wrong while loading TOPME.
+          </div>
+        `;
+
+      }
+
+    }
+
+  },
+
+
+  async createListing(listing){
+
+    if(!TOPME.DB.client){
+
+      throw new Error(
+        "Supabase is not connected."
+      );
+
+    }
+
+
+    /*
+      IMPORTANT:
+
+      This function is intentionally separated
+      from payment verification.
+
+      The production flow should call the secure
+      payment backend first and only insert after
+      verified payment.
+
+      Never place a payment secret key here.
+    */
+
+
+    const result =
+      await TOPME.DB.client
+        .from("listings")
+        .insert({
+
+          name:listing.name,
+          category:listing.category,
+          country:listing.country,
+          link:listing.link,
+          description:listing.description
+
+        })
+        .select()
+        .single();
+
+
+    if(result.error){
+
+      throw result.error;
+
+    }
+
+
+    return result.data;
+
+  }
+
+};
+
+
+/* =========================================================
+   27 — BOARD RENDERER
+========================================================= */
+
+TOPME.UI.renderBoard = function(){
+
+  const board =
+    TOPME.DOM.id("leaderboard");
+
+  if(!board) return;
+
+
+  let listings =
+    [...TOPME.State.listings];
+
+
+  const filter =
+    TOPME.State.activeFilter;
+
+
+  if(filter !== "All"){
+
+    if(filter === "Worldwide"){
+
+      listings =
+        listings.filter(
+          item =>
+            item.country === "Worldwide"
+        );
+
+    }
+
+    else if(filter === "India"){
+
+      listings =
+        listings.filter(
+          item =>
+            item.country === "India"
+        );
+
+    }
+
+    else{
+
+      listings =
+        listings.filter(
+          item =>
+            item.category === filter
+        );
+
+    }
+
+  }
+
+
+  if(listings.length === 0){
+
+    board.innerHTML = `
+      <div class="board-state">
+        No listings found for this filter yet.
+      </div>
+    `;
 
     return;
 
   }
 
 
-  const submitButton =
-    listingForm.querySelector(".submit");
+  board.innerHTML =
+    listings
+      .map((item,index) => {
 
-  submitButton.disabled = true;
+        const rank =
+          index + 1;
 
-  submitButton.textContent = "Saving...";
+        const emoji =
+          TOPME.UI.categoryEmoji(
+            item.category
+          );
+
+        const country =
+          TOPME.UI.countryEmoji(
+            item.country
+          );
 
 
-  try{
+        return `
 
-    const { data, error } = await supabaseClient
-      .from("listings")
-      .insert([
-        {
-          name: name,
-          category: category,
-          country: country,
-          link: link,
-          description: description
+          <div
+            class="rank-row"
+            data-category="${TOPME.UI.escape(item.category)}"
+            data-country="${TOPME.UI.escape(item.country)}">
+
+            <div class="rank ${rank === 1 ? "top" : ""}">
+              #${rank}
+            </div>
+
+
+            <div class="item">
+
+              <div class="avatar">
+                ${emoji}
+              </div>
+
+              <div class="item-info">
+
+                <div class="item-name">
+                  ${TOPME.UI.escape(item.name)}
+                </div>
+
+                <div class="item-meta">
+                  ${TOPME.UI.escape(item.category)}
+                  ·
+                  ${country}
+                  ${TOPME.UI.escape(item.country)}
+                </div>
+
+              </div>
+
+            </div>
+
+
+            <div class="amount">
+
+              <strong>
+                TOPME
+              </strong>
+
+              <button
+                class="boost-button"
+                type="button"
+                data-boost-name="${TOPME.UI.escape(item.name)}">
+
+                ⚡ ₹49 Boost
+
+              </button>
+
+            </div>
+
+          </div>
+
+        `;
+
+      })
+      .join("");
+
+
+  board
+    .querySelectorAll(".boost-button")
+    .forEach(button => {
+
+      button.addEventListener(
+        "click",
+        () => {
+
+          const name =
+            button.dataset.boostName || "listing";
+
+          TOPME.UI.showToast(
+            "⚡ Boost selected for " + name
+          );
+
         }
-      ])
-      .select()
-      .single();
+      );
+
+    });
+
+};
+
+
+/* =========================================================
+   28 — FILTERS
+========================================================= */
+
+TOPME.Filters = {
+
+  set(filter){
+
+    TOPME.State.activeFilter =
+      filter;
+
+
+    TOPME.DOM
+      .all(".filter")
+      .forEach(button => {
+
+        button.classList.toggle(
+          "active",
+          button.dataset.filter === filter
+        );
+
+      });
+
+
+    TOPME.UI.renderBoard();
+
+  },
+
+
+  init(){
+
+    TOPME.DOM
+      .all(".filter")
+      .forEach(button => {
+
+        button.addEventListener(
+          "click",
+          () => {
+
+            this.set(
+              button.dataset.filter
+            );
+
+          }
+        );
+
+      });
+
+  }
+
+};
+
+
+/* =========================================================
+   29 — CATEGORY SYSTEM
+========================================================= */
+
+TOPME.Categories = {
+
+  init(){
+
+    TOPME.DOM
+      .all(".category")
+      .forEach(card => {
+
+        card.addEventListener(
+          "click",
+          () => {
+
+            const category =
+              card.dataset.category;
+
+
+            TOPME.DOM
+              .all(".category")
+              .forEach(item => {
+
+                item.classList.remove(
+                  "selected"
+                );
+
+              });
+
+
+            card.classList.add(
+              "selected"
+            );
+
+
+            TOPME.Filters.set(
+              category
+            );
+
+
+            TOPME.UI.showToast(
+              category + " selected"
+            );
+
+
+            setTimeout(() => {
+
+              TOPME.UI.scrollToBoard();
+
+            },120);
+
+          }
+        );
+
+      });
+
+  }
+
+};
+
+
+/* =========================================================
+   30 — FORM VALIDATION
+========================================================= */
+
+TOPME.Form = {
+
+  getValues(){
+
+    return {
+
+      name:
+        TOPME.DOM
+          .id("listingName")
+          .value
+          .trim(),
+
+      category:
+        TOPME.DOM
+          .id("listingCategory")
+          .value,
+
+      country:
+        TOPME.DOM
+          .id("listingCountry")
+          .value,
+
+      link:
+        TOPME.DOM
+          .id("listingLink")
+          .value
+          .trim(),
+
+      description:
+        TOPME.DOM
+          .id("listingDescription")
+          .value
+          .trim()
+
+    };
+
+  },
+
+
+  validate(data){
+
+    if(!data.name){
+
+      return "Please enter what you're listing.";
+
+    }
+
+    if(!data.category){
+
+      return "Please select a category.";
+
+    }
+
+    if(!data.country){
+
+      return "Please select a country.";
+
+    }
+
+    if(!data.link){
+
+      return "Please enter your link.";
+
+    }
+
+
+    try{
+
+      new URL(data.link);
+
+    }catch{
+
+      return "Please enter a valid URL.";
+
+    }
+
+
+    return null;
+
+  },
+
+
+  async submit(event){
+
+    event.preventDefault();
+
+
+    const data =
+      this.getValues();
+
+
+    const error =
+      this.validate(data);
 
 
     if(error){
 
-      console.error("Supabase error:", error);
-
-      showToast(
-        "Could not create listing. Please try again."
-      );
-
-      submitButton.disabled = false;
-
-      submitButton.textContent = "Continue — ₹49";
+      TOPME.UI.showToast(error);
 
       return;
 
     }
 
 
-    console.log("Listing created:", data);
+    const button =
+      TOPME.DOM.id(
+        "listingSubmit"
+      );
 
 
-    listingForm.style.display = "none";
+    if(button){
 
-    successScreen.classList.add("show");
+      button.disabled = true;
 
-    showToast("Listing created successfully 🚀");
-
-
-  }catch(error){
-
-    console.error("Unexpected error:", error);
-
-    showToast(
-      "Something went wrong. Please try again."
-    );
-
-    submitButton.disabled = false;
-
-    submitButton.textContent = "Continue — ₹49";
-
-  }
-
-}
-/* =========================================================
-   CLOSE WHEN CLICKING OUTSIDE
-========================================================= */
-
-function outsideModal(event){
-
-  if(event.target === listingModal){
-
-    closeListingModal();
-
-  }
-
-}
-
-
-/* =========================================================
-   ESC KEY
-========================================================= */
-
-document.addEventListener(
-  "keydown",
-  function(event){
-
-    if(event.key === "Escape"){
-
-      closeListingModal();
+      button.textContent =
+        "Preparing secure payment...";
 
     }
 
-  }
-);
+
+    try{
+
+      /*
+        PAYMENT CHECKPOINT
+
+        Production:
+        1. Call Supabase Edge Function
+        2. Create payment order
+        3. Open payment gateway
+        4. Verify payment server-side
+        5. Create listing
+
+        We do NOT fake a successful payment.
+      */
 
 
-/* =========================================================
-   SUBMIT LISTING
-========================================================= */
+      const paymentResult =
+        await TOPME.Payment.start(
+          data
+        );
 
-function submitListing(event){
-
-  event.preventDefault();
-
-  const name =
-    document.getElementById("listingName").value.trim();
-
-  const category =
-    document.getElementById("listingCategory").value;
-
-  const country =
-    document.getElementById("listingCountry").value;
-
-  const link =
-    document.getElementById("listingLink").value.trim();
-
-  if(!name || !category || !country || !link){
-
-    showToast("Please fill all required fields.");
-
-    return;
-
-  }
-
-  /*
-    This is currently a FRONT-END DEMO.
-    Real payment/database functionality
-    will be connected later.
-  */
-
-  listingForm.style.display = "none";
-
-  successScreen.classList.add("show");
-
-  showToast("Listing created successfully 🚀");
-
-}
-
-
-/* =========================================================
-   CATEGORY SELECTION
-========================================================= */
-
-function selectCategory(category, element){
-
-  document
-    .querySelectorAll(".category")
-    .forEach(card => {
-
-      card.classList.remove("selected");
-
-    });
-
-  element.classList.add("selected");
-
-  showToast(
-    category + " selected"
-  );
-
-  setTimeout(() => {
-
-    document
-      .getElementById("explore")
-      .scrollIntoView({
-        behavior:"smooth"
-      });
-
-    const filters =
-      document.querySelectorAll(".filter");
-
-    filters.forEach(filter => {
-
-      filter.classList.remove("active");
 
       if(
-        filter.textContent
-          .toLowerCase()
-          .includes(category.toLowerCase())
+        paymentResult &&
+        paymentResult.status ===
+        "demo_pending"
       ){
 
-        filter.classList.add("active");
+        TOPME.UI.showToast(
+          "Payment gateway is not connected yet."
+        );
 
-        filterBoard(
-          filter,
-          category
+        if(button){
+
+          button.disabled = false;
+
+          button.textContent =
+            "Continue to payment — ₹49";
+
+        }
+
+        return;
+
+      }
+
+
+      /*
+        Once the secure payment backend
+        returns verified=true, this insert
+        can happen.
+
+        Never trust a frontend-only
+        payment success signal.
+      */
+
+
+      if(
+        !paymentResult ||
+        paymentResult.verified !== true
+      ){
+
+        throw new Error(
+          "Payment verification failed."
         );
 
       }
 
-    });
 
-  },250);
+      const listing =
+        await TOPME.Data.createListing(
+          data
+        );
 
-}
 
-
-/* =========================================================
-   BOARD FILTER
-========================================================= */
-
-function filterBoard(button, filter){
-
-  document
-    .querySelectorAll(".filter")
-    .forEach(btn => {
-
-      btn.classList.remove("active");
-
-    });
-
-  button.classList.add("active");
-
-
-  const rows =
-    document.querySelectorAll(".rank-row");
-
-
-  rows.forEach(row => {
-
-    const category =
-      row.dataset.category;
-
-    const country =
-      row.dataset.country;
-
-
-    let show = false;
-
-
-    if(filter === "All"){
-
-      show = true;
-
-    }
-
-    else if(
-      filter === "Worldwide"
-    ){
-
-      show = true;
-
-    }
-
-    else if(
-      filter === "India"
-    ){
-
-      show = country === "India";
-
-    }
-
-    else{
-
-      show = category === filter;
-
-    }
-
-
-    row.style.display =
-      show ? "grid" : "none";
-
-  });
-
-}
-
-
-/* =========================================================
-   BOOST DEMO
-========================================================= */
-
-function boostDemo(name){
-
-  showToast(
-    "⚡ Boost selected for " + name
-  );
-
-}
-
-
-/* =========================================================
-   SCROLL TO BOARD
-========================================================= */
-
-function scrollToBoard(){
-
-  document
-    .getElementById("explore")
-    .scrollIntoView({
-      behavior:"smooth"
-    });
-
-}
-
-
-/* =========================================================
-   TOAST
-========================================================= */
-
-let toastTimer;
-
-function showToast(message){
-
-  clearTimeout(toastTimer);
-
-  toast.textContent = message;
-
-  toast.classList.add("show");
-
-  toastTimer =
-    setTimeout(() => {
-
-      toast.classList.remove("show");
-
-    },2500);
-
-}
-
-
-/* =========================================================
-   NAV ACTIVE SCROLL BEHAVIOUR
-========================================================= */
-
-const sections =
-  document.querySelectorAll(
-    "section[id]"
-  );
-
-
-window.addEventListener(
-  "scroll",
-  function(){
-
-    /*
-      Lightweight scroll listener.
-      Can later be replaced by
-      IntersectionObserver.
-    */
-
-  },
-  {passive:true}
-);
-
-
-/* =========================================================
-   DEMO LISTING COUNTER
-========================================================= */
-
-let listingCount = 312481;
-
-setInterval(() => {
-
-  /*
-    Small live-style visual update.
-    This is only front-end demo behaviour.
-  */
-
-  if(Math.random() > .65){
-
-    listingCount++;
-
-    const counter =
-      document.getElementById(
-        "listingCount"
+      TOPME.Form.showSuccess(
+        listing
       );
 
-    if(counter){
 
-      counter.textContent =
-        listingCount.toLocaleString();
+      await TOPME.Data.loadListings();
+
+
+    }catch(error){
+
+      console.error(
+        "Listing submission error:",
+        error
+      );
+
+
+      TOPME.UI.showToast(
+        error.message ||
+        "Could not create listing."
+      );
+
+
+      if(button){
+
+        button.disabled = false;
+
+        button.textContent =
+          "Continue to payment — ₹49";
+
+      }
 
     }
 
-  }
-
-},5000);
+  },
 
 
-/* =========================================================
-   INITIAL SETUP
-========================================================= */
+  showSuccess(listing){
 
-document.addEventListener(
-  "DOMContentLoaded",
-  function(){
+    const form =
+      TOPME.DOM.id(
+        "listingForm"
+      );
 
-    console.log(
-      "TOPME loaded successfully."
+    const success =
+      TOPME.DOM.id(
+        "successScreen"
+      );
+
+    const rank =
+      TOPME.DOM.id(
+        "successRank"
+      );
+
+
+    if(form){
+
+      form.style.display =
+        "none";
+
+    }
+
+
+    if(success){
+
+      success.classList.add(
+        "show"
+      );
+
+    }
+
+
+    if(rank){
+
+      const current =
+        TOPME.State.listings.length + 1;
+
+      rank.textContent =
+        "#" + current;
+
+    }
+
+
+    TOPME.UI.showToast(
+      "Listing created successfully 🚀"
     );
 
   }
-);
+
+};
+
+
+/* =========================================================
+   31 — PAYMENT MODULE
+========================================================= */
+
+TOPME.Payment = {
+
+  async start(){
+
+    /*
+      SECURITY:
+
+      No Razorpay secret,
+      Stripe secret,
+      payment signing key,
+      or service-role key
+      belongs in this HTML.
+
+      This is the frontend checkpoint
+      for the secure Supabase Edge Function.
+
+      Replace the endpoint once the
+      payment backend is deployed.
+    */
+
+
+    const edgeFunctionUrl =
+      TOPME.Config.supabaseUrl +
+      "/functions/v1/create-payment";
+
+
+    /*
+      We intentionally do not pretend
+      payment succeeded when the secure
+      backend does not exist yet.
+    */
+
+
+    /*
+      Uncomment/use after the Edge Function
+      is deployed:
+
+      const response = await fetch(
+        edgeFunctionUrl,
+        {
+          method:"POST",
+          headers:{
+            "Content-Type":"application/json"
+          },
+          body:JSON.stringify({
+            amount:49,
+            currency:"INR"
+          })
+        }
+      );
+
+      if(!response.ok){
+        throw new Error(
+          "Unable to start payment."
+        );
+      }
+
+      return await response.json();
+    */
+
+
+    console.log(
+      "Payment endpoint ready:",
+      edgeFunctionUrl
+    );
+
+
+    return {
+
+      status:"demo_pending",
+
+      verified:false
+
+    };
+
+  }
+
+};
+
+
+/* =========================================================
+   32 — SAFE TEXT ESCAPE
+========================================================= */
+
+TOPME.UI.escape = function(value){
+
+  return String(value ?? "")
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;")
+    .replaceAll("'","&#039;");
+
+};
+
+
+/* =========================================================
+   33 — CATEGORY EMOJI
+========================================================= */
+
+TOPME.UI.categoryEmoji = function(category){
+
+  const map = {
+
+    Creators:"🎨",
+    Music:"🎵",
+    Videos:"🎬",
+    Products:"📦",
+    Startups:"🚀",
+    Businesses:"💼",
+    Websites:"🌐",
+    Art:"🖼️"
+
+  };
+
+  return map[category] || "⭐";
+
+};
+
+
+/* =========================================================
+   34 — COUNTRY EMOJI
+========================================================= */
+
+TOPME.UI.countryEmoji = function(country){
+
+  const map = {
+
+    India:"🇮🇳",
+    USA:"🇺🇸",
+    UK:"🇬🇧",
+    Canada:"🇨🇦",
+    Australia:"🇦🇺",
+    Worldwide:"🌎"
+
+  };
+
+  return map[country] || "🌎";
+
+};
+
+
+/* =========================================================
+   35 — STATS
+========================================================= */
+
+TOPME.UI.updateStats = function(){
+
+  const listings =
+    TOPME.State.listings;
+
+
+  const listingCount =
+    TOPME.DOM.id(
+      "listingCount"
+    );
+
+  const countryCount =
+    TOPME.DOM.id(
+      "countryCount"
+    );
+
+  const viewCount =
+    TOPME.DOM.id(
+      "viewCount"
+    );
+
+
+  if(listingCount){
+
+    listingCount.textContent =
+      listings.length.toLocaleString();
+
+  }
+
+
+  if(countryCount){
+
+    const countries =
+      new Set(
+        listings
+          .map(item => item.country)
+          .filter(Boolean)
+      );
+
+    countryCount.textContent =
+      countries.size.toLocaleString();
+
+  }
+
+
+  if(viewCount){
+
+    /*
+      Until a real views table is connected,
+      do not invent a fake live counter.
+    */
+
+    viewCount.textContent =
+      "—";
+
+  }
+
+};
+
+
+/* =========================================================
+   36 — MODAL EVENTS
+========================================================= */
+
+TOPME.Events = {
+
+  init(){
+
+    const modal =
+      TOPME.DOM.id(
+        "listingModal"
+      );
+
+
+    if(modal){
+
+      modal.addEventListener(
+        "click",
+        event => {
+
+          TOPME.UI.outsideModal(
+            event
+          );
+
+        }
+      );
+
+    }
+
+
+    document.addEventListener(
+      "keydown",
+      event => {
+
+        if(
+          event.key === "Escape"
+        ){
+
+          TOPME.UI.closeListingModal();
+
+        }
+
+      }
+    );
+
+
+    const form =
+      TOPME.DOM.id(
+        "listingForm"
+      );
+
+
+    if(form){
+
+      form.addEventListener(
+        "submit",
+        event => {
+
+          TOPME.Form.submit(
+            event
+          );
+
+        }
+      );
+
+    }
+
+  }
+
+};
+
+
+/* =========================================================
+   37 — INITIALIZATION
+========================================================= */
+
+TOPME.App = {
+
+  async init(){
+
+    console.log(
+      "TOPME initializing..."
+    );
+
+
+    const connected =
+      TOPME.DB.init();
+
+
+    if(!connected){
+
+      TOPME.UI.showToast(
+        "Supabase connection failed."
+      );
+
+    }
+
+
+    TOPME.Filters.init();
+
+    TOPME.Categories.init();
+
+    TOPME.Events.init();
+
+
+    await TOPME.Data.loadListings();
+
+
+    console.log(
+      "TOPME ready."
+    );
+
+  }
+
+};
+
+
+/* =========================================================
+   38 — START
+========================================================= */
+
+if(
+  document.readyState ===
+  "loading"
+){
+
+  document.addEventListener(
+    "DOMContentLoaded",
+    () => {
+
+      TOPME.App.init();
+
+    },
+    {once:true}
+  );
+
+}else{
+
+  TOPME.App.init();
+
+}
 
 </script>
-<!-- SUPABASE CONNECTION -->
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-<script>
-const SUPABASE_URL = "https://sogycjikzbgddbbuzpwh.supabase.co";
-const SUPABASE_ANON_KEY = "sb_publishable_RkGopz1DNcsdyfeOF4uWWw_QxtZOuFB";
-
-const supabaseClient = supabase.createClient(
-  SUPABASE_URL,
-  SUPABASE_ANON_KEY
-);
-
-console.log("TOPME Supabase connected");
-</script>
-</script>
 </body>
 </html>
