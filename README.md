@@ -1,12 +1,8 @@
-# TOPME — Reference Rebuild
+# TOPME — exact reference build
 
-This is a self-contained static GitHub Pages build recreated from the supplied TOPME reference image.
+Static single-page TOPME landing page using the supplied artwork/assets and the requested Trending updates.
 
-## Upload
-Upload `index.html` and the complete `assets` folder to the repository root.
-
-## Important
-All visual image assets used by the page are local files. There are no external image URLs, no generated cartoon assets, and no external icon library dependency.
-
-## GitHub Pages
-Settings → Pages → Deploy from branch → `main` → `/ (root)` → Save.
+- THE SPIRIT OF BHAGAT SINGH → Spotify
+- ProJekt Pantomath → Instagram
+- All image paths are root-relative so the files work when uploaded directly to a GitHub repository.
+- Navigation, CTA buttons, mobile menu, ranking filters and demo action buttons are wired up with vanilla JavaScript.

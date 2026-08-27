@@ -103,9 +103,9 @@ footer{background:#062556;color:#fff;padding:20px 0;margin-top:0}.foot{display:f
 </head>
 <body>
 <header><div class="container nav">
-  <a class="logo" href="#">TOP<span>ME</span></a>
+  <a class="logo" href="#explore">TOP<span>ME</span></a>
   <nav class="links"><a href="#explore">Explore</a><a href="#categories">Categories</a><a href="#trending">Trending</a><a href="#how">How it works</a><a href="#pricing">Pricing</a></nav>
-  <button class="topbtn">✦ Put Something on TOPME</button><div class="profile"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="8" r="3.5"/><path d="M4.5 21c.7-4.2 3.1-6.2 7.5-6.2s6.8 2 7.5 6.2"/></svg></div><button class="mobile-menu" aria-label="menu"></button>
+  <button class="topbtn" data-action="pricing">✦ Put Something on TOPME</button><button class="profile" data-action="profile" aria-label="Account"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="8" r="3.5"/><path d="M4.5 21c.7-4.2 3.1-6.2 7.5-6.2s6.8 2 7.5 6.2"/></svg></button><button class="mobile-menu" aria-label="menu" aria-expanded="false"></button>
 </div></header>
 
 <main>
@@ -114,14 +114,14 @@ footer{background:#062556;color:#fff;padding:20px 0;margin-top:0}.foot{display:f
   <div class="pill"><span class="dot"></span> TOPME IS LIVE</div>
   <h1>Put what’s worth noticing <span>on top.</span></h1>
   <p>A public board where creators, artists, businesses, products and ideas compete for attention.<br>Get discovered. Climb the rankings. Be on top.</p>
-  <div class="actions"><button class="primary">✦ Put Something on TOPME</button><button class="secondary">Explore Rankings →</button></div>
-  <div class="people"><img src="assets/faces.png" alt=""><div><b>300+ creators &amp; businesses</b><small>already on the board</small></div></div>
+  <div class="actions"><button class="primary" data-action="pricing">✦ Put Something on TOPME</button><button class="secondary" data-action="trending">Explore Rankings →</button></div>
+  <div class="people"><img src="faces.png" alt=""><div><b>300+ creators &amp; businesses</b><small>already on the board</small></div></div>
  </div>
- <div class="hero-art"><img src="assets/hero-board.png" alt="TOPME ranking board"></div>
+ <div class="hero-art"><img src="hero-board.png" alt="TOPME ranking board"></div>
 </div></section>
 
 <section id="categories"><div class="container">
- <div class="section-head"><div><div class="eyebrow">EXPLORE CATEGORIES</div><h2 class="section-title">Find your space.<br><span>Be discovered.</span></h2></div><a class="view" href="#">View all categories →</a></div>
+ <div class="section-head"><div><div class="eyebrow">EXPLORE CATEGORIES</div><h2 class="section-title">Find your space.<br><span>Be discovered.</span></h2></div><a class="view" href="#categories">View all categories →</a></div>
  <div class="categories">
   <div class="cat"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8" r="3"/><path d="M5 20c.7-4 2.8-6 7-6s6.3 2 7 6"/></svg><span>Creators</span></div>
   <div class="cat"><svg viewBox="0 0 24 24" fill="none"><path d="M9 5v11.5a3.5 3.5 0 1 1-2-3.2V5l9-2v10.5a3.5 3.5 0 1 1-2-3.2V5l-5 1.1"/></svg><span>Music</span></div>
@@ -135,14 +135,14 @@ footer{background:#062556;color:#fff;padding:20px 0;margin-top:0}.foot{display:f
 </div></section>
 
 <section id="trending" class="trend"><div class="container">
- <div class="section-head"><div><div class="eyebrow">LIVE BOARD <span style="color:#e52d3d">●</span></div><h2 class="section-title">Trending right now</h2></div><a class="view" href="#">View Full Rankings →</a></div>
- <div class="tabs"><button class="tab active">All</button><button class="tab">Creators</button><button class="tab">Music</button><button class="tab">Videos</button><button class="tab">Products</button><button class="tab">Startups</button><button class="tab">Businesses</button><button class="board-select">◉ Worldwide⌄</button></div>
+ <div class="section-head"><div><div class="eyebrow">LIVE BOARD <span style="color:#e52d3d">●</span></div><h2 class="section-title">Trending right now</h2></div><a class="view" href="#trending">View Full Rankings →</a></div>
+ <div class="tabs"><button class="tab active" data-filter="all">All</button><button class="tab" data-filter="creators">Creators</button><button class="tab" data-filter="music">Music</button><button class="tab" data-filter="videos">Videos</button><button class="tab" data-filter="products">Products</button><button class="tab" data-filter="startups">Startups</button><button class="tab" data-filter="businesses">Businesses</button><button class="board-select" type="button" data-action="worldwide">◉ Worldwide⌄</button></div>
  <div class="cards">
-  <a class="card" href="https://open.spotify.com/track/1rOYYC38egAo6KfqI7V5H3?si=pxzV9jdDTzeGhpqKPXPOzw&utm_source=copy-link" target="_blank" rel="noopener noreferrer"><b class="rank">1</b><img class="card-img" src="assets/The spirit of Bhagat Singh(4).png" alt="The Spirit of Bhagat Singh"><div class="card-body"><span class="tag">MUSIC</span><h3>THE SPIRIT OF BHAGAT SINGH</h3><div class="by">by Khitish</div><div class="views">↑ 12.4K &nbsp; ◉</div></div></a>
-  <article class="card"><b class="rank">2</b><img class="card-img" src="assets/card-2.png"><div class="card-body"><span class="tag">PRODUCTS</span><h3>Kicks One Pro</h3><div class="by">by KicksLab</div><div class="views">↑ 9.8K &nbsp; ◉</div></div></article>
-  <article class="card"><b class="rank">3</b><img class="card-img" src="assets/card-3.png"><div class="card-body"><span class="tag">STARTUPS</span><h3>Pixora AI</h3><div class="by">by Pixora</div><div class="views">↑ 8.2K &nbsp; ◉</div></div></article>
-  <a class="card" href="https://www.instagram.com/projektpantomath?igsi=dXBnenFuZm9vOXR3" target="_blank" rel="noopener noreferrer"><b class="rank">4</b><img class="card-img" src="assets/projekt-pantomath.png" alt="ProJekt Pantomath"><div class="card-body"><span class="tag">MUSIC</span><h3>ProJekt Pantomath</h3><div class="by">Composition &amp; Music Production Studio</div><div class="views">↑ 7.1K &nbsp; ◉</div></div></a>
-  <article class="card"><b class="rank">5</b><img class="card-img" src="assets/card-5.png"><div class="card-body"><span class="tag">VIDEOS</span><h3>The Hustle Story</h3><div class="by">by FrameBreak</div><div class="views">↑ 6.3K &nbsp; ◉</div></div></article>
+  <a class="card" data-category="music" href="https://open.spotify.com/track/1rOYYC38egAo6KfqI7V5H3?si=pxzV9jdDTzeGhpqKPXPOzw&utm_source=copy-link" target="_blank" rel="noopener noreferrer"><b class="rank">1</b><img class="card-img" src="The spirit of Bhagat Singh(4).png" alt="The Spirit of Bhagat Singh"><div class="card-body"><span class="tag">MUSIC</span><h3>THE SPIRIT OF BHAGAT SINGH</h3><div class="by">by Khitish</div><div class="views">↑ 12.4K &nbsp; ◉</div></div></a>
+  <article class="card" data-category="products"><b class="rank">2</b><img class="card-img" src="card-2.png"><div class="card-body"><span class="tag">PRODUCTS</span><h3>Kicks One Pro</h3><div class="by">by KicksLab</div><div class="views">↑ 9.8K &nbsp; ◉</div></div></article>
+  <article class="card" data-category="startups"><b class="rank">3</b><img class="card-img" src="card-3.png"><div class="card-body"><span class="tag">STARTUPS</span><h3>Pixora AI</h3><div class="by">by Pixora</div><div class="views">↑ 8.2K &nbsp; ◉</div></div></article>
+  <a class="card" data-category="music" href="https://www.instagram.com/projektpantomath?igsi=dXBnenFuZm9vOXR3" target="_blank" rel="noopener noreferrer"><b class="rank">4</b><img class="card-img" src="projekt-pantomath.png" alt="ProJekt Pantomath"><div class="card-body"><span class="tag">MUSIC</span><h3>ProJekt Pantomath</h3><div class="by">Composition &amp; Music Production Studio</div><div class="views">↑ 7.1K &nbsp; ◉</div></div></a>
+  <article class="card" data-category="videos"><b class="rank">5</b><img class="card-img" src="card-5.png"><div class="card-body"><span class="tag">VIDEOS</span><h3>The Hustle Story</h3><div class="by">by FrameBreak</div><div class="views">↑ 6.3K &nbsp; ◉</div></div></article>
  </div>
 </div></section>
 
@@ -155,9 +155,9 @@ footer{background:#062556;color:#fff;padding:20px 0;margin-top:0}.foot{display:f
 </div></section>
 
 <section id="pricing" class="price"><div class="container"><div class="pricebox">
- <div class="cta"><h2>Start your journey on TOPME</h2><p>One-time entry. Lifetime opportunity.</p><button class="secondary">✦ Put Something on TOPME</button><img src="assets/cta-rocket.png" alt=""></div>
- <div class="pricecol"><h5>LIST SOMETHING</h5><strong>₹49</strong><p>One-time entry fee to create your TOPME listing.</p><button>List Something →</button></div>
- <div class="pricecol"><h5>BOOST LISTING</h5><strong>₹49</strong><p>Give an existing listing another visibility push.</p><button>Boost a Listing →</button></div>
+ <div class="cta"><h2>Start your journey on TOPME</h2><p>One-time entry. Lifetime opportunity.</p><button class="secondary" data-action="pricing">✦ Put Something on TOPME</button><img src="cta-rocket.png" alt=""></div>
+ <div class="pricecol"><h5>LIST SOMETHING</h5><strong>₹49</strong><p>One-time entry fee to create your TOPME listing.</p><button data-action="list">List Something →</button></div>
+ <div class="pricecol"><h5>BOOST LISTING</h5><strong>₹49</strong><p>Give an existing listing another visibility push.</p><button data-action="boost">Boost a Listing →</button></div>
  <div class="perks"><div>♧ &nbsp; Secure payments</div><div>▣ &nbsp; Cancel anytime</div><div>⌁ &nbsp; No subscription</div><div>♟ &nbsp; Fair competition</div></div>
  </div></div></section>
 
@@ -168,8 +168,54 @@ footer{background:#062556;color:#fff;padding:20px 0;margin-top:0}.foot{display:f
   <div class="whycard"><svg viewBox="0 0 24 24" fill="none"><path d="M4 19V9M9 19V5M14 19v-8M19 19V3"/><path d="M3 21h18"/></svg><h4>Fair Competition</h4><p>Rankings based on real engagement and activity.</p></div>
   <div class="whycard"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3.2 3 14.8 0 18"/></svg><h4>Global Exposure</h4><p>Get discovered locally or around the world.</p></div>
  </div>
- <div class="bottom"><div class="bottom-main"><h3>★ &nbsp; Ready to be on top?</h3><small>Put your story where it deserves to be seen.</small></div><div class="stat"><b>300+</b><span>Creators &amp; Businesses</span></div><div class="stat"><b>0</b><span>Listings Live</span></div><div class="stat"><b>0</b><span>Countries</span></div><button>+ Put Something on TOPME</button></div>
+ <div class="bottom"><div class="bottom-main"><h3>★ &nbsp; Ready to be on top?</h3><small>Put your story where it deserves to be seen.</small></div><div class="stat"><b>300+</b><span>Creators &amp; Businesses</span></div><div class="stat"><b>0</b><span>Listings Live</span></div><div class="stat"><b>0</b><span>Countries</span></div><button data-action="pricing">+ Put Something on TOPME</button></div>
  </div></section>
 </main>
 <footer><div class="container foot"><div><div class="logo">TOP<span>ME</span></div><small style="font-size:7px">Put what’s worth noticing on top.</small></div><div class="footlinks"><a>Home</a><a>Explore</a><a>Categories</a><a>Trending</a><a>How it works</a><a>Pricing</a></div></div></footer>
+
+<div class="modal" id="actionModal" aria-hidden="true">
+  <div class="modal-backdrop" data-close="modal"></div>
+  <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <button class="modal-close" data-close="modal" aria-label="Close">×</button>
+    <h3 id="modalTitle">TOPME</h3><p id="modalText"></p>
+    <button class="primary modal-ok" data-close="modal">Got it</button>
+  </div>
+</div>
+<style>
+.modal{position:fixed;inset:0;display:none;align-items:center;justify-content:center;z-index:100}.modal.show{display:flex}.modal-backdrop{position:absolute;inset:0;background:#071b4966;backdrop-filter:blur(3px)}.modal-card{position:relative;width:min(390px,calc(100% - 36px));background:#fff;border:1px solid #e4eaf3;border-radius:16px;padding:24px;box-shadow:0 20px 60px #071b4933}.modal-card h3{margin:0 0 8px;font-size:20px}.modal-card p{margin:0 0 18px;color:#6f7d92;font-size:12px;line-height:1.6}.modal-close{position:absolute;right:12px;top:9px;border:0;background:transparent;font-size:25px;color:#6f7d92;cursor:pointer}.modal-ok{cursor:pointer}.mobile-menu{cursor:pointer}.profile{cursor:pointer;color:var(--text);background:#fff}.tab,.board-select,.pricecol button,.bottom button,.topbtn,.primary,.secondary{cursor:pointer}
+.mobile-drawer{display:none;position:absolute;top:76px;left:0;right:0;background:#fff;border-bottom:1px solid #e7edf5;box-shadow:0 10px 25px #071b4910;padding:14px 21px}.mobile-drawer.show{display:grid;gap:4px}.mobile-drawer a{padding:11px 8px;font-size:13px;font-weight:650;border-radius:8px}.mobile-drawer a:active,.mobile-drawer a:hover{background:#f4f8fd}
+@media(min-width:801px){.mobile-drawer{display:none!important}}
+</style>
+<script>
+(function(){
+  const $=(s,c=document)=>c.querySelector(s), $$=(s,c=document)=>Array.from(c.querySelectorAll(s));
+  const modal=$('#actionModal'), modalText=$('#modalText'), modalTitle=$('#modalTitle');
+  function openModal(title,text){modalTitle.textContent=title;modalText.textContent=text;modal.classList.add('show');modal.setAttribute('aria-hidden','false')}
+  function closeModal(){modal.classList.remove('show');modal.setAttribute('aria-hidden','true')}
+  function go(id){document.getElementById(id)?.scrollIntoView({behavior:'smooth',block:'start'})}
+  $$('[data-close="modal"]').forEach(x=>x.addEventListener('click',closeModal));
+  document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal()});
+  $$('[data-action]').forEach(el=>el.addEventListener('click',function(e){
+    const a=this.dataset.action;
+    if(a==='pricing'||a==='trending'){e.preventDefault();go(a);return}
+    if(a==='profile'){openModal('TOPME account','Account access is ready for the next step. This demo keeps the visual design intact without requiring a backend.');return}
+    if(a==='list'){openModal('List Something','Your TOPME listing flow is ready. Connect your payment/listing backend here when you are ready to accept real submissions.');return}
+    if(a==='boost'){openModal('Boost a Listing','Your boost flow is ready. Connect your payment/boost backend here when you are ready to process boosts.');return}
+    if(a==='worldwide'){openModal('Worldwide','Worldwide rankings are currently selected.');return}
+  }));
+  $$('.tab[data-filter]').forEach(tab=>tab.addEventListener('click',()=>{
+    $$('.tab[data-filter]').forEach(t=>t.classList.remove('active'));tab.classList.add('active');
+    const f=tab.dataset.filter;$$('.card[data-category]').forEach(card=>{card.style.display=(f==='all'||card.dataset.category===f)?'':'none'});
+  }));
+  // Mobile menu drawer
+  const menu=$('.mobile-menu');
+  if(menu){
+    const drawer=document.createElement('div');drawer.className='mobile-drawer';
+    drawer.innerHTML='<a href="#explore">Explore</a><a href="#categories">Categories</a><a href="#trending">Trending</a><a href="#how">How it works</a><a href="#pricing">Pricing</a>';
+    document.querySelector('header').appendChild(drawer);
+    menu.addEventListener('click',()=>{const show=drawer.classList.toggle('show');menu.setAttribute('aria-expanded',String(show))});
+    drawer.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{drawer.classList.remove('show');menu.setAttribute('aria-expanded','false')}));
+  }
+})();
+</script>
 </body></html>
