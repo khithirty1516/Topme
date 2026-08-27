@@ -1,999 +1,805 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>TOPME — What deserves to be on top?</title>
-<meta name="description" content="TOPME is a global ranking platform where creators, music, products, businesses and ideas compete for attention.">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>TOPME — Put what's worth noticing on top.</title>
 
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
-
-:root{
-  --bg:#050705;
-  --bg2:#080c09;
-  --card:rgba(18,24,19,.62);
-  --card2:rgba(12,17,13,.78);
-  --line:rgba(255,255,255,.09);
-  --line2:rgba(255,255,255,.15);
-  --white:#f5f7f4;
-  --muted:#89918b;
-  --muted2:#606a63;
-  --green:#8cff00;
-  --green2:#5ee600;
-  --gold:#ffd76a;
-  --red:#ff6969;
-  --radius:24px;
-}
-
-*{
-  box-sizing:border-box;
-  margin:0;
-  padding:0;
-}
-
-html{
-  scroll-behavior:smooth;
-}
-
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
 body{
-  min-height:100vh;
-  color:var(--white);
-  background:
-    radial-gradient(circle at 12% 8%,rgba(140,255,0,.09),transparent 27%),
-    radial-gradient(circle at 88% 18%,rgba(60,255,150,.055),transparent 24%),
-    radial-gradient(circle at 50% 70%,rgba(120,255,0,.025),transparent 35%),
-    var(--bg);
-  font-family:Inter,system-ui,sans-serif;
-  -webkit-font-smoothing:antialiased;
-  overflow-x:hidden;
+  margin:0;
+  font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  color:#08153a;
+  background:#fff
 }
+a{text-decoration:none;color:inherit}
 
-body:before{
-  content:"";
-  position:fixed;
-  inset:0;
-  pointer-events:none;
-  background:
-    linear-gradient(rgba(255,255,255,.012) 1px,transparent 1px),
-    linear-gradient(90deg,rgba(255,255,255,.012) 1px,transparent 1px);
-  background-size:60px 60px;
-  mask-image:linear-gradient(to bottom,black,transparent 75%);
+.container{
+  width:min(1180px,calc(100% - 48px));
+  margin:auto
 }
-
-/* ---------- NAV ---------- */
 
 .nav{
-  position:sticky;
-  top:0;
-  z-index:100;
-  height:74px;
+  height:76px;
+  border-bottom:1px solid #edf1f7;
+  background:#fff;
   display:flex;
   align-items:center;
-  justify-content:space-between;
-  padding:0 5%;
-  background:rgba(5,7,5,.68);
-  border-bottom:1px solid var(--line);
-  backdrop-filter:blur(22px);
-  -webkit-backdrop-filter:blur(22px);
+  position:sticky;
+  top:0;
+  z-index:10
+}
+
+.navin{
+  width:100%;
+  display:flex;
+  align-items:center;
+  justify-content:space-between
 }
 
 .logo{
-  font-size:25px;
-  font-weight:800;
-  letter-spacing:-1.5px;
+  font-size:29px;
+  font-weight:900;
+  letter-spacing:-2px
 }
 
-.logo span{
-  color:var(--green);
-}
+.logo span,.blue{color:#075bea}
 
-.nav-links{
+.links{
   display:flex;
-  gap:30px;
-  align-items:center;
+  gap:32px;
+  font-size:14px;
+  font-weight:650
 }
 
-.nav-links a{
-  color:#aeb5af;
-  text-decoration:none;
-  font-size:13px;
-  transition:.2s;
-}
-
-.nav-links a:hover{
-  color:white;
-}
-
-.nav-btn{
-  border:1px solid rgba(140,255,0,.3);
-  background:rgba(140,255,0,.09);
-  color:var(--green);
-  padding:11px 18px;
-  border-radius:13px;
-  font-weight:700;
-  cursor:pointer;
-}
-
-/* ---------- HERO ---------- */
-
-.hero{
-  position:relative;
-  max-width:1250px;
-  margin:auto;
-  min-height:690px;
-  padding:95px 5% 75px;
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  align-items:center;
-  gap:55px;
-}
-
-.hero:before{
-  content:"";
-  position:absolute;
-  width:550px;
-  height:550px;
-  left:-180px;
-  top:-180px;
-  background:rgba(140,255,0,.07);
-  filter:blur(100px);
-  border-radius:50%;
-  pointer-events:none;
-}
-
-.eyebrow{
-  display:inline-flex;
-  align-items:center;
-  gap:9px;
-  padding:8px 13px;
-  border:1px solid rgba(140,255,0,.22);
-  background:rgba(140,255,0,.055);
-  border-radius:100px;
-  color:#b7c0b8;
-  font-size:11px;
-  font-weight:600;
-  letter-spacing:.2px;
-  margin-bottom:24px;
-  backdrop-filter:blur(15px);
-}
-
-.live-dot{
-  width:7px;
-  height:7px;
-  border-radius:50%;
-  background:var(--green);
-  box-shadow:0 0 13px var(--green);
-}
-
-.hero h1{
-  max-width:650px;
-  font-size:clamp(48px,6vw,82px);
-  line-height:.96;
-  letter-spacing:-5px;
-  font-weight:800;
-}
-
-.hero h1 span{
-  color:var(--green);
-  text-shadow:0 0 35px rgba(140,255,0,.18);
-}
-
-.hero-copy{
-  max-width:550px;
-  margin-top:25px;
-  color:var(--muted);
-  line-height:1.7;
-  font-size:15px;
-}
-
-.hero-actions{
+.actions{
   display:flex;
-  gap:12px;
-  margin-top:34px;
-  flex-wrap:wrap;
+  gap:14px;
+  align-items:center
 }
 
 .btn{
+  background:#075bea;
+  color:#fff;
   border:0;
-  border-radius:14px;
-  padding:15px 21px;
+  border-radius:9px;
+  padding:13px 18px;
+  font-weight:750;
   font-size:13px;
-  font-weight:700;
-  cursor:pointer;
-  transition:.25s;
+  display:inline-block
 }
 
-.btn-green{
-  background:var(--green);
-  color:#071000;
-  box-shadow:0 0 35px rgba(140,255,0,.1);
-}
-
-.btn-green:hover{
-  transform:translateY(-2px);
-  box-shadow:0 10px 35px rgba(140,255,0,.18);
-}
-
-.btn-dark{
-  background:rgba(255,255,255,.035);
-  border:1px solid var(--line2);
-  color:white;
-}
-
-.btn-dark:hover{
-  background:rgba(255,255,255,.07);
-}
-
-/* ---------- HERO BOARD ---------- */
-
-.hero-board-wrap{
-  position:relative;
-}
-
-.hero-board-wrap:before{
-  content:"";
-  position:absolute;
-  inset:15% 5%;
-  background:rgba(140,255,0,.08);
-  filter:blur(70px);
+.user{
+  width:42px;
+  height:42px;
+  border:1px solid #dbe3ef;
   border-radius:50%;
-}
-
-.board{
-  position:relative;
-  min-height:405px;
-  border:1px solid var(--line2);
-  border-radius:32px;
-  background:
-    radial-gradient(circle at 50% 0%,rgba(140,255,0,.075),transparent 48%),
-    rgba(13,18,14,.67);
-  backdrop-filter:blur(30px);
-  box-shadow:
-    inset 0 1px 0 rgba(255,255,255,.04),
-    0 30px 90px rgba(0,0,0,.3);
-  overflow:hidden;
-}
-
-.board-top{
-  height:55px;
-  padding:0 20px;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  border-bottom:1px solid var(--line);
-  color:var(--muted);
-  font-size:11px;
-}
-
-.board-title{
-  color:white;
-  font-weight:700;
-}
-
-.ranking{
-  height:350px;
-  display:flex;
-  align-items:end;
-  justify-content:center;
-  gap:10px;
-  padding:35px 30px 28px;
-}
-
-.podium{
-  width:29%;
-  border:1px solid var(--line2);
-  background:linear-gradient(180deg,rgba(255,255,255,.055),rgba(255,255,255,.018));
-  border-radius:20px 20px 12px 12px;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:flex-start;
-  padding-top:17px;
-  position:relative;
-}
-
-.podium.one{
-  height:245px;
-  border-color:rgba(140,255,0,.27);
-  background:linear-gradient(180deg,rgba(140,255,0,.09),rgba(255,255,255,.018));
-}
-
-.podium.two{
-  height:185px;
-}
-
-.podium.three{
-  height:145px;
-}
-
-.rank{
-  font-size:11px;
-  font-weight:800;
-  color:var(--muted);
-}
-
-.podium.one .rank{
-  color:var(--green);
-}
-
-.podium-icon{
-  width:55px;
-  height:55px;
-  margin:17px 0 12px;
   display:grid;
   place-items:center;
-  border-radius:17px;
-  background:rgba(255,255,255,.07);
-  font-size:23px;
+  font-size:20px
 }
 
-.podium.one .podium-icon{
-  background:rgba(140,255,0,.12);
-  box-shadow:0 0 25px rgba(140,255,0,.08);
+.hero{
+  background:linear-gradient(110deg,#f6f9ff,#e8f1ff);
+  overflow:hidden
 }
 
-.podium-name{
-  font-size:11px;
+.heroIn{
+  min-height:455px;
+  display:grid;
+  grid-template-columns:43% 57%;
+  align-items:center
+}
+
+.pill{
+  display:inline-flex;
+  gap:8px;
+  border:1px solid #9dbbe9;
+  border-radius:30px;
+  padding:7px 13px;
+  color:#1260d8;
+  font-size:12px;
+  font-weight:750
+}
+
+.dot{
+  width:7px;
+  height:7px;
+  border-radius:50%;
+  background:#1260d8;
+  margin-top:5px
+}
+
+.hero h1{
+  font-size:50px;
+  line-height:1.02;
+  letter-spacing:-3px;
+  margin:20px 0 18px
+}
+
+.hero p{
+  font-size:15px;
+  line-height:1.7;
+  max-width:485px;
+  color:#263653
+}
+
+.heroBtns{
+  display:flex;
+  gap:12px;
+  margin-top:22px
+}
+
+.outline{
+  border:1px solid #8eaddb;
+  border-radius:28px;
+  padding:12px 18px;
+  color:#0c4fb9;
   font-weight:700;
-  text-align:center;
+  font-size:14px
 }
 
-.score{
-  color:var(--muted);
-  font-size:9px;
-  margin-top:6px;
+.trust{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  margin-top:25px;
+  font-size:12px;
+  font-weight:650
 }
 
-/* ---------- STATS ---------- */
+.faces{display:flex}
+
+.face{
+  width:33px;
+  height:33px;
+  border-radius:50%;
+  border:2px solid #fff;
+  margin-left:-7px;
+  background:linear-gradient(145deg,#253b5f,#adc0d9)
+}
+
+.face:first-child{margin-left:0}
+
+.art{
+  height:455px;
+  display:grid;
+  place-items:center;
+  position:relative
+}
+
+.city{
+  position:absolute;
+  inset:0;
+  background:
+    repeating-linear-gradient(
+      90deg,
+      transparent 0 65px,
+      rgba(65,126,210,.07) 66px 67px
+    ),
+    linear-gradient(
+      to top,
+      rgba(75,132,214,.18),
+      transparent 60%
+    )
+}
+
+.podiumWrap{
+  position:relative;
+  width:550px;
+  height:350px
+}
+
+.glow{
+  position:absolute;
+  inset:0;
+  background:radial-gradient(
+    ellipse,
+    rgba(255,255,255,.95),
+    transparent 68%
+  )
+}
+
+.base{
+  position:absolute;
+  bottom:35px;
+  left:50%;
+  transform:translateX(-50%);
+  width:480px;
+  height:78px;
+  border-radius:50%;
+  background:linear-gradient(#f5f8ff,#a7c8f4);
+  box-shadow:0 15px 30px rgba(35,94,177,.2)
+}
+
+.block{
+  position:absolute;
+  bottom:68px;
+  border-radius:8px;
+  background:linear-gradient(150deg,#1768ee,#053eae);
+  color:#fff;
+  display:grid;
+  place-items:center;
+  font-weight:900;
+  box-shadow:0 14px 25px rgba(5,62,174,.25);
+  border:1px solid #ffffff44
+}
+
+.two{
+  left:65px;
+  width:125px;
+  height:118px;
+  font-size:32px
+}
+
+.one{
+  left:207px;
+  width:145px;
+  height:190px;
+  font-size:58px;
+  z-index:2
+}
+
+.three{
+  right:55px;
+  width:125px;
+  height:110px;
+  font-size:32px
+}
+
+.crown{
+  position:absolute;
+  z-index:3;
+  top:8px;
+  left:50%;
+  transform:translateX(-50%);
+  font-size:62px
+}
 
 .stats{
-  max-width:1250px;
-  margin:-25px auto 0;
-  padding:0 5%;
-  position:relative;
-  z-index:2;
-}
-
-.stats-card{
+  position:absolute;
+  z-index:4;
+  bottom:-10px;
+  left:50%;
+  transform:translateX(-50%);
+  width:510px;
+  height:104px;
+  background:#fff;
+  border-radius:17px;
   display:grid;
   grid-template-columns:repeat(3,1fr);
-  border:1px solid var(--line);
-  background:rgba(12,16,13,.62);
-  border-radius:22px;
-  backdrop-filter:blur(25px);
-  overflow:hidden;
+  box-shadow:0 12px 30px #2b4c8226
 }
 
 .stat{
-  padding:25px;
-  text-align:center;
-  border-right:1px solid var(--line);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  border-right:1px solid #e6edf7
 }
 
-.stat:last-child{
-  border:0;
+.stat:last-child{border:0}
+
+.stat i{
+  font-style:normal;
+  color:#075bea;
+  font-size:22px
 }
 
-.stat strong{
-  display:block;
-  font-size:25px;
-  letter-spacing:-1px;
-}
+.stat b{font-size:22px}
 
-.stat span{
-  color:var(--muted);
-  font-size:10px;
-  margin-top:5px;
-  display:block;
+.stat small{
+  font-size:11px;
+  font-weight:650
 }
-
-/* ---------- SECTIONS ---------- */
 
 .section{
-  max-width:1250px;
-  margin:auto;
-  padding:115px 5% 0;
+  padding:64px 0
 }
 
-.section-head{
+.head{
   display:flex;
-  justify-content:space-between;
   align-items:end;
-  margin-bottom:28px;
+  justify-content:space-between;
+  margin-bottom:24px
 }
 
 .kicker{
-  color:var(--green);
-  font-size:10px;
-  font-weight:800;
-  letter-spacing:1.5px;
-  text-transform:uppercase;
-  margin-bottom:9px;
+  font-size:11px;
+  font-weight:850;
+  color:#075bea;
+  letter-spacing:.6px;
+  margin-bottom:7px
 }
 
 .section h2{
-  font-size:34px;
-  letter-spacing:-2px;
+  font-size:28px;
+  line-height:1.12;
+  letter-spacing:-1.3px;
+  margin:0
 }
 
-.section-sub{
-  color:var(--muted);
-  font-size:13px;
-  margin-top:9px;
-}
-
-/* ---------- CATEGORIES ---------- */
-
-.categories{
+.cats{
   display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:12px;
+  grid-template-columns:repeat(8,1fr);
+  gap:12px
 }
 
-.category{
-  position:relative;
-  min-height:135px;
-  padding:20px;
-  border:1px solid var(--line);
-  border-radius:20px;
-  background:
-    radial-gradient(circle at 100% 0%,rgba(140,255,0,.08),transparent 55%),
-    rgba(14,19,15,.55);
-  overflow:hidden;
-  cursor:pointer;
-  transition:.25s;
-  backdrop-filter:blur(20px);
-}
-
-.category:hover{
-  transform:translateY(-4px);
-  border-color:rgba(140,255,0,.24);
-  background:
-    radial-gradient(circle at 100% 0%,rgba(140,255,0,.12),transparent 55%),
-    rgba(17,23,18,.75);
-}
-
-.cat-icon{
-  font-size:22px;
-  margin-bottom:24px;
-}
-
-.category h3{
-  font-size:14px;
-}
-
-.category p{
-  color:var(--muted);
-  font-size:10px;
-  margin-top:5px;
-}
-
-/* ---------- TRENDING ---------- */
-
-.filters{
+.cat{
+  min-height:100px;
+  border:1px solid #e5eaf2;
+  border-radius:12px;
   display:flex;
-  gap:8px;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:7px;
+  box-shadow:0 4px 15px #1432640a
+}
+
+.cat:hover,.card:hover{
+  transform:translateY(-3px)
+}
+
+.cat i{
+  font-style:normal;
+  color:#075bea;
+  font-size:27px
+}
+
+.cat span{
+  font-size:11px;
+  font-weight:650
+}
+
+.trending{
+  padding:0 0 60px
+}
+
+.tabs{
+  display:flex;
+  gap:9px;
   flex-wrap:wrap;
+  margin:18px 0 20px
 }
 
-.filter{
-  padding:9px 14px;
-  border-radius:100px;
-  background:rgba(255,255,255,.035);
-  border:1px solid var(--line);
-  color:var(--muted);
-  font-size:10px;
-  cursor:pointer;
-}
-
-.filter.active,
-.filter:hover{
-  background:var(--green);
-  border-color:var(--green);
-  color:#071000;
-}
-
-.listings{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:13px;
-}
-
-.listing{
-  border:1px solid var(--line);
+.tab{
+  border:1px solid #e2e8f2;
+  background:#fff;
   border-radius:22px;
+  padding:9px 17px;
+  font-size:12px;
+  font-weight:650
+}
+
+.active{
+  background:#075bea;
+  color:#fff;
+  border-color:#075bea
+}
+
+.trendGrid{
+  display:grid;
+  grid-template-columns:repeat(5,1fr);
+  gap:16px
+}
+
+.card{
+  border:1px solid #e0e6ef;
+  border-radius:13px;
   overflow:hidden;
-  background:rgba(13,18,14,.63);
-  backdrop-filter:blur(20px);
-  transition:.25s;
+  background:#fff;
+  box-shadow:0 5px 18px #1432640d;
+  transition:.2s
 }
 
-.listing:hover{
-  transform:translateY(-4px);
-  border-color:var(--line2);
-}
-
-.listing-image{
-  height:155px;
+.pic{
+  height:125px;
   display:grid;
   place-items:center;
-  font-size:45px;
-  background:
-    radial-gradient(circle at 50% 35%,rgba(140,255,0,.13),transparent 45%),
-    rgba(255,255,255,.025);
-  border-bottom:1px solid var(--line);
+  position:relative;
+  font-size:52px
 }
 
-.listing-body{
-  padding:17px;
+.c1{background:linear-gradient(135deg,#2a1265,#b40062)}
+.c2{background:linear-gradient(135deg,#dce9f5,#849ab3)}
+.c3{background:linear-gradient(135deg,#111b4c,#172e94)}
+.c4{background:linear-gradient(135deg,#f0d8c7,#697a87)}
+.c5{background:linear-gradient(135deg,#273a4e,#d8b68f)}
+
+.rank{
+  position:absolute;
+  top:9px;
+  left:9px;
+  width:25px;
+  height:25px;
+  border-radius:7px;
+  background:#ffd321;
+  display:grid;
+  place-items:center;
+  font-size:12px;
+  font-weight:900
 }
+
+.body{padding:12px}
 
 .tag{
   display:inline-block;
-  font-size:8px;
-  font-weight:800;
-  letter-spacing:.6px;
-  color:var(--green);
-  background:rgba(140,255,0,.08);
-  border:1px solid rgba(140,255,0,.15);
-  padding:5px 8px;
-  border-radius:7px;
-  margin-bottom:12px;
-}
-
-.listing h3{
-  font-size:14px;
-}
-
-.listing p{
-  color:var(--muted);
-  font-size:10px;
-  margin-top:5px;
-}
-
-.listing-meta{
-  display:flex;
-  justify-content:space-between;
-  margin-top:17px;
-  color:var(--muted);
+  background:#e9f1ff;
+  color:#075bea;
+  border-radius:10px;
+  padding:3px 8px;
   font-size:9px;
+  font-weight:850
 }
 
-.up{
-  color:var(--green);
+.body h3{
+  font-size:15px;
+  margin:7px 0 3px
 }
 
-/* ---------- HOW IT WORKS ---------- */
+.by{
+  font-size:10px;
+  color:#68738a
+}
+
+.eng{
+  color:#15a45d;
+  font-size:11px;
+  font-weight:700;
+  margin-top:11px
+}
+
+.eng span{
+  color:#6c778a;
+  margin-left:7px
+}
 
 .steps{
   display:grid;
   grid-template-columns:repeat(3,1fr);
-  gap:13px;
+  border-top:1px solid #e1e7f0;
+  border-bottom:1px solid #e1e7f0
 }
 
 .step{
-  min-height:205px;
-  padding:25px;
-  border:1px solid var(--line);
-  border-radius:22px;
-  background:rgba(14,19,15,.5);
+  padding:28px 30px;
+  border-right:1px solid #e1e7f0
 }
 
-.step-number{
-  color:var(--green);
-  font-size:11px;
+.step:last-child{border:0}
+
+.num{
+  width:30px;
+  height:30px;
+  border-radius:50%;
+  background:#075bea;
+  color:#fff;
+  display:grid;
+  place-items:center;
   font-weight:800;
-  margin-bottom:42px;
+  margin-bottom:14px
 }
 
 .step h3{
-  font-size:17px;
-  margin-bottom:9px;
+  font-size:16px;
+  margin:0 0 8px
 }
 
 .step p{
-  color:var(--muted);
-  font-size:11px;
-  line-height:1.65;
+  font-size:12px;
+  color:#657086;
+  line-height:1.6;
+  max-width:270px
 }
-
-/* ---------- PRICING ---------- */
 
 .pricing{
+  background:#f7f9fd;
+  padding:65px 0
+}
+
+.priceGrid{
   display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:13px;
+  grid-template-columns:1.35fr 1fr 1fr 1fr;
+  gap:12px
 }
 
-.price-card{
-  padding:32px;
-  border:1px solid var(--line);
-  border-radius:25px;
-  background:
-    radial-gradient(circle at 100% 0%,rgba(140,255,0,.07),transparent 50%),
-    rgba(14,19,15,.62);
+.journey{
+  border-radius:14px;
+  background:linear-gradient(120deg,#095be8,#123fc0);
+  color:#fff;
+  padding:28px;
+  min-height:165px;
+  position:relative;
+  overflow:hidden
 }
 
-.price-card.featured{
-  border-color:rgba(140,255,0,.3);
+.journey h2{
+  font-size:26px;
+  line-height:1.1;
+  margin:0 0 10px;
+  max-width:280px
 }
 
-.price-label{
-  font-size:9px;
-  color:var(--muted);
-  font-weight:700;
-  letter-spacing:1px;
+.journey p{font-size:12px}
+
+.rocket{
+  position:absolute;
+  right:20px;
+  bottom:10px;
+  font-size:70px;
+  transform:rotate(-18deg)
+}
+
+.priceCard,.perks{
+  background:#fff;
+  border:1px solid #e2e8f1;
+  border-radius:14px;
+  padding:25px;
+  min-height:165px
+}
+
+.priceCard h4{
+  font-size:11px;
+  color:#075bea;
+  margin:0 0 4px
 }
 
 .price{
-  font-size:43px;
-  letter-spacing:-2px;
-  margin:15px 0 6px;
-  font-weight:800;
+  font-size:31px;
+  font-weight:900
 }
 
-.price-card p{
-  color:var(--muted);
+.priceCard p{
   font-size:11px;
+  color:#657086;
+  line-height:1.45;
+  margin:4px 0 14px
 }
 
-.price-btn{
-  width:100%;
-  margin-top:28px;
+.small{
+  background:#075bea;
+  color:#fff;
+  padding:9px 14px;
+  border-radius:8px;
+  font-size:11px;
+  font-weight:750;
+  display:inline-block
 }
 
-/* ---------- TRUST ---------- */
+.perks{
+  background:#eef4ff;
+  border:0
+}
 
-.trust-grid{
+.perk{
+  font-size:11px;
+  font-weight:650;
+  margin-bottom:12px
+}
+
+.perk i{
+  font-style:normal;
+  color:#075bea;
+  margin-right:8px
+}
+
+.why{
+  padding:48px 0 25px
+}
+
+.whyGrid{
   display:grid;
   grid-template-columns:repeat(4,1fr);
   gap:12px;
+  margin-top:20px
 }
 
-.trust{
-  padding:22px;
-  border:1px solid var(--line);
-  border-radius:20px;
-  background:rgba(13,18,14,.45);
+.whyCard{
+  padding:23px;
+  border:1px solid #e4eaf3;
+  border-radius:13px;
+  min-height:125px
 }
 
-.trust-icon{
-  font-size:20px;
-  margin-bottom:25px;
+.whyCard i{
+  font-style:normal;
+  color:#075bea;
+  font-size:25px
 }
 
-.trust h3{
-  font-size:12px;
+.whyCard h3{
+  font-size:14px;
+  margin:9px 0 4px
 }
 
-.trust p{
-  color:var(--muted);
-  font-size:10px;
-  line-height:1.5;
-  margin-top:6px;
+.whyCard p{
+  font-size:11px;
+  color:#667187
 }
-
-/* ---------- CTA ---------- */
 
 .cta{
-  max-width:1150px;
-  margin:110px auto 0;
-  padding:60px 5%;
-  position:relative;
-  overflow:hidden;
-  border:1px solid rgba(140,255,0,.18);
-  border-radius:30px;
-  background:
-    radial-gradient(circle at 85% 20%,rgba(140,255,0,.13),transparent 35%),
-    rgba(12,17,13,.72);
-}
-
-.cta:after{
-  content:"";
-  position:absolute;
-  width:300px;
-  height:300px;
-  right:-130px;
-  bottom:-170px;
-  border-radius:50%;
-  background:rgba(140,255,0,.1);
-  filter:blur(60px);
+  margin:28px auto;
+  width:min(1100px,calc(100% - 48px));
+  border-radius:15px;
+  background:linear-gradient(100deg,#0a55d8,#0a65e9);
+  color:#fff;
+  padding:22px 27px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between
 }
 
 .cta h2{
-  max-width:600px;
-  font-size:40px;
-  letter-spacing:-2.5px;
+  font-size:20px;
+  margin:0
 }
 
 .cta p{
-  color:var(--muted);
-  font-size:13px;
-  margin:12px 0 27px;
+  font-size:11px;
+  margin:3px 0 0
 }
 
-/* ---------- FOOTER ---------- */
+.cta .btn{
+  background:#fff;
+  color:#075bea
+}
 
 footer{
-  max-width:1250px;
-  margin:90px auto 0;
-  padding:30px 5%;
-  border-top:1px solid var(--line);
+  background:#09204e;
+  color:#fff;
+  padding:18px 0 13px
+}
+
+.foot{
   display:flex;
-  justify-content:space-between;
   align-items:center;
+  justify-content:space-between
 }
 
-footer p{
-  color:var(--muted2);
-  font-size:10px;
-}
-
-.footer-links{
+.flinks{
   display:flex;
-  gap:20px;
+  gap:23px;
+  font-size:11px
 }
 
-.footer-links a{
-  color:var(--muted);
-  text-decoration:none;
-  font-size:10px;
+.copy{
+  font-size:9px;
+  opacity:.55;
+  margin-top:12px
 }
 
-/* ---------- MODAL ---------- */
-
-.modal{
-  position:fixed;
-  inset:0;
-  z-index:500;
-  display:none;
-  align-items:center;
-  justify-content:center;
-  padding:20px;
-  background:rgba(0,0,0,.7);
-  backdrop-filter:blur(14px);
+/* TABLET */
+@media(max-width:1000px){
+  .links{gap:15px}
+  .cats{grid-template-columns:repeat(4,1fr)}
+  .trendGrid{grid-template-columns:repeat(3,1fr)}
+  .priceGrid{grid-template-columns:1fr 1fr}
+  .journey{grid-column:span 2}
+  .heroIn{grid-template-columns:1fr}
+  .heroCopy{padding:50px 0 20px}
+  .art{min-height:400px}
 }
 
-.modal.show{
-  display:flex;
-}
-
-.modal-box{
-  width:min(470px,100%);
-  border:1px solid var(--line2);
-  border-radius:25px;
-  background:rgba(12,17,13,.92);
-  box-shadow:0 30px 100px rgba(0,0,0,.5);
-  padding:28px;
-}
-
-.modal-head{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  margin-bottom:25px;
-}
-
-.modal-head h3{
-  font-size:20px;
-}
-
-.close{
-  width:32px;
-  height:32px;
-  border-radius:50%;
-  border:1px solid var(--line);
-  background:rgba(255,255,255,.04);
-  color:white;
-  cursor:pointer;
-}
-
-.form-group{
-  margin-bottom:15px;
-}
-
-.form-group label{
-  display:block;
-  font-size:10px;
-  color:var(--muted);
-  margin-bottom:7px;
-}
-
-.form-group input,
-.form-group select,
-.form-group textarea{
-  width:100%;
-  border:1px solid var(--line);
-  border-radius:12px;
-  background:rgba(255,255,255,.035);
-  color:white;
-  padding:13px;
-  outline:none;
-  font:inherit;
-  font-size:12px;
-}
-
-.form-group textarea{
-  min-height:90px;
-  resize:vertical;
-}
-
-.form-group input:focus,
-.form-group select:focus,
-.form-group textarea:focus{
-  border-color:rgba(140,255,0,.4);
-}
-
-.form-submit{
-  width:100%;
-  margin-top:8px;
-}
-
-/* ---------- MOBILE ---------- */
-
-@media(max-width:900px){
-
-  .nav{
-    height:65px;
-    padding:0 20px;
+/* MOBILE */
+@media(max-width:700px){
+  .container{
+    width:calc(100% - 32px)
   }
 
-  .nav-links{
-    display:none;
+  .nav{height:66px}
+
+  .links,.user{
+    display:none
   }
 
-  .nav-btn{
-    padding:9px 12px;
-    font-size:10px;
-  }
-
-  .hero{
-    min-height:auto;
-    padding:70px 20px 60px;
-    grid-template-columns:1fr;
-    gap:45px;
+  .actions .btn{
+    padding:10px 12px;
+    font-size:11px
   }
 
   .hero h1{
-    font-size:51px;
-    letter-spacing:-3.5px;
+    font-size:41px
   }
 
-  .hero-copy{
-    font-size:13px;
+  .hero p{
+    font-size:13px
   }
 
-  .hero-board-wrap{
-    max-width:600px;
-    margin:auto;
-    width:100%;
+  .heroIn{
+    display:block
+  }
+
+  .heroCopy{
+    padding:42px 0 10px
+  }
+
+  .art{
+    height:350px
+  }
+
+  .podiumWrap{
+    transform:scale(.67);
+    margin-left:-20px
   }
 
   .stats{
-    padding:0 20px;
-    margin:0;
+    width:calc(100% - 20px);
+    height:90px
   }
 
-  .section{
-    padding:80px 20px 0;
+  .head{
+    display:block
   }
 
-  .section h2{
-    font-size:29px;
+  .cats{
+    grid-template-columns:repeat(2,1fr)
   }
 
-  .categories{
-    grid-template-columns:repeat(2,1fr);
-  }
-
-  .listings{
-    grid-template-columns:repeat(2,1fr);
-  }
-
-  .trust-grid{
-    grid-template-columns:repeat(2,1fr);
-  }
-
-  .section-head{
-    display:block;
-  }
-
-  .filters{
-    margin-top:20px;
-  }
-
-  .pricing{
-    grid-template-columns:1fr;
+  .trendGrid{
+    grid-template-columns:repeat(2,1fr)
   }
 
   .steps{
-    grid-template-columns:1fr;
+    grid-template-columns:1fr
+  }
+
+  .step{
+    border-right:0;
+    border-bottom:1px solid #e1e7f0
+  }
+
+  .priceGrid{
+    grid-template-columns:1fr
+  }
+
+  .journey{
+    grid-column:auto
+  }
+
+  .whyGrid{
+    grid-template-columns:1fr 1fr
   }
 
   .cta{
-    margin:80px 20px 0;
-    padding:40px 25px;
-  }
-
-  .cta h2{
-    font-size:32px;
-  }
-
-  footer{
-    margin-top:70px;
-    padding:25px 20px;
     display:block;
+    width:calc(100% - 32px)
   }
 
-  .footer-links{
-    margin-top:15px;
+  .cta .btn{
+    margin-top:15px
+  }
+
+  .foot{
+    display:block
+  }
+
+  .flinks{
     flex-wrap:wrap;
+    margin-top:12px
   }
 }
 
-@media(max-width:520px){
-
-  .stats-card{
-    grid-template-columns:1fr;
+/* SMALL MOBILE */
+@media(max-width:430px){
+  .hero h1{
+    font-size:37px
   }
 
-  .stat{
-    border-right:0;
-    border-bottom:1px solid var(--line);
+  .podiumWrap{
+    transform:scale(.56);
+    margin-left:-55px
   }
 
-  .stat:last-child{
-    border-bottom:0;
+  .trendGrid{
+    grid-template-columns:1fr
   }
 
-  .categories{
-    gap:9px;
-  }
-
-  .category{
-    min-height:125px;
-    padding:16px;
-  }
-
-  .listings{
-    grid-template-columns:1fr 1fr;
-    gap:9px;
-  }
-
-  .listing-image{
-    height:125px;
-  }
-
-  .listing-body{
-    padding:13px;
-  }
-
-  .ranking{
-    padding:30px 13px 20px;
-    gap:6px;
-  }
-
-  .podium{
-    width:31%;
-  }
-
-  .podium.one{
-    height:215px;
-  }
-
-  .podium.two{
-    height:165px;
-  }
-
-  .podium.three{
-    height:130px;
-  }
-
-  .podium-icon{
-    width:43px;
-    height:43px;
-    font-size:18px;
+  .whyGrid{
+    grid-template-columns:1fr
   }
 }
 </style>
@@ -1001,538 +807,786 @@ footer p{
 
 <body>
 
-<!-- NAV -->
-<nav class="nav">
-  <div class="logo">TOP<span>ME</span></div>
+<header class="nav">
+  <div class="container navin">
 
-  <div class="nav-links">
-    <a href="#explore">Explore</a>
-    <a href="#categories">Categories</a>
-    <a href="#trending">Trending</a>
-    <a href="#how">How it works</a>
-    <a href="#pricing">Pricing</a>
+    <a class="logo" href="#">
+      TOP<span>ME</span>
+    </a>
+
+    <nav class="links">
+      <a href="#explore">Explore</a>
+      <a href="#categories">Categories</a>
+      <a href="#trending">Trending</a>
+      <a href="#how">How it works</a>
+      <a href="#pricing">Pricing</a>
+    </nav>
+
+    <div class="actions">
+      <a class="btn" href="#pricing">
+        ✦ Put Something on TOPME
+      </a>
+      <div class="user">♙</div>
+    </div>
+
   </div>
+</header>
 
-  <button class="nav-btn" onclick="openModal()">
-    + Put on TOP
-  </button>
-</nav>
 
+<main id="explore">
 
 <!-- HERO -->
+
 <section class="hero">
 
-  <div>
-    <div class="eyebrow">
-      <span class="live-dot"></span>
-      TOPME IS LIVE
-    </div>
+<div class="container heroIn">
 
-    <h1>
-      What deserves<br>
-      to be <span>on top?</span>
-    </h1>
+<div class="heroCopy">
 
-    <p class="hero-copy">
-      Put anything worth noticing on the board.
-      Get discovered, climb the rankings and compete
-      for the top.
-    </p>
+<div class="pill">
+  <span class="dot"></span>
+  TOPME IS LIVE
+</div>
 
-    <div class="hero-actions">
-      <button class="btn btn-green" onclick="openModal()">
-        + Put Something on TOPME
-      </button>
+<h1>
+  Put what's worth noticing
+  <span class="blue">on top.</span>
+</h1>
 
-      <a href="#trending">
-        <button class="btn btn-dark">
-          Explore Rankings →
-        </button>
-      </a>
-    </div>
-  </div>
+<p>
+  A public board where creators, artists, businesses,
+  products and ideas compete for attention.
+  <br>
+  Get discovered. Climb the rankings. Be on top.
+</p>
 
+<div class="heroBtns">
 
-  <div class="hero-board-wrap">
+<a class="btn" href="#pricing">
+  ✦ Put Something on TOPME
+</a>
 
-    <div class="board">
+<a class="outline" href="#trending">
+  Explore Rankings →
+</a>
 
-      <div class="board-top">
-        <span class="board-title">TOPME LIVE BOARD</span>
-        <span>GLOBAL · LIVE</span>
-      </div>
+</div>
 
-      <div class="ranking">
+<div class="trust">
 
-        <div class="podium two">
-          <span class="rank">#2</span>
-          <div class="podium-icon">🎧</div>
-          <div class="podium-name">Music</div>
-          <div class="score">8.4K views</div>
-        </div>
+<div class="faces">
+  <i class="face"></i>
+  <i class="face"></i>
+  <i class="face"></i>
+  <i class="face"></i>
+  <i class="face"></i>
+</div>
 
-        <div class="podium one">
-          <span class="rank">#1</span>
-          <div class="podium-icon">👑</div>
-          <div class="podium-name">ON TOP</div>
-          <div class="score">12.4K views</div>
-        </div>
+300+ creators &amp; businesses
+<br>
+already on the board
 
-        <div class="podium three">
-          <span class="rank">#3</span>
-          <div class="podium-icon">🚀</div>
-          <div class="podium-name">Startup</div>
-          <div class="score">7.1K views</div>
-        </div>
+</div>
 
-      </div>
-    </div>
-
-  </div>
-</section>
+</div>
 
 
-<!-- STATS -->
-<section class="stats">
+<div class="art">
 
-  <div class="stats-card">
+<div class="city"></div>
 
-    <div class="stat">
-      <strong id="listingCount">0</strong>
-      <span>LISTINGS</span>
-    </div>
+<div class="podiumWrap">
 
-    <div class="stat">
-      <strong id="countryCount">0</strong>
-      <span>COUNTRIES</span>
-    </div>
+<div class="glow"></div>
 
-    <div class="stat">
-      <strong>—</strong>
-      <span>BOARD VIEWS</span>
-    </div>
+<div class="crown">♛</div>
 
-  </div>
+<div class="block two">2</div>
 
+<div class="block one">1</div>
+
+<div class="block three">3</div>
+
+<div class="base"></div>
+
+
+<div class="stats">
+
+<div class="stat">
+  <i>♧</i>
+  <b>0</b>
+  <small>Listings</small>
+</div>
+
+<div class="stat">
+  <i>◎</i>
+  <b>0</b>
+  <small>Countries</small>
+</div>
+
+<div class="stat">
+  <i>◉</i>
+  <b>0</b>
+  <small>Board Views</small>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
 </section>
 
 
 <!-- CATEGORIES -->
+
 <section class="section" id="categories">
 
-  <div class="section-head">
-    <div>
-      <div class="kicker">Explore categories</div>
-      <h2>Find your space.</h2>
-      <p class="section-sub">Put yourself where people are looking.</p>
-    </div>
-  </div>
+<div class="container">
 
-  <div class="categories">
+<div class="head">
 
-    <div class="category">
-      <div class="cat-icon">🎨</div>
-      <h3>Creators</h3>
-      <p>Explore creators</p>
-    </div>
+<div>
 
-    <div class="category">
-      <div class="cat-icon">🎵</div>
-      <h3>Music</h3>
-      <p>Explore music</p>
-    </div>
+<div class="kicker">
+  EXPLORE CATEGORIES
+</div>
 
-    <div class="category">
-      <div class="cat-icon">🎬</div>
-      <h3>Videos</h3>
-      <p>Explore videos</p>
-    </div>
+<h2>
+  Find your space.
+  <br>
+  <span class="blue">Be discovered.</span>
+</h2>
 
-    <div class="category">
-      <div class="cat-icon">📦</div>
-      <h3>Products</h3>
-      <p>Explore products</p>
-    </div>
+</div>
 
-    <div class="category">
-      <div class="cat-icon">🚀</div>
-      <h3>Startups</h3>
-      <p>Explore startups</p>
-    </div>
+<a
+  class="blue"
+  style="font-size:13px;font-weight:750"
+  href="#trending"
+>
+  View all categories →
+</a>
 
-    <div class="category">
-      <div class="cat-icon">💼</div>
-      <h3>Businesses</h3>
-      <p>Explore businesses</p>
-    </div>
+</div>
 
-    <div class="category">
-      <div class="cat-icon">🌐</div>
-      <h3>Websites</h3>
-      <p>Explore websites</p>
-    </div>
 
-    <div class="category">
-      <div class="cat-icon">🖼️</div>
-      <h3>Art</h3>
-      <p>Explore art</p>
-    </div>
+<div class="cats">
 
-  </div>
+<a class="cat" href="#trending">
+  <i>♙</i>
+  <span>Creators</span>
+</a>
+
+<a class="cat" href="#trending">
+  <i>♫</i>
+  <span>Music</span>
+</a>
+
+<a class="cat" href="#trending">
+  <i>▷</i>
+  <span>Videos</span>
+</a>
+
+<a class="cat" href="#trending">
+  <i>◇</i>
+  <span>Products</span>
+</a>
+
+<a class="cat" href="#trending">
+  <i>🚀</i>
+  <span>Startups</span>
+</a>
+
+<a class="cat" href="#trending">
+  <i>▣</i>
+  <span>Businesses</span>
+</a>
+
+<a class="cat" href="#trending">
+  <i>◎</i>
+  <span>Websites</span>
+</a>
+
+<a class="cat" href="#trending">
+  <i>◉</i>
+  <span>Art</span>
+</a>
+
+</div>
+
+</div>
+
 </section>
 
 
 <!-- TRENDING -->
-<section class="section" id="trending">
 
-  <div class="section-head">
+<section class="trending" id="trending">
 
-    <div>
-      <div class="kicker">🔥 Live board</div>
-      <h2>Trending right now</h2>
-      <p class="section-sub">
-        The strongest listings competing for the top.
-      </p>
-    </div>
+<div class="container">
 
-    <div class="filters">
-      <button class="filter active">All</button>
-      <button class="filter">Creators</button>
-      <button class="filter">Music</button>
-      <button class="filter">Videos</button>
-      <button class="filter">Products</button>
-      <button class="filter">India</button>
-    </div>
+<div class="head">
 
-  </div>
+<div>
 
+<div class="kicker">
+  LIVE BOARD 🔴
+</div>
 
-  <div class="listings">
+<h2>
+  Trending right now
+</h2>
 
-    <article class="listing">
-      <div class="listing-image">🎤</div>
-      <div class="listing-body">
-        <span class="tag">MUSIC</span>
-        <h3>Waiting for the next one</h3>
-        <p>Be one of the first on TOPME.</p>
-        <div class="listing-meta">
-          <span class="up">↑ New</span>
-          <span>👁 0</span>
-        </div>
-      </div>
-    </article>
+</div>
+
+<a
+  class="blue"
+  style="font-size:13px;font-weight:750"
+  href="#trending"
+>
+  View Full Rankings →
+</a>
+
+</div>
 
 
-    <article class="listing">
-      <div class="listing-image">🎨</div>
-      <div class="listing-body">
-        <span class="tag">CREATORS</span>
-        <h3>Your name here</h3>
-        <p>Claim your place.</p>
-        <div class="listing-meta">
-          <span class="up">↑ New</span>
-          <span>👁 0</span>
-        </div>
-      </div>
-    </article>
+<div class="tabs">
+
+<button class="tab active">All</button>
+<button class="tab">Creators</button>
+<button class="tab">Music</button>
+<button class="tab">Videos</button>
+<button class="tab">Products</button>
+<button class="tab">Startups</button>
+<button class="tab">Businesses</button>
+
+</div>
 
 
-    <article class="listing">
-      <div class="listing-image">🚀</div>
-      <div class="listing-body">
-        <span class="tag">STARTUPS</span>
-        <h3>Build something big</h3>
-        <p>Get discovered globally.</p>
-        <div class="listing-meta">
-          <span class="up">↑ New</span>
-          <span>👁 0</span>
-        </div>
-      </div>
-    </article>
+<div class="trendGrid">
 
 
-    <article class="listing">
-      <div class="listing-image">💡</div>
-      <div class="listing-body">
-        <span class="tag">IDEAS</span>
-        <h3>Put your idea here</h3>
-        <p>Let people decide.</p>
-        <div class="listing-meta">
-          <span class="up">↑ New</span>
-          <span>👁 0</span>
-        </div>
-      </div>
-    </article>
+<article class="card">
 
-  </div>
+<div class="pic c1">
+
+<span class="rank">1</span>
+
+🎤
+
+</div>
+
+<div class="body">
+
+<span class="tag">
+  MUSIC
+</span>
+
+<h3>
+  Midnight Echoes
+</h3>
+
+<div class="by">
+  by Aryan
+</div>
+
+<div class="eng">
+  ↑ 12.4K
+  <span>◉</span>
+</div>
+
+</div>
+
+</article>
+
+
+<article class="card">
+
+<div class="pic c2">
+
+<span class="rank">2</span>
+
+👟
+
+</div>
+
+<div class="body">
+
+<span class="tag">
+  PRODUCTS
+</span>
+
+<h3>
+  Kicks One Pro
+</h3>
+
+<div class="by">
+  by KicksLab
+</div>
+
+<div class="eng">
+  ↑ 9.8K
+  <span>◉</span>
+</div>
+
+</div>
+
+</article>
+
+
+<article class="card">
+
+<div class="pic c3">
+
+<span class="rank">3</span>
+
+<b style="color:#fff;font-size:35px">
+  PIXORA
+</b>
+
+</div>
+
+<div class="body">
+
+<span class="tag">
+  STARTUPS
+</span>
+
+<h3>
+  Pixora AI
+</h3>
+
+<div class="by">
+  by Pixora
+</div>
+
+<div class="eng">
+  ↑ 8.2K
+  <span>◉</span>
+</div>
+
+</div>
+
+</article>
+
+
+<article class="card">
+
+<div class="pic c4">
+
+<span class="rank">4</span>
+
+👩🏻
+
+</div>
+
+<div class="body">
+
+<span class="tag">
+  CREATORS
+</span>
+
+<h3>
+  Rhea's Studio
+</h3>
+
+<div class="by">
+  by Rhea
+</div>
+
+<div class="eng">
+  ↑ 7.1K
+  <span>◉</span>
+</div>
+
+</div>
+
+</article>
+
+
+<article class="card">
+
+<div class="pic c5">
+
+<span class="rank">5</span>
+
+🎥
+
+</div>
+
+<div class="body">
+
+<span class="tag">
+  VIDEOS
+</span>
+
+<h3>
+  The Hustle Story
+</h3>
+
+<div class="by">
+  by FrameBreak
+</div>
+
+<div class="eng">
+  ↑ 6.3K
+  <span>◉</span>
+</div>
+
+</div>
+
+</article>
+
+
+</div>
+
+</div>
+
 </section>
 
 
 <!-- HOW IT WORKS -->
+
 <section class="section" id="how">
 
-  <div class="section-head">
-    <div>
-      <div class="kicker">How it works</div>
-      <h2>Three simple steps.</h2>
-    </div>
-  </div>
+<div class="container">
 
-  <div class="steps">
+<div class="kicker">
+  HOW IT WORKS
+</div>
 
-    <div class="step">
-      <div class="step-number">01</div>
-      <h3>Put something on TOPME</h3>
-      <p>
-        Add yourself, music, product, business,
-        video, website or anything worth discovering.
-      </p>
-    </div>
+<h2>
+  Three simple steps.
+</h2>
 
-    <div class="step">
-      <div class="step-number">02</div>
-      <h3>Enter the board</h3>
-      <p>
-        After successful payment your listing
-        enters the appropriate category and becomes discoverable.
-      </p>
-    </div>
 
-    <div class="step">
-      <div class="step-number">03</div>
-      <h3>Compete for the top</h3>
-      <p>
-        Boost your listing and compete for stronger
-        visibility and higher ranking.
-      </p>
-    </div>
+<div
+  class="steps"
+  style="margin-top:22px"
+>
 
-  </div>
+
+<div class="step">
+
+<div class="num">1</div>
+
+<h3>
+  Put something
+</h3>
+
+<p>
+  Add yourself, music, product, business,
+  video, website or anything worth discovering.
+</p>
+
+</div>
+
+
+<div class="step">
+
+<div class="num">2</div>
+
+<h3>
+  Enter the board
+</h3>
+
+<p>
+  After payment, your listing goes live
+  in the right category and becomes discoverable.
+</p>
+
+</div>
+
+
+<div class="step">
+
+<div class="num">3</div>
+
+<h3>
+  Compete for the top
+</h3>
+
+<p>
+  Boost your listing and compete for stronger
+  visibility and higher ranking.
+</p>
+
+</div>
+
+
+</div>
+
+</div>
+
 </section>
 
 
 <!-- PRICING -->
-<section class="section" id="pricing">
 
-  <div class="section-head">
-    <div>
-      <div class="kicker">Simple pricing</div>
-      <h2>No subscription.</h2>
-      <p class="section-sub">
-        Start competing whenever you're ready.
-      </p>
-    </div>
-  </div>
+<section class="pricing" id="pricing">
+
+<div class="container">
+
+<div class="priceGrid">
 
 
-  <div class="pricing">
+<div class="journey">
 
-    <div class="price-card featured">
-      <div class="price-label">LIST SOMETHING</div>
-      <div class="price">₹49</div>
-      <p>
-        One-time entry fee to create your TOPME listing.
-      </p>
+<h2>
+  Start your journey on TOPME
+</h2>
 
-      <button class="btn btn-green price-btn" onclick="openModal()">
-        List Something — ₹49
-      </button>
-    </div>
+<p>
+  One-time entry. Lifetime opportunity.
+</p>
+
+<div class="rocket">
+  🚀
+</div>
+
+</div>
 
 
-    <div class="price-card">
-      <div class="price-label">BOOST</div>
-      <div class="price">₹49</div>
-      <p>
-        Give an existing listing another visibility push.
-      </p>
+<div class="priceCard">
 
-      <button class="btn btn-dark price-btn" onclick="openModal()">
-        Boost a Listing
-      </button>
-    </div>
+<h4>
+  LIST SOMETHING
+</h4>
 
-  </div>
+<div class="price">
+  ₹49
+</div>
+
+<p>
+  One-time entry fee to create your TOPME listing.
+</p>
+
+<a class="small" href="#">
+  List Something →
+</a>
+
+</div>
+
+
+<div class="priceCard">
+
+<h4>
+  BOOST LISTING
+</h4>
+
+<div class="price">
+  ₹49
+</div>
+
+<p>
+  Give an existing listing another visibility push.
+</p>
+
+<a class="small" href="#">
+  Boost a Listing →
+</a>
+
+</div>
+
+
+<div class="perks">
+
+<div class="perk">
+  <i>♧</i>
+  Secure payments
+</div>
+
+<div class="perk">
+  <i>▣</i>
+  Cancel anytime
+</div>
+
+<div class="perk">
+  <i>⌁</i>
+  No subscription
+</div>
+
+<div class="perk">
+  <i>♕</i>
+  Fair competition
+</div>
+
+</div>
+
+
+</div>
+
+</div>
 
 </section>
 
 
-<!-- TRUST -->
-<section class="section">
+<!-- WHY TOPME -->
 
-  <div class="section-head">
-    <div>
-      <div class="kicker">Why TOPME?</div>
-      <h2>Built to be simple.</h2>
-    </div>
-  </div>
+<section class="why">
+
+<div class="container">
+
+<div class="kicker">
+  WHY JOIN TOPME?
+</div>
+
+<h2>
+  Built to be simple.
+</h2>
 
 
-  <div class="trust-grid">
+<div class="whyGrid">
 
-    <div class="trust">
-      <div class="trust-icon">🛡️</div>
-      <h3>Trusted & Secure</h3>
-      <p>Safe payments and protected user data.</p>
-    </div>
 
-    <div class="trust">
-      <div class="trust-icon">🌍</div>
-      <h3>Open for Everyone</h3>
-      <p>Anyone can list. Anyone can be discovered.</p>
-    </div>
+<div class="whyCard">
 
-    <div class="trust">
-      <div class="trust-icon">📈</div>
-      <h3>Fair Competition</h3>
-      <p>Rankings are built around real engagement.</p>
-    </div>
+<i>♢</i>
 
-    <div class="trust">
-      <div class="trust-icon">⚡</div>
-      <h3>Global Exposure</h3>
-      <p>Get discovered locally or around the world.</p>
-    </div>
+<h3>
+  Trusted &amp; Secure
+</h3>
 
-  </div>
+<p>
+  Safe payments. Your data is always protected.
+</p>
+
+</div>
+
+
+<div class="whyCard">
+
+<i>♙</i>
+
+<h3>
+  Open for Everyone
+</h3>
+
+<p>
+  Anyone can list. Anyone can be discovered.
+</p>
+
+</div>
+
+
+<div class="whyCard">
+
+<i>▥</i>
+
+<h3>
+  Fair Competition
+</h3>
+
+<p>
+  Rankings are built around real engagement.
+</p>
+
+</div>
+
+
+<div class="whyCard">
+
+<i>◎</i>
+
+<h3>
+  Global Exposure
+</h3>
+
+<p>
+  Get discovered locally or around the world.
+</p>
+
+</div>
+
+
+</div>
+
+</div>
 
 </section>
 
 
 <!-- CTA -->
-<section class="cta">
 
-  <div class="kicker">Ready?</div>
+<div class="cta">
 
-  <h2>
-    Put your story where it deserves to be seen.
-  </h2>
+<div>
 
-  <p>
-    One-time entry. Lifetime opportunity.
-  </p>
+<h2>
+  Ready to be on top?
+</h2>
 
-  <button class="btn btn-green" onclick="openModal()">
-    + Put Something on TOPME
-  </button>
+<p>
+  Put your story where it deserves to be seen.
+</p>
 
-</section>
+</div>
+
+<a class="btn" href="#pricing">
+  ✦ Put Something on TOPME
+</a>
+
+</div>
+
+</main>
 
 
 <!-- FOOTER -->
+
 <footer>
 
-  <p>© 2026 TOPME. All rights reserved.</p>
+<div class="container">
 
-  <div class="footer-links">
-    <a href="#">Home</a>
-    <a href="#trending">Explore</a>
-    <a href="#categories">Categories</a>
-    <a href="#pricing">Pricing</a>
-  </div>
+<div class="foot">
+
+<div class="logo" style="color:#fff">
+  TOP<span>ME</span>
+</div>
+
+<div class="flinks">
+
+<a href="#explore">Home</a>
+<a href="#explore">Explore</a>
+<a href="#categories">Categories</a>
+<a href="#trending">Trending</a>
+<a href="#how">How it works</a>
+<a href="#pricing">Pricing</a>
+
+</div>
+
+<div>
+  ◎　𝕏　▶　✉
+</div>
+
+</div>
+
+<div class="copy">
+  © 2026 TOPME. All rights reserved.
+</div>
+
+</div>
 
 </footer>
 
 
-<!-- MODAL -->
-<div class="modal" id="listingModal" onclick="closeOutside(event)">
-
-  <div class="modal-box">
-
-    <div class="modal-head">
-      <h3>Put something on TOPME</h3>
-      <button class="close" onclick="closeModal()">×</button>
-    </div>
-
-    <div class="form-group">
-      <label>NAME / TITLE</label>
-      <input type="text" placeholder="Your name or listing title">
-    </div>
-
-    <div class="form-group">
-      <label>CATEGORY</label>
-      <select>
-        <option>Creators</option>
-        <option>Music</option>
-        <option>Videos</option>
-        <option>Products</option>
-        <option>Startups</option>
-        <option>Businesses</option>
-        <option>Websites</option>
-        <option>Art</option>
-      </select>
-    </div>
-
-    <div class="form-group">
-      <label>DESCRIPTION</label>
-      <textarea placeholder="Tell people why you deserve attention..."></textarea>
-    </div>
-
-    <div class="form-group">
-      <label>LINK</label>
-      <input type="url" placeholder="https://...">
-    </div>
-
-    <button class="btn btn-green form-submit" onclick="submitListing()">
-      Continue — ₹49
-    </button>
-
-  </div>
-
-</div>
-
-
 <script>
 
-function openModal(){
-  document.getElementById("listingModal").classList.add("show");
-  document.body.style.overflow="hidden";
-}
+document.querySelectorAll('.tab').forEach(x => {
 
-function closeModal(){
-  document.getElementById("listingModal").classList.remove("show");
-  document.body.style.overflow="";
-}
+  x.onclick = () => {
 
-function closeOutside(e){
-  if(e.target.id==="listingModal"){
-    closeModal();
-  }
-}
+    document
+      .querySelectorAll('.tab')
+      .forEach(y => y.classList.remove('active'));
 
-function submitListing(){
-  alert("Listing flow is ready. Payment integration can be connected next.");
-}
+    x.classList.add('active');
 
-document.querySelectorAll(".filter").forEach(button=>{
-  button.addEventListener("click",()=>{
-    document.querySelectorAll(".filter")
-      .forEach(b=>b.classList.remove("active"));
+  };
 
-    button.classList.add("active");
-  });
 });
-
-/* smooth counter */
-function counter(id,target){
-  let el=document.getElementById(id);
-  let value=0;
-  let step=Math.max(1,Math.ceil(target/30));
-
-  let timer=setInterval(()=>{
-    value+=step;
-
-    if(value>=target){
-      value=target;
-      clearInterval(timer);
-    }
-
-    el.textContent=value;
-  },30);
-}
-
-counter("listingCount",0);
-counter("countryCount",0);
 
 </script>
 
