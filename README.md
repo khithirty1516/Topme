@@ -1,13 +1,11 @@
-# TOPME — 3D Blue Landing Page
+# TOPME — Reference Rebuild
 
-Static GitHub Pages-ready website matching the supplied TOPME reference:
-- white/light-blue visual system
-- blue primary CTA
-- gold 3D-style #1 crown
-- custom SVG category icons
-- custom SVG 3D-style ranking artwork
-- responsive mobile/tablet/desktop layout
-- no external libraries required
+This package is a self-contained GitHub Pages landing page based on the supplied TOPME visual reference.
+
+## Upload
+Upload `index.html` and the complete `assets` folder to the repository root.
 
 ## GitHub Pages
-Upload `index.html` and the `assets` folder to the repository root, commit, then enable GitHub Pages from Settings → Pages → Deploy from branch.
+Settings → Pages → Deploy from branch → `main` → `/ (root)` → Save.
+
+All visual assets used by the page are local SVG files, so there are no broken external image URLs.

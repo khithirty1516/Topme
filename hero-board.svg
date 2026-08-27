@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 460" fill="none">
+<defs>
+<linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#eef6ff"/><stop offset="1" stop-color="#cfe3ff"/></linearGradient>
+<linearGradient id="blue" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#147df5"/><stop offset="1" stop-color="#034cb9"/></linearGradient>
+<linearGradient id="gold" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#fff2a4"/><stop offset=".4" stop-color="#ffd12e"/><stop offset="1" stop-color="#e79700"/></linearGradient>
+<filter id="shadow"><feDropShadow dx="0" dy="12" stdDeviation="9" flood-opacity=".22"/></filter>
+</defs>
+<rect width="600" height="460" rx="22" fill="url(#bg)"/>
+<g opacity=".25" stroke="#9bb9df">
+<path d="M0 90h600M0 160h600M0 230h600M0 300h600M0 370h600"/>
+<path d="M70 0v460M150 0v460M230 0v460M310 0v460M390 0v460M470 0v460M550 0v460"/>
+</g>
+<g fill="#b9d0ea" opacity=".6">
+<path d="M35 280v-95h28v95M75 280v-145h35v145M124 280v-80h25v80M450 280v-125h30v125M492 280v-175h42v175M546 280v-100h22v100"/>
+</g>
+<ellipse cx="302" cy="340" rx="245" ry="35" fill="#80aee9" opacity=".35"/>
+<g filter="url(#shadow)">
+<rect x="125" y="270" width="105" height="105" rx="7" fill="url(#blue)"/>
+<rect x="225" y="195" width="155" height="180" rx="8" fill="url(#blue)"/>
+<rect x="375" y="250" width="105" height="125" rx="7" fill="url(#blue)"/>
+<ellipse cx="302" cy="375" rx="225" ry="28" fill="#0a55c5"/>
+<text x="178" y="338" font-family="Arial" font-size="64" font-weight="800" fill="white" text-anchor="middle">2</text>
+<text x="302" y="320" font-family="Arial" font-size="104" font-weight="800" fill="white" text-anchor="middle">1</text>
+<text x="427" y="338" font-family="Arial" font-size="64" font-weight="800" fill="white" text-anchor="middle">3</text>
+</g>
+<g transform="translate(256 90) scale(.9)" filter="url(#shadow)">
+<path d="M10 48 30 72 52 24l22 48 20-24-10 60H20L10 48Z" fill="url(#gold)" stroke="#d99100" stroke-width="2"/>
+<circle cx="10" cy="46" r="7" fill="#ffe77a"/><circle cx="52" cy="22" r="7" fill="#ffe77a"/><circle cx="94" cy="46" r="7" fill="#ffe77a"/>
+</g>
+<rect x="104" y="367" width="396" height="82" rx="16" fill="white" filter="url(#shadow)"/>
+<g font-family="Arial" text-anchor="middle" fill="#061a43">
+<text x="170" y="402" font-size="22" font-weight="800">0</text><text x="302" y="402" font-size="22" font-weight="800">0</text><text x="434" y="402" font-size="22" font-weight="800">0</text>
+<text x="170" y="425" font-size="12">Listings</text><text x="302" y="425" font-size="12">Countries</text><text x="434" y="425" font-size="12">Board Views</text>
+</g>
+</svg>
