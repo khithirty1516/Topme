@@ -5,627 +5,2437 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#070a0e">
 <title>TOPME — Put what deserves to be on top</title>
+
 <style>
-:root{--bg:#070a0e;--card:#10161d;--line:#252e38;--muted:#929dac;--text:#fff;--a:#a8ff3e}
-*{box-sizing:border-box;margin:0;padding:0}html{scroll-behavior:smooth}
-body{background:var(--bg);color:var(--text);font-family:Inter,system-ui,-apple-system,sans-serif;overflow-x:hidden}
-button,input,select,textarea{font:inherit}button{cursor:pointer}a{text-decoration:none;color:inherit}
-body:before{content:"";position:fixed;inset:0;z-index:-2;background:radial-gradient(circle at 15% 10%,#a8ff3e18,transparent 27%),radial-gradient(circle at 85% 20%,#62a8ff12,transparent 24%)}
-body:after{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:.18;background-image:linear-gradient(#fff000 1px,transparent 1px),linear-gradient(90deg,#fff000 1px,transparent 1px);background-size:55px 55px;mask-image:linear-gradient(#000,transparent 90%)}
-nav{height:68px;position:sticky;top:0;z-index:100;background:#070a0ecc;backdrop-filter:blur(18px);border-bottom:1px solid #ffffff10}
-.nav{width:min(1180px,92%);height:100%;margin:auto;display:flex;align-items:center;justify-content:space-between}
-.logo{font-size:25px;font-weight:950;letter-spacing:-1.5px}.logo span{color:var(--a)}
-.links{display:flex;gap:25px}.links a{font-size:13px;color:#aeb6c2;font-weight:700}.links a:hover{color:#fff}
-.add{border:0;border-radius:12px;padding:11px 17px;background:var(--a);color:#071000;font-weight:950;font-size:12px}
-.hero{width:min(1050px,92%);margin:auto;text-align:center;padding:100px 0 70px}
-.badge{display:inline-flex;gap:8px;align-items:center;padding:8px 13px;border:1px solid #ffffff18;border-radius:99px;background:#ffffff05;color:#c8ced7;font-size:11px;font-weight:800}
-.dot{width:7px;height:7px;border-radius:50%;background:var(--a);box-shadow:0 0 14px var(--a)}
-h1{margin-top:23px;font-size:clamp(52px,8.3vw,92px);line-height:.93;letter-spacing:-5.5px;font-weight:950}
-.gradient{background:linear-gradient(100deg,#fff,var(--a),#fff);background-size:220%;-webkit-background-clip:text;background-clip:text;color:transparent}
-.hero p{max-width:650px;margin:25px auto 0;color:var(--muted);font-size:15px;line-height:1.75}
-.buttons{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;margin-top:30px}
-.primary,.secondary{padding:14px 22px;border-radius:13px;font-size:13px;font-weight:950;transition:.2s}
-.primary{border:1px solid var(--a);background:var(--a);color:#071000}.secondary{border:1px solid var(--line);background:#11171e;color:#fff}
-.primary:hover,.secondary:hover,.add:hover{transform:translateY(-2px)}
-.stats{width:min(950px,92%);margin:auto;display:grid;grid-template-columns:repeat(3,1fr);border:1px solid var(--line);border-radius:18px;overflow:hidden;background:#0d1319}
-.stat{text-align:center;padding:22px;border-right:1px solid var(--line)}.stat:last-child{border:0}.stat strong{font-size:25px}.stat span{display:block;color:var(--muted);font-size:11px;margin-top:5px}
-.section{width:min(1180px,92%);margin:auto;padding:86px 0}.head{display:flex;justify-content:space-between;align-items:end;gap:20px;margin-bottom:28px}
-.title{font-size:29px;font-weight:950;letter-spacing:-.8px}.sub{color:var(--muted);font-size:13px;margin-top:7px}
-.categories{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
-.cat{min-height:110px;padding:19px;border:1px solid var(--line);border-radius:18px;background:radial-gradient(circle at 100% 0,#a8ff3e14,transparent 45%),var(--card);transition:.25s}
-.cat:hover,.cat.selected{transform:translateY(-4px);border-color:var(--a);box-shadow:0 0 0 1px #a8ff3e1f}.icon{font-size:25px}.catname{margin-top:12px;font-weight:900}.count{margin-top:5px;color:var(--muted);font-size:11px}
-.board{border:1px solid var(--line);border-radius:19px;overflow:hidden;background:#0b1015;box-shadow:0 25px 80px #0006}
-.filters{display:flex;gap:8px;padding:14px;overflow:auto;border-bottom:1px solid var(--line)}.filters::-webkit-scrollbar{display:none}
-.filter{white-space:nowrap;border:1px solid var(--line);border-radius:99px;padding:9px 13px;background:#11171e;color:#aab3c0;font-size:11px;font-weight:800}.filter.active{background:var(--a);border-color:var(--a);color:#071000}
-.row{display:grid;grid-template-columns:55px 1fr 125px;gap:15px;align-items:center;padding:16px;border-bottom:1px solid #ffffff08}.row:last-child{border:0}
-.rank{text-align:center;color:#8b95a3;font-weight:950}.rank.top{color:var(--a)}
-.item{display:flex;align-items:center;gap:12px;min-width:0}.avatar{width:46px;height:46px;display:grid;place-items:center;border:1px solid #303a45;border-radius:13px;background:linear-gradient(135deg,#17212a,#27323d);flex:none}
-.name{font-size:14px;font-weight:900;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.meta{margin-top:4px;color:var(--muted);font-size:11px}.amount{text-align:right}.amount strong{display:block}
-.boost{margin-top:7px;border:1px solid #34404c;border-radius:9px;padding:7px 10px;background:#151c24;color:#fff;font-size:10px;font-weight:900}.boost:hover{border-color:var(--a);color:var(--a)}
-.pricing,.how{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}.price,.howcard{padding:25px;border:1px solid var(--line);border-radius:19px;background:radial-gradient(circle at 50% 0,#a8ff3e12,transparent 45%),var(--card)}
-.price.highlight{border-color:#a8ff3e80}.label,.step{color:var(--muted);font-size:11px;font-weight:900}.cost{font-size:42px;font-weight:950;margin-top:10px}.desc,.howcard p{color:var(--muted);font-size:12px;line-height:1.65;margin-top:8px}
-.price button{width:100%;margin-top:20px;padding:13px;border:0;border-radius:11px;background:var(--a);color:#071000;font-weight:950}
-footer{padding:42px 0;border-top:1px solid var(--line);color:var(--muted)}.foot{width:min(1180px,92%);margin:auto;display:flex;justify-content:space-between;gap:20px}.footlinks{display:flex;gap:17px;flex-wrap:wrap;font-size:11px}
-.modal{position:fixed;inset:0;z-index:500;display:none;place-items:center;padding:18px;background:#000c;backdrop-filter:blur(10px)}.modal.open{display:grid}
-.box{width:min(540px,100%);max-height:90vh;overflow:auto;padding:23px;border:1px solid #303945;border-radius:21px;background:#10161d;box-shadow:0 35px 120px #0009}
-.mhead{display:flex;justify-content:space-between;align-items:center;margin-bottom:22px}.close{width:36px;height:36px;border:1px solid var(--line);border-radius:10px;background:#151b22;color:#fff;font-size:18px}
-.entry{padding:14px;margin-bottom:18px;border:1px solid #a8ff3e38;border-radius:13px;background:#a8ff3e0b}.entry strong{color:var(--a)}.entry span{display:block;color:var(--muted);font-size:11px;margin-top:4px}
-.group{margin-bottom:15px}.group label{display:block;margin-bottom:7px;color:#aeb6c2;font-size:11px;font-weight:850}.group input,.group select,.group textarea{width:100%;padding:12px 13px;border:1px solid #29323d;border-radius:11px;outline:0;background:#0b1015;color:#fff}.group textarea{min-height:90px;resize:vertical}
-.group input:focus,.group select:focus,.group textarea:focus{border-color:var(--a)}.submit{width:100%;padding:14px;border:0;border-radius:12px;background:var(--a);color:#071000;font-weight:950}
-.authbox{display:grid;gap:10px}.smallbtn{padding:11px;border:1px solid var(--line);border-radius:11px;background:#151c24;color:#fff;font-weight:800}.smallbtn:hover{border-color:var(--a)}
-.success{display:none;text-align:center}.success.show{display:block}.successicon{font-size:52px}.success h2{margin-top:12px}.success p{margin-top:8px;color:var(--muted);font-size:13px}
-.successrank{margin-top:20px;padding:18px;border:1px solid var(--line);border-radius:14px}.successrank span{color:var(--muted);font-size:11px}.successrank strong{display:block;color:var(--a);font-size:32px}
-.toast{position:fixed;z-index:900;left:50%;bottom:24px;transform:translate(-50%,20px);opacity:0;pointer-events:none;padding:12px 17px;border-radius:12px;background:#fff;color:#090b0e;font-size:12px;font-weight:900;transition:.25s;max-width:90vw}.toast.show{opacity:1;transform:translate(-50%,0)}.toast.error{background:#ffdede;color:#5d0000}
-.loading{padding:25px;text-align:center;color:var(--muted);font-size:12px}.spinner{width:22px;height:22px;border:2px solid #2b3440;border-top-color:var(--a);border-radius:50%;margin:0 auto 9px;animation:spin .7s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}
-@media(max-width:760px){nav{height:60px}.links{display:none}.logo{font-size:22px}.add{padding:9px 12px;font-size:10px}.hero{padding:72px 0 55px}h1{font-size:50px;letter-spacing:-3.2px}.hero p{font-size:13px}.stats{grid-template-columns:1fr}.stat{border-right:0;border-bottom:1px solid var(--line)}.stat:last-child{border:0}.section{padding:58px 0}.head{display:block}.title{font-size:23px}.categories{grid-template-columns:repeat(2,1fr);gap:9px}.cat{min-height:96px;padding:14px}.row{grid-template-columns:34px 1fr;gap:9px;padding:14px 11px}.amount{grid-column:2;text-align:left;display:flex;align-items:center;gap:10px}.amount .boost{margin-top:0}.pricing,.how{grid-template-columns:1fr}.foot{flex-direction:column}.buttons{flex-direction:column}.primary,.secondary{width:100%}}
+:root{
+  --bg:#070a0e;
+  --card:#10161d;
+  --line:#252e38;
+  --muted:#929dac;
+  --text:#fff;
+  --a:#a8ff3e
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:Inter,system-ui,-apple-system,sans-serif;
+  overflow-x:hidden
+}
+
+button,input,select,textarea{font:inherit}
+button{cursor:pointer}
+a{text-decoration:none;color:inherit}
+
+body:before{
+  content:"";
+  position:fixed;
+  inset:0;
+  z-index:-2;
+  background:
+    radial-gradient(circle at 15% 10%,#a8ff3e18,transparent 27%),
+    radial-gradient(circle at 85% 20%,#62a8ff12,transparent 24%)
+}
+
+body:after{
+  content:"";
+  position:fixed;
+  inset:0;
+  z-index:-1;
+  pointer-events:none;
+  opacity:.18;
+  background-image:
+    linear-gradient(#fff000 1px,transparent 1px),
+    linear-gradient(90deg,#fff000 1px,transparent 1px);
+  background-size:55px 55px;
+  mask-image:linear-gradient(#000,transparent 90%)
+}
+
+nav{
+  height:68px;
+  position:sticky;
+  top:0;
+  z-index:100;
+  background:#070a0ecc;
+  backdrop-filter:blur(18px);
+  border-bottom:1px solid #ffffff10
+}
+
+.nav{
+  width:min(1180px,92%);
+  height:100%;
+  margin:auto;
+  display:flex;
+  align-items:center;
+  justify-content:space-between
+}
+
+.logo{
+  font-size:25px;
+  font-weight:950;
+  letter-spacing:-1.5px
+}
+
+.logo span{color:var(--a)}
+
+.links{
+  display:flex;
+  gap:25px
+}
+
+.links a{
+  font-size:13px;
+  color:#aeb6c2;
+  font-weight:700
+}
+
+.links a:hover{color:#fff}
+
+.add{
+  border:0;
+  border-radius:12px;
+  padding:11px 17px;
+  background:var(--a);
+  color:#071000;
+  font-weight:950;
+  font-size:12px
+}
+
+.hero{
+  width:min(1050px,92%);
+  margin:auto;
+  text-align:center;
+  padding:100px 0 70px
+}
+
+.badge{
+  display:inline-flex;
+  gap:8px;
+  align-items:center;
+  padding:8px 13px;
+  border:1px solid #ffffff18;
+  border-radius:99px;
+  background:#ffffff05;
+  color:#c8ced7;
+  font-size:11px;
+  font-weight:800
+}
+
+.dot{
+  width:7px;
+  height:7px;
+  border-radius:50%;
+  background:var(--a);
+  box-shadow:0 0 14px var(--a)
+}
+
+h1{
+  margin-top:23px;
+  font-size:clamp(52px,8.3vw,92px);
+  line-height:.93;
+  letter-spacing:-5.5px;
+  font-weight:950
+}
+
+.gradient{
+  background:linear-gradient(100deg,#fff,var(--a),#fff);
+  background-size:220%;
+  -webkit-background-clip:text;
+  background-clip:text;
+  color:transparent
+}
+
+.hero p{
+  max-width:650px;
+  margin:25px auto 0;
+  color:var(--muted);
+  font-size:15px;
+  line-height:1.75
+}
+
+.buttons{
+  display:flex;
+  justify-content:center;
+  gap:12px;
+  flex-wrap:wrap;
+  margin-top:30px
+}
+
+.primary,.secondary{
+  padding:14px 22px;
+  border-radius:13px;
+  font-size:13px;
+  font-weight:950;
+  transition:.2s
+}
+
+.primary{
+  border:1px solid var(--a);
+  background:var(--a);
+  color:#071000
+}
+
+.secondary{
+  border:1px solid var(--line);
+  background:#11171e;
+  color:#fff
+}
+
+.primary:hover,
+.secondary:hover,
+.add:hover{
+  transform:translateY(-2px)
+}
+
+.stats{
+  width:min(950px,92%);
+  margin:auto;
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  border:1px solid var(--line);
+  border-radius:18px;
+  overflow:hidden;
+  background:#0d1319
+}
+
+.stat{
+  text-align:center;
+  padding:22px;
+  border-right:1px solid var(--line)
+}
+
+.stat:last-child{border:0}
+
+.stat strong{font-size:25px}
+
+.stat span{
+  display:block;
+  color:var(--muted);
+  font-size:11px;
+  margin-top:5px
+}
+
+.section{
+  width:min(1180px,92%);
+  margin:auto;
+  padding:86px 0
+}
+
+.head{
+  display:flex;
+  justify-content:space-between;
+  align-items:end;
+  gap:20px;
+  margin-bottom:28px
+}
+
+.title{
+  font-size:29px;
+  font-weight:950;
+  letter-spacing:-.8px
+}
+
+.sub{
+  color:var(--muted);
+  font-size:13px;
+  margin-top:7px
+}
+
+.categories{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:12px
+}
+
+.cat{
+  min-height:110px;
+  padding:19px;
+  border:1px solid var(--line);
+  border-radius:18px;
+  background:
+    radial-gradient(circle at 100% 0,#a8ff3e14,transparent 45%),
+    var(--card);
+  transition:.25s
+}
+
+.cat:hover,
+.cat.selected{
+  transform:translateY(-4px);
+  border-color:var(--a);
+  box-shadow:0 0 0 1px #a8ff3e1f
+}
+
+.icon{font-size:25px}
+
+.catname{
+  margin-top:12px;
+  font-weight:900
+}
+
+.count{
+  margin-top:5px;
+  color:var(--muted);
+  font-size:11px
+}
+
+.board{
+  border:1px solid var(--line);
+  border-radius:19px;
+  overflow:hidden;
+  background:#0b1015;
+  box-shadow:0 25px 80px #0006
+}
+
+.filters{
+  display:flex;
+  gap:8px;
+  padding:14px;
+  overflow:auto;
+  border-bottom:1px solid var(--line)
+}
+
+.filters::-webkit-scrollbar{display:none}
+
+.filter{
+  white-space:nowrap;
+  border:1px solid var(--line);
+  border-radius:99px;
+  padding:9px 13px;
+  background:#11171e;
+  color:#aab3c0;
+  font-size:11px;
+  font-weight:800
+}
+
+.filter.active{
+  background:var(--a);
+  border-color:var(--a);
+  color:#071000
+}
+
+.row{
+  display:grid;
+  grid-template-columns:55px 1fr 125px;
+  gap:15px;
+  align-items:center;
+  padding:16px;
+  border-bottom:1px solid #ffffff08
+}
+
+.row:last-child{border:0}
+
+.rank{
+  text-align:center;
+  color:#8b95a3;
+  font-weight:950
+}
+
+.rank.top{color:var(--a)}
+
+.item{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  min-width:0
+}
+
+.avatar{
+  width:46px;
+  height:46px;
+  display:grid;
+  place-items:center;
+  border:1px solid #303a45;
+  border-radius:13px;
+  background:linear-gradient(135deg,#17212a,#27323d);
+  flex:none;
+  overflow:hidden
+}
+
+.name{
+  font-size:14px;
+  font-weight:900;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis
+}
+
+.meta{
+  margin-top:4px;
+  color:var(--muted);
+  font-size:11px
+}
+
+.amount{text-align:right}
+
+.amount strong{display:block}
+
+.boost{
+  margin-top:7px;
+  border:1px solid #34404c;
+  border-radius:9px;
+  padding:7px 10px;
+  background:#151c24;
+  color:#fff;
+  font-size:10px;
+  font-weight:900
+}
+
+.boost:hover{
+  border-color:var(--a);
+  color:var(--a)
+}
+
+.pricing,
+.how{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:16px
+}
+
+.price,
+.howcard{
+  padding:25px;
+  border:1px solid var(--line);
+  border-radius:19px;
+  background:
+    radial-gradient(circle at 50% 0,#a8ff3e12,transparent 45%),
+    var(--card)
+}
+
+.price.highlight{border-color:#a8ff3e80}
+
+.label,
+.step{
+  color:var(--muted);
+  font-size:11px;
+  font-weight:900
+}
+
+.cost{
+  font-size:42px;
+  font-weight:950;
+  margin-top:10px
+}
+
+.desc,
+.howcard p{
+  color:var(--muted);
+  font-size:12px;
+  line-height:1.65;
+  margin-top:8px
+}
+
+.price button{
+  width:100%;
+  margin-top:20px;
+  padding:13px;
+  border:0;
+  border-radius:11px;
+  background:var(--a);
+  color:#071000;
+  font-weight:950
+}
+
+footer{
+  padding:42px 0;
+  border-top:1px solid var(--line);
+  color:var(--muted)
+}
+
+.foot{
+  width:min(1180px,92%);
+  margin:auto;
+  display:flex;
+  justify-content:space-between;
+  gap:20px
+}
+
+.footlinks{
+  display:flex;
+  gap:17px;
+  flex-wrap:wrap;
+  font-size:11px
+}
+
+.modal{
+  position:fixed;
+  inset:0;
+  z-index:500;
+  display:none;
+  place-items:center;
+  padding:18px;
+  background:#000c;
+  backdrop-filter:blur(10px)
+}
+
+.modal.open{display:grid}
+
+.box{
+  width:min(540px,100%);
+  max-height:90vh;
+  overflow:auto;
+  padding:23px;
+  border:1px solid #303945;
+  border-radius:21px;
+  background:#10161d;
+  box-shadow:0 35px 120px #0009
+}
+
+.mhead{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:22px
+}
+
+.close{
+  width:36px;
+  height:36px;
+  border:1px solid var(--line);
+  border-radius:10px;
+  background:#151b22;
+  color:#fff;
+  font-size:18px
+}
+
+.entry{
+  padding:14px;
+  margin-bottom:18px;
+  border:1px solid #a8ff3e38;
+  border-radius:13px;
+  background:#a8ff3e0b
+}
+
+.entry strong{color:var(--a)}
+
+.entry span{
+  display:block;
+  color:var(--muted);
+  font-size:11px;
+  margin-top:4px
+}
+
+.group{margin-bottom:15px}
+
+.group label{
+  display:block;
+  margin-bottom:7px;
+  color:#aeb6c2;
+  font-size:11px;
+  font-weight:850
+}
+
+.group input,
+.group select,
+.group textarea{
+  width:100%;
+  padding:12px 13px;
+  border:1px solid #29323d;
+  border-radius:11px;
+  outline:0;
+  background:#0b1015;
+  color:#fff
+}
+
+.group textarea{
+  min-height:90px;
+  resize:vertical
+}
+
+.group input:focus,
+.group select:focus,
+.group textarea:focus{
+  border-color:var(--a)
+}
+
+.submit{
+  width:100%;
+  padding:14px;
+  border:0;
+  border-radius:12px;
+  background:var(--a);
+  color:#071000;
+  font-weight:950
+}
+
+.submit:disabled{
+  opacity:.55;
+  cursor:not-allowed
+}
+
+.authbox{
+  display:grid;
+  gap:10px
+}
+
+.smallbtn{
+  padding:11px;
+  border:1px solid var(--line);
+  border-radius:11px;
+  background:#151c24;
+  color:#fff;
+  font-weight:800
+}
+
+.smallbtn:hover{border-color:var(--a)}
+
+.success{
+  display:none;
+  text-align:center
+}
+
+.success.show{display:block}
+
+.successicon{font-size:52px}
+
+.success h2{margin-top:12px}
+
+.success p{
+  margin-top:8px;
+  color:var(--muted);
+  font-size:13px
+}
+
+.successrank{
+  margin-top:20px;
+  padding:18px;
+  border:1px solid var(--line);
+  border-radius:14px
+}
+
+.successrank span{
+  color:var(--muted);
+  font-size:11px
+}
+
+.successrank strong{
+  display:block;
+  color:var(--a);
+  font-size:32px
+}
+
+.toast{
+  position:fixed;
+  z-index:900;
+  left:50%;
+  bottom:24px;
+  transform:translate(-50%,20px);
+  opacity:0;
+  pointer-events:none;
+  padding:12px 17px;
+  border-radius:12px;
+  background:#fff;
+  color:#090b0e;
+  font-size:12px;
+  font-weight:900;
+  transition:.25s;
+  max-width:90vw;
+  text-align:center
+}
+
+.toast.show{
+  opacity:1;
+  transform:translate(-50%,0)
+}
+
+.toast.error{
+  background:#ffdede;
+  color:#5d0000
+}
+
+.loading{
+  padding:25px;
+  text-align:center;
+  color:var(--muted);
+  font-size:12px
+}
+
+.spinner{
+  width:22px;
+  height:22px;
+  border:2px solid #2b3440;
+  border-top-color:var(--a);
+  border-radius:50%;
+  margin:0 auto 9px;
+  animation:spin .7s linear infinite
+}
+
+@keyframes spin{
+  to{transform:rotate(360deg)}
+}
+
+@media(max-width:760px){
+
+  nav{height:60px}
+
+  .links{display:none}
+
+  .logo{font-size:22px}
+
+  .add{
+    padding:9px 12px;
+    font-size:10px
+  }
+
+  .hero{
+    padding:72px 0 55px
+  }
+
+  h1{
+    font-size:50px;
+    letter-spacing:-3.2px
+  }
+
+  .hero p{font-size:13px}
+
+  .stats{
+    grid-template-columns:1fr
+  }
+
+  .stat{
+    border-right:0;
+    border-bottom:1px solid var(--line)
+  }
+
+  .stat:last-child{border:0}
+
+  .section{padding:58px 0}
+
+  .head{display:block}
+
+  .title{font-size:23px}
+
+  .categories{
+    grid-template-columns:repeat(2,1fr);
+    gap:9px
+  }
+
+  .cat{
+    min-height:96px;
+    padding:14px
+  }
+
+  .row{
+    grid-template-columns:34px 1fr;
+    gap:9px;
+    padding:14px 11px
+  }
+
+  .amount{
+    grid-column:2;
+    text-align:left;
+    display:flex;
+    align-items:center;
+    gap:10px
+  }
+
+  .amount .boost{margin-top:0}
+
+  .pricing,
+  .how{
+    grid-template-columns:1fr
+  }
+
+  .foot{
+    flex-direction:column
+  }
+
+  .buttons{
+    flex-direction:column
+  }
+
+  .primary,
+  .secondary{
+    width:100%
+  }
+}
 </style>
 </head>
+
 <body>
-<nav><div class="nav">
-<a class="logo" href="#top">TOP<span>ME</span></a>
-<div class="links"><a href="#explore">Explore</a><a href="#categories">Categories</a><a href="#pricing">Pricing</a><a href="#how">How it works</a></div>
-<button class="add" onclick="openListingModal()">+ PUT ON TOP</button>
-</div></nav>
+
+<nav>
+  <div class="nav">
+
+    <a class="logo" href="#top">
+      TOP<span>ME</span>
+    </a>
+
+    <div class="links">
+      <a href="#explore">Explore</a>
+      <a href="#categories">Categories</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#how">How it works</a>
+    </div>
+
+    <button class="add" onclick="openListingModal()">
+      + PUT ON TOP
+    </button>
+
+  </div>
+</nav>
+
 
 <main id="top">
+
 <section class="hero">
-<div class="badge"><span class="dot"></span>TOPME is live</div>
-<h1>What deserves<br>to be <span class="gradient">on top?</span></h1>
-<p>Put anything worth noticing on the board. Get discovered, climb the rankings and keep your spot fresh.</p>
-<div class="buttons"><button class="primary" onclick="openListingModal()">+ Put Something on TOPME</button><button class="secondary" onclick="scrollToBoard()">Explore Rankings</button></div>
+
+  <div class="badge">
+    <span class="dot"></span>
+    TOPME is live
+  </div>
+
+  <h1>
+    What deserves<br>
+    to be <span class="gradient">on top?</span>
+  </h1>
+
+  <p>
+    Put anything worth noticing on the board.
+    Get discovered, climb the rankings and keep your spot fresh.
+  </p>
+
+  <div class="buttons">
+
+    <button class="primary" onclick="openListingModal()">
+      + Put Something on TOPME
+    </button>
+
+    <button class="secondary" onclick="scrollToBoard()">
+      Explore Rankings
+    </button>
+
+  </div>
+
 </section>
+
 
 <div class="stats">
-<div class="stat"><strong id="listingCount">0</strong><span>Listings</span></div>
-<div class="stat"><strong id="countryCount">0</strong><span>Countries</span></div>
-<div class="stat"><strong id="viewCount">0</strong><span>Board Views</span></div>
+
+  <div class="stat">
+    <strong id="listingCount">0</strong>
+    <span>Listings</span>
+  </div>
+
+  <div class="stat">
+    <strong id="countryCount">0</strong>
+    <span>Countries</span>
+  </div>
+
+  <div class="stat">
+    <strong id="viewCount">0</strong>
+    <span>Board Views</span>
+  </div>
+
 </div>
+
 
 <section class="section" id="categories">
-<div class="head"><div><div class="title">Explore categories</div><div class="sub">Find what people are putting on top.</div></div></div>
-<div class="categories" id="categoriesGrid"></div>
+
+  <div class="head">
+    <div>
+      <div class="title">Explore categories</div>
+      <div class="sub">
+        Find what people are putting on top.
+      </div>
+    </div>
+  </div>
+
+  <div class="categories" id="categoriesGrid"></div>
+
 </section>
+
 
 <section class="section" id="explore">
-<div class="head"><div><div class="title">🔥 Trending right now</div><div class="sub">Live listings from the TOPME board.</div></div><div class="badge"><span class="dot"></span>LIVE BOARD</div></div>
-<div class="board">
-<div class="filters" id="filters"><button class="filter active" data-filter="All">All</button><button class="filter" data-filter="Creators">🎨 Creators</button><button class="filter" data-filter="Music">🎵 Music</button><button class="filter" data-filter="Videos">🎬 Videos</button><button class="filter" data-filter="Products">📦 Products</button><button class="filter" data-filter="Startups">🚀 Startups</button><button class="filter" data-filter="Businesses">💼 Businesses</button><button class="filter" data-filter="India">🇮🇳 India</button></div>
-<div id="loading" class="loading" style="display:none"><div class="spinner"></div>Loading live board…</div>
-<div id="leaderboard"></div>
-</div>
+
+  <div class="head">
+
+    <div>
+      <div class="title">🔥 Trending right now</div>
+      <div class="sub">
+        Live listings from the TOPME board.
+      </div>
+    </div>
+
+    <div class="badge">
+      <span class="dot"></span>
+      LIVE BOARD
+    </div>
+
+  </div>
+
+
+  <div class="board">
+
+    <div class="filters" id="filters">
+
+      <button class="filter active" data-filter="All">
+        All
+      </button>
+
+      <button class="filter" data-filter="Creators">
+        🎨 Creators
+      </button>
+
+      <button class="filter" data-filter="Music">
+        🎵 Music
+      </button>
+
+      <button class="filter" data-filter="Videos">
+        🎬 Videos
+      </button>
+
+      <button class="filter" data-filter="Products">
+        📦 Products
+      </button>
+
+      <button class="filter" data-filter="Startups">
+        🚀 Startups
+      </button>
+
+      <button class="filter" data-filter="Businesses">
+        💼 Businesses
+      </button>
+
+      <button class="filter" data-filter="India">
+        🇮🇳 India
+      </button>
+
+    </div>
+
+    <div id="loading" class="loading" style="display:none">
+      <div class="spinner"></div>
+      Loading live board…
+    </div>
+
+    <div id="leaderboard"></div>
+
+  </div>
+
 </section>
+
 
 <section class="section" id="pricing">
-<div class="head"><div><div class="title">Simple pricing</div><div class="sub">One-time entry. Lifetime opportunity.</div></div></div>
-<div class="pricing">
-<div class="price highlight"><div class="label">LIST SOMETHING</div><div class="cost">₹49</div><div class="desc">One-time entry fee to create your TOPME listing.</div><button onclick="openListingModal()">List Something →</button></div>
-<div class="price"><div class="label">BOOST LISTING</div><div class="cost">₹49</div><div class="desc">Give an existing listing another visibility push.</div><button onclick="showToast('Boost payment will be connected next.')">Boost a Listing →</button></div>
-<div class="price"><div class="label">FEATURED</div><div class="cost">Soon</div><div class="desc">Premium visibility options for creators, products and businesses.</div><button onclick="showToast('Featured listings are coming soon 🚀')">Coming Soon</button></div>
-</div>
+
+  <div class="head">
+
+    <div>
+      <div class="title">Simple pricing</div>
+      <div class="sub">
+        One-time entry. Lifetime opportunity.
+      </div>
+    </div>
+
+  </div>
+
+
+  <div class="pricing">
+
+    <div class="price highlight">
+
+      <div class="label">
+        LIST SOMETHING
+      </div>
+
+      <div class="cost">
+        ₹49
+      </div>
+
+      <div class="desc">
+        One-time entry fee to create your TOPME listing.
+      </div>
+
+      <button onclick="openListingModal()">
+        List Something →
+      </button>
+
+    </div>
+
+
+    <div class="price">
+
+      <div class="label">
+        BOOST LISTING
+      </div>
+
+      <div class="cost">
+        ₹49
+      </div>
+
+      <div class="desc">
+        Give an existing listing another visibility push.
+      </div>
+
+      <button onclick="showToast('Boost payment will be connected next.')">
+        Boost a Listing →
+      </button>
+
+    </div>
+
+
+    <div class="price">
+
+      <div class="label">
+        FEATURED
+      </div>
+
+      <div class="cost">
+        Soon
+      </div>
+
+      <div class="desc">
+        Premium visibility options for creators,
+        products and businesses.
+      </div>
+
+      <button onclick="showToast('Featured listings are coming soon 🚀')">
+        Coming Soon
+      </button>
+
+    </div>
+
+  </div>
+
 </section>
+
 
 <section class="section" id="how">
-<div class="head"><div><div class="title">How TOPME works</div><div class="sub">Three simple steps.</div></div></div>
-<div class="how">
-<div class="howcard"><div class="step">01</div><h3>Put something on TOPME</h3><p>Add yourself, your music, product, business, video, website or anything worth attention.</p></div>
-<div class="howcard"><div class="step">02</div><h3>Get on the board</h3><p>After payment, your listing goes live in the right category and becomes discoverable.</p></div>
-<div class="howcard"><div class="step">03</div><h3>Compete for the top</h3><p>Boost your listing and compete for stronger visibility and higher ranking.</p></div>
-</div>
+
+  <div class="head">
+
+    <div>
+      <div class="title">How TOPME works</div>
+      <div class="sub">
+        Three simple steps.
+      </div>
+    </div>
+
+  </div>
+
+
+  <div class="how">
+
+    <div class="howcard">
+
+      <div class="step">01</div>
+
+      <h3>
+        Put something on TOPME
+      </h3>
+
+      <p>
+        Add yourself, your music, product, business,
+        video, website or anything worth attention.
+      </p>
+
+    </div>
+
+
+    <div class="howcard">
+
+      <div class="step">02</div>
+
+      <h3>
+        Get on the board
+      </h3>
+
+      <p>
+        After payment, your listing goes live in
+        the right category and becomes discoverable.
+      </p>
+
+    </div>
+
+
+    <div class="howcard">
+
+      <div class="step">03</div>
+
+      <h3>
+        Compete for the top
+      </h3>
+
+      <p>
+        Boost your listing and compete for stronger
+        visibility and higher ranking.
+      </p>
+
+    </div>
+
+  </div>
+
 </section>
+
 </main>
 
-<footer><div class="foot"><div>© 2026 TOPME</div><div class="footlinks"><a href="#top">Home</a><a href="#explore">Explore</a><a href="#categories">Categories</a><a href="#pricing">Pricing</a><a href="#how">How it works</a></div></div></footer>
+
+<footer>
+
+  <div class="foot">
+
+    <div>
+      © 2026 TOPME
+    </div>
+
+    <div class="footlinks">
+      <a href="#top">Home</a>
+      <a href="#explore">Explore</a>
+      <a href="#categories">Categories</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#how">How it works</a>
+    </div>
+
+  </div>
+
+</footer>
+
+
+<!-- LISTING MODAL -->
 
 <div class="modal" id="modal" onclick="outsideModal(event)">
-<div class="box">
-<div class="mhead"><h2 id="modalHeading">Put something on TOPME</h2><button class="close" onclick="closeListingModal()">×</button></div>
 
-<div id="authStep">
-<div class="entry"><strong>₹49 one-time entry</strong><span>Sign in first so your listing is connected to your TOPME profile.</span></div>
-<div class="group"><label>Email</label><input id="email" type="email" placeholder="you@example.com"></div>
-<div class="group"><label>Password</label><input id="password" type="password" placeholder="Minimum 6 characters"></div>
-<div class="authbox">
-<button class="submit" onclick="signIn()">Sign in & continue</button>
-<button class="smallbtn" onclick="signUp()">Create account</button>
-</div>
+  <div class="box">
+
+    <div class="mhead">
+
+      <h2>
+        Put something on TOPME
+      </h2>
+
+      <button class="close" onclick="closeListingModal()">
+        ×
+      </button>
+
+    </div>
+
+
+    <!-- AUTH -->
+
+    <div id="authStep">
+
+      <div class="entry">
+
+        <strong>
+          ₹49 one-time entry
+        </strong>
+
+        <span>
+          Sign in first so your listing is connected
+          to your TOPME profile.
+        </span>
+
+      </div>
+
+
+      <div class="group">
+
+        <label>Email</label>
+
+        <input
+          id="email"
+          type="email"
+          autocomplete="email"
+          placeholder="you@example.com"
+        >
+
+      </div>
+
+
+      <div class="group">
+
+        <label>Password</label>
+
+        <input
+          id="password"
+          type="password"
+          autocomplete="current-password"
+          placeholder="Minimum 6 characters"
+        >
+
+      </div>
+
+
+      <div class="authbox">
+
+        <button
+          class="submit"
+          type="button"
+          onclick="signIn()"
+        >
+          Sign in & continue
+        </button>
+
+        <button
+          class="smallbtn"
+          type="button"
+          onclick="signUp()"
+        >
+          Create account
+        </button>
+
+      </div>
+
+    </div>
+
+
+    <!-- LISTING FORM -->
+
+    <form
+      id="listingForm"
+      style="display:none"
+      onsubmit="submitListing(event)"
+    >
+
+      <div class="entry">
+
+        <strong>
+          Listing entry: ₹49
+        </strong>
+
+        <span>
+          Your listing is linked to your profile.
+          Payment activation will be connected securely.
+        </span>
+
+      </div>
+
+
+      <div class="group">
+
+        <label>
+          What are you listing?
+        </label>
+
+        <input
+          id="title"
+          maxlength="120"
+          placeholder="e.g. My new song"
+          required
+        >
+
+      </div>
+
+
+      <div class="group">
+
+        <label>
+          Category
+        </label>
+
+        <select id="category" required>
+
+          <option value="">
+            Loading categories…
+          </option>
+
+        </select>
+
+      </div>
+
+
+      <div class="group">
+
+        <label>
+          Country
+        </label>
+
+        <input
+          id="country"
+          maxlength="80"
+          placeholder="India"
+          required
+        >
+
+      </div>
+
+
+      <div class="group">
+
+        <label>
+          Public link
+        </label>
+
+        <input
+          id="external_url"
+          type="url"
+          maxlength="500"
+          placeholder="https://example.com"
+          required
+        >
+
+      </div>
+
+
+      <div class="group">
+
+        <label>
+          Image URL
+          <span style="color:#6f7985">
+            (optional)
+          </span>
+        </label>
+
+        <input
+          id="image_url"
+          type="url"
+          maxlength="500"
+          placeholder="https://..."
+        >
+
+      </div>
+
+
+      <div class="group">
+
+        <label>
+          Short description
+        </label>
+
+        <textarea
+          id="description"
+          maxlength="500"
+          placeholder="Tell people what makes this worth noticing..."
+        ></textarea>
+
+      </div>
+
+
+      <button
+        class="submit"
+        id="submit"
+        type="submit"
+      >
+        Continue — ₹49
+      </button>
+
+    </form>
+
+
+    <!-- SUCCESS -->
+
+    <div class="success" id="success">
+
+      <div class="successicon">
+        🚀
+      </div>
+
+      <h2>
+        Listing created
+      </h2>
+
+      <p>
+        Your listing has been saved successfully.
+      </p>
+
+      <div class="successrank">
+
+        <span>
+          Current board position
+        </span>
+
+        <strong id="rankResult">
+          #—
+        </strong>
+
+      </div>
+
+
+      <button
+        class="primary"
+        style="width:100%;margin-top:18px"
+        onclick="closeListingModal()"
+      >
+        Back to TOPME
+      </button>
+
+    </div>
+
+  </div>
+
 </div>
 
-<form id="listingForm" style="display:none" onsubmit="submitListing(event)">
-<div class="entry"><strong>Listing entry: ₹49</strong><span>Your listing is linked to your profile. Real payment verification must be completed server-side before activation.</span></div>
-<div class="group"><label>What are you listing?</label><input id="title" maxlength="120" placeholder="e.g. My new song" required></div>
-<div class="group"><label>Category</label><select id="category" required><option value="">Loading categories…</option></select></div>
-<div class="group"><label>Country</label><input id="country" maxlength="80" placeholder="India" required></div>
-<div class="group"><label>Public link</label><input id="external_url" type="url" maxlength="500" placeholder="https://example.com" required></div>
-<div class="group"><label>Image URL <span style="color:#6f7985">(optional)</span></label><input id="image_url" type="url" maxlength="500" placeholder="https://..."></div>
-<div class="group"><label>Short description</label><textarea id="description" maxlength="500" placeholder="Tell people what makes this worth noticing..."></textarea></div>
-<button class="submit" id="submit" type="submit">Continue — ₹49</button>
-</form>
-
-<div class="success" id="success">
-<div class="successicon">🚀</div><h2>Listing created</h2><p>Your listing has been saved. Payment activation can now be connected securely on the server.</p>
-<div class="successrank"><span>Current board position</span><strong id="rankResult">#—</strong></div>
-<button class="primary" style="width:100%;margin-top:18px" onclick="closeListingModal()">Back to TOPME</button>
-</div>
-</div></div>
 
 <div class="toast" id="toast"></div>
 
+
+<!-- SUPABASE -->
+
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+
 <script>
-const TOPME_CONFIG={
-  supabaseUrl:'https://mrwpaznoqdrrrrqzntre.supabase.co',
-  supabaseAnonKey:'sb_publishable_NcFD_bxuHt6qnst0PZ8c7A_YKATads2',
+
+const TOPME_CONFIG = {
+
+  supabaseUrl:
+    'https://mrwpaznoqdrrrrqzntre.supabase.co',
+
+  supabaseAnonKey:
+    'sb_publishable_NcFD_bxuHt6qnst0PZ8c7A_YKATads2',
+
   listingPrice:49
+
 };
-const sb=window.supabase.createClient(TOPME_CONFIG.supabaseUrl,TOPME_CONFIG.supabaseAnonKey);
-let categories=[], listings=[], currentFilter='All', toastTimer;
 
-const icons={Creators:'🎨',Music:'🎵',Videos:'🎬',Products:'📦',Startups:'🚀',Businesses:'💼',Websites:'🌐',Art:'🖼️'};
-function esc(v){return String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c]))}
-function iconFor(name){return icons[name]||'✨'}
 
-async function loadCategories(){
-  const {data,error}=await sb.from('categories').select('id,name,slug').order('name');
-  if(error){console.error(error);return showToast('Could not load categories.',true)}
-  categories=data||[];
-  const grid=document.getElementById('categoriesGrid');
-  grid.innerHTML=categories.map(c=>`<div class="cat" onclick="selectCategory('${esc(c.name)}',this)"><div class="icon">${iconFor(c.name)}</div><div class="catname">${esc(c.name)}</div><div class="count">TOPME category</div></div>`).join('');
-  const select=document.getElementById('category');
-  select.innerHTML='<option value="">Select category</option>'+categories.map(c=>`<option value="${esc(c.id)}">${esc(c.name)}</option>`).join('');
+const sb =
+  window.supabase.createClient(
+    TOPME_CONFIG.supabaseUrl,
+    TOPME_CONFIG.supabaseAnonKey
+  );
+
+
+let categories = [];
+let listings = [];
+let currentFilter = 'All';
+let toastTimer;
+
+
+const icons = {
+
+  Creators:'🎨',
+  Music:'🎵',
+  Videos:'🎬',
+  Products:'📦',
+  Startups:'🚀',
+  Businesses:'💼',
+  Websites:'🌐',
+  Art:'🖼️'
+
+};
+
+
+function esc(value){
+
+  return String(value ?? '').replace(
+    /[&<>"']/g,
+    function(char){
+
+      return {
+
+        '&':'&amp;',
+        '<':'&lt;',
+        '>':'&gt;',
+        '"':'&quot;',
+        "'":'&#039;'
+
+      }[char];
+
+    }
+  );
+
 }
 
+
+function iconFor(name){
+
+  return icons[name] || '✨';
+
+}
+
+
+/* -----------------------------
+   CATEGORIES
+----------------------------- */
+
+async function loadCategories(){
+
+  const {
+    data,
+    error
+  } = await sb
+    .from('categories')
+    .select('id,name,slug')
+    .order('name');
+
+
+  if(error){
+
+    console.error('Categories error:',error);
+
+    showToast(
+      'Could not load categories.',
+      true
+    );
+
+    return;
+
+  }
+
+
+  categories = data || [];
+
+
+  const grid =
+    document.getElementById('categoriesGrid');
+
+
+  grid.innerHTML =
+    categories.map(function(c){
+
+      return `
+        <div
+          class="cat"
+          data-category="${esc(c.name)}"
+          onclick="selectCategory('${esc(c.name)}',this)"
+        >
+
+          <div class="icon">
+            ${iconFor(c.name)}
+          </div>
+
+          <div class="catname">
+            ${esc(c.name)}
+          </div>
+
+          <div class="count">
+            TOPME category
+          </div>
+
+        </div>
+      `;
+
+    }).join('');
+
+
+  const select =
+    document.getElementById('category');
+
+
+  select.innerHTML =
+    '<option value="">Select category</option>' +
+
+    categories.map(function(c){
+
+      return `
+        <option value="${esc(c.id)}">
+          ${esc(c.name)}
+        </option>
+      `;
+
+    }).join('');
+
+}
+
+
+/* -----------------------------
+   LISTINGS
+----------------------------- */
+
 async function loadListings(){
-  document.getElementById('loading').style.display='block';
-  const {data,error}=await sb.from('listings')
-    .select('id,title,description,category_id,owner_id,creator_name,image_url,external_url,country,status,views,boosts,created_at')
+
+  document
+    .getElementById('loading')
+    .style.display = 'block';
+
+
+  const {
+    data,
+    error
+  } = await sb
+    .from('listings')
+    .select(
+      'id,title,description,category_id,owner_id,creator_name,image_url,external_url,country,status,views,boosts,created_at'
+    )
+    .eq('status','active')
     .order('boosts',{ascending:false})
     .order('views',{ascending:false})
     .order('created_at',{ascending:false})
     .limit(50);
+
+
   if(error){
-    console.error(error);
-    document.getElementById('leaderboard').innerHTML='<div class="loading">No live listings yet.</div>';
+
+    console.error('Listings error:',error);
+
+    listings = [];
+
+    document
+      .getElementById('leaderboard')
+      .innerHTML =
+      '<div class="loading">No live listings yet.</div>';
+
   }else{
-    listings=data||[];
+
+    listings = data || [];
+
     renderBoard();
     updateStats();
+
   }
-  document.getElementById('loading').style.display='none';
+
+
+  document
+    .getElementById('loading')
+    .style.display = 'none';
+
 }
+
+
+/* -----------------------------
+   CATEGORY HELPERS
+----------------------------- */
 
 function categoryName(id){
-  const c=categories.find(x=>x.id===id);
-  return c?c.name:'Other';
+
+  const category =
+    categories.find(function(item){
+
+      return item.id === id;
+
+    });
+
+
+  return category
+    ? category.name
+    : 'Other';
+
 }
+
+
+/* -----------------------------
+   BOARD
+----------------------------- */
+
 function renderBoard(){
-  const filtered=listings.filter(x=>{
-    const cat=categoryName(x.category_id);
-    return currentFilter==='All'||(currentFilter==='India'&&String(x.country).toLowerCase()==='india')||cat===currentFilter;
-  });
-  const board=document.getElementById('leaderboard');
-  if(!filtered.length){board.innerHTML='<div class="loading">Nothing here yet. Be the first one on TOPME.</div>';return}
-  board.innerHTML=filtered.map((x,i)=>`
-    <div class="row" data-category="${esc(categoryName(x.category_id))}" data-country="${esc(x.country)}">
-      <div class="rank ${i===0?'top':''}">#${i+1}</div>
-      <div class="item">
-        <div class="avatar">${x.image_url?`<img src="${esc(x.image_url)}" alt="" style="width:100%;height:100%;object-fit:cover;border-radius:12px">`:iconFor(categoryName(x.category_id))}</div>
-        <div>
-          <div class="name">${esc(x.title)}</div>
-          <div class="meta">${esc(categoryName(x.category_id))} · ${esc(x.country||'Worldwide')} · ${Number(x.views||0).toLocaleString()} views</div>
-        </div>
-      </div>
-      <div class="amount"><strong>TOP</strong><button class="boost" onclick="showToast('Boost payment will be connected securely next.')">⚡ ₹49 Boost</button></div>
-    </div>`).join('');
-}
-function updateStats(){
-  document.getElementById('listingCount').textContent=listings.length.toLocaleString();
-  const countries=new Set(listings.map(x=>String(x.country||'').trim()).filter(Boolean));
-  document.getElementById('countryCount').textContent=countries.size.toLocaleString();
-  document.getElementById('viewCount').textContent=listings.reduce((n,x)=>n+Number(x.views||0),0).toLocaleString();
-}
-function filterBoard(f){
-  currentFilter=f;
-  document.querySelectorAll('.filter').forEach(b=>b.classList.toggle('active',b.dataset.filter===f));
-  renderBoard();
-}
-document.getElementById('filters').addEventListener('click',e=>{
-  const b=e.target.closest('.filter');if(b)filterBoard(b.dataset.filter);
-});
-function selectCategory(c,el){
-  document.querySelectorAll('.cat').forEach(x=>x.classList.remove('selected'));
-  el.classList.add('selected');
-  filterBoard(c);
-  document.getElementById('explore').scrollIntoView({behavior:'smooth'});
-}
-function scrollToBoard(){document.getElementById('explore').scrollIntoView({behavior:'smooth'})}
 
-async function currentUser(){
-  const {data}=await sb.auth.getUser();
-  return data.user||null;
-}
-function openListingModal(){
-  document.getElementById('modal').classList.add('open');
-  document.body.style.overflow='hidden';
-  document.getElementById('listingForm').style.display='none';
-  document.getElementById('success').classList.remove('show');
-  document.getElementById('authStep').style.display='block';
-  currentUser().then(u=>{if(u) showListingForm()});
-}
-function showListingForm(){
-  document.getElementById('authStep').style.display='none';
-  document.getElementById('listingForm').style.display='block';
-  setTimeout(()=>document.getElementById('title').focus(),80);
-}
-function closeListingModal(){document.getElementById('modal').classList.remove('open');document.body.style.overflow=''}
-function outsideModal(e){if(e.target.id==='modal')closeListingModal()}
-document.addEventListener('keydown',e=>{if(e.key==='Escape')closeListingModal()});
+  const filtered =
+    listings.filter(function(item){
 
-async function signIn(){
-  const email=document.getElementById('email').value.trim(), password=document.getElementById('password').value;
-  if(!email||!password)return showToast('Enter email and password.',true);
-  const {error}=await sb.auth.signInWithPassword({email,password});
-  if(error)return showToast(error.message,true);
-  showToast('Signed in ✓');showListingForm();
-}
-async function signUp(){
-  const email=document.getElementById('email').value.trim(), password=document.getElementById('password').value;
-  if(!email||password.length<6)return showToast('Enter email and a 6+ character password.',true);
-  const {error}=await sb.auth.signUp({email,password});
-  if(error)return showToast(error.message,true);
-  showToast('Account created. If email confirmation is enabled, confirm your email first.');
-  const u=await currentUser();if(u)showListingForm();
-}
+      const cat =
+        categoryName(item.category_id);
 
-async function submitListing(e){
-  e.preventDefault();
-  const user=await currentUser();
-  if(!user)return showToast('Please sign in first.',true);
-  const btn=document.getElementById('submit');btn.disabled=true;btn.textContent='Saving…';
-  const categoryId=document.getElementById('category').value;
-  const category=categories.find(x=>x.id===categoryId);
-  const {data:profile}=await sb.from('profiles').select('full_name,username').eq('id',user.id).maybeSingle();
-  const creatorName=profile?.full_name||profile?.username||user.email?.split('@')[0]||'TOPME User';
-  const payload={
-    title:document.getElementById('title').value.trim(),
-    description:document.getElementById('description').value.trim(),
-    category_id:categoryId,
-    owner_id:user.id,
-    creator_name:creatorName,
-    image_url:document.getElementById('image_url').value.trim()||null,
-    external_url:document.getElementById('external_url').value.trim(),
-    country:document.getElementById('country').value.trim(),
-    status:'pending',
-    views:0,
-    boosts:0
-  };
-  const {data,error}=await sb.from('listings').insert(payload).select().single();
-  if(error){
-    console.error(error);
-    showToast(error.message||'Could not save listing.',true);
-  }else{
-    document.getElementById('listingForm').style.display='none';
-    document.getElementById('success').classList.add('show');
-<!doctype html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#070a0e">
-<title>TOPME — Put what deserves to be on top</title>
-<style>
-:root{--bg:#070a0e;--card:#10161d;--line:#252e38;--muted:#929dac;--text:#fff;--a:#a8ff3e}
-*{box-sizing:border-box;margin:0;padding:0}html{scroll-behavior:smooth}
-body{background:var(--bg);color:var(--text);font-family:Inter,system-ui,-apple-system,sans-serif;overflow-x:hidden}
-button,input,select,textarea{font:inherit}button{cursor:pointer}a{text-decoration:none;color:inherit}
-body:before{content:"";position:fixed;inset:0;z-index:-2;background:radial-gradient(circle at 15% 10%,#a8ff3e18,transparent 27%),radial-gradient(circle at 85% 20%,#62a8ff12,transparent 24%)}
-body:after{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:.18;background-image:linear-gradient(#fff000 1px,transparent 1px),linear-gradient(90deg,#fff000 1px,transparent 1px);background-size:55px 55px;mask-image:linear-gradient(#000,transparent 90%)}
-nav{height:68px;position:sticky;top:0;z-index:100;background:#070a0ecc;backdrop-filter:blur(18px);border-bottom:1px solid #ffffff10}
-.nav{width:min(1180px,92%);height:100%;margin:auto;display:flex;align-items:center;justify-content:space-between}
-.logo{font-size:25px;font-weight:950;letter-spacing:-1.5px}.logo span{color:var(--a)}
-.links{display:flex;gap:25px}.links a{font-size:13px;color:#aeb6c2;font-weight:700}.links a:hover{color:#fff}
-.add{border:0;border-radius:12px;padding:11px 17px;background:var(--a);color:#071000;font-weight:950;font-size:12px}
-.hero{width:min(1050px,92%);margin:auto;text-align:center;padding:100px 0 70px}
-.badge{display:inline-flex;gap:8px;align-items:center;padding:8px 13px;border:1px solid #ffffff18;border-radius:99px;background:#ffffff05;color:#c8ced7;font-size:11px;font-weight:800}
-.dot{width:7px;height:7px;border-radius:50%;background:var(--a);box-shadow:0 0 14px var(--a)}
-h1{margin-top:23px;font-size:clamp(52px,8.3vw,92px);line-height:.93;letter-spacing:-5.5px;font-weight:950}
-.gradient{background:linear-gradient(100deg,#fff,var(--a),#fff);background-size:220%;-webkit-background-clip:text;background-clip:text;color:transparent}
-.hero p{max-width:650px;margin:25px auto 0;color:var(--muted);font-size:15px;line-height:1.75}
-.buttons{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;margin-top:30px}
-.primary,.secondary{padding:14px 22px;border-radius:13px;font-size:13px;font-weight:950;transition:.2s}
-.primary{border:1px solid var(--a);background:var(--a);color:#071000}.secondary{border:1px solid var(--line);background:#11171e;color:#fff}
-.primary:hover,.secondary:hover,.add:hover{transform:translateY(-2px)}
-.stats{width:min(950px,92%);margin:auto;display:grid;grid-template-columns:repeat(3,1fr);border:1px solid var(--line);border-radius:18px;overflow:hidden;background:#0d1319}
-.stat{text-align:center;padding:22px;border-right:1px solid var(--line)}.stat:last-child{border:0}.stat strong{font-size:25px}.stat span{display:block;color:var(--muted);font-size:11px;margin-top:5px}
-.section{width:min(1180px,92%);margin:auto;padding:86px 0}.head{display:flex;justify-content:space-between;align-items:end;gap:20px;margin-bottom:28px}
-.title{font-size:29px;font-weight:950;letter-spacing:-.8px}.sub{color:var(--muted);font-size:13px;margin-top:7px}
-.categories{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
-.cat{min-height:110px;padding:19px;border:1px solid var(--line);border-radius:18px;background:radial-gradient(circle at 100% 0,#a8ff3e14,transparent 45%),var(--card);transition:.25s}
-.cat:hover,.cat.selected{transform:translateY(-4px);border-color:var(--a);box-shadow:0 0 0 1px #a8ff3e1f}.icon{font-size:25px}.catname{margin-top:12px;font-weight:900}.count{margin-top:5px;color:var(--muted);font-size:11px}
-.board{border:1px solid var(--line);border-radius:19px;overflow:hidden;background:#0b1015;box-shadow:0 25px 80px #0006}
-.filters{display:flex;gap:8px;padding:14px;overflow:auto;border-bottom:1px solid var(--line)}.filters::-webkit-scrollbar{display:none}
-.filter{white-space:nowrap;border:1px solid var(--line);border-radius:99px;padding:9px 13px;background:#11171e;color:#aab3c0;font-size:11px;font-weight:800}.filter.active{background:var(--a);border-color:var(--a);color:#071000}
-.row{display:grid;grid-template-columns:55px 1fr 125px;gap:15px;align-items:center;padding:16px;border-bottom:1px solid #ffffff08}.row:last-child{border:0}
-.rank{text-align:center;color:#8b95a3;font-weight:950}.rank.top{color:var(--a)}
-.item{display:flex;align-items:center;gap:12px;min-width:0}.avatar{width:46px;height:46px;display:grid;place-items:center;border:1px solid #303a45;border-radius:13px;background:linear-gradient(135deg,#17212a,#27323d);flex:none}
-.name{font-size:14px;font-weight:900;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.meta{margin-top:4px;color:var(--muted);font-size:11px}.amount{text-align:right}.amount strong{display:block}
-.boost{margin-top:7px;border:1px solid #34404c;border-radius:9px;padding:7px 10px;background:#151c24;color:#fff;font-size:10px;font-weight:900}.boost:hover{border-color:var(--a);color:var(--a)}
-.pricing,.how{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}.price,.howcard{padding:25px;border:1px solid var(--line);border-radius:19px;background:radial-gradient(circle at 50% 0,#a8ff3e12,transparent 45%),var(--card)}
-.price.highlight{border-color:#a8ff3e80}.label,.step{color:var(--muted);font-size:11px;font-weight:900}.cost{font-size:42px;font-weight:950;margin-top:10px}.desc,.howcard p{color:var(--muted);font-size:12px;line-height:1.65;margin-top:8px}
-.price button{width:100%;margin-top:20px;padding:13px;border:0;border-radius:11px;background:var(--a);color:#071000;font-weight:950}
-footer{padding:42px 0;border-top:1px solid var(--line);color:var(--muted)}.foot{width:min(1180px,92%);margin:auto;display:flex;justify-content:space-between;gap:20px}.footlinks{display:flex;gap:17px;flex-wrap:wrap;font-size:11px}
-.modal{position:fixed;inset:0;z-index:500;display:none;place-items:center;padding:18px;background:#000c;backdrop-filter:blur(10px)}.modal.open{display:grid}
-.box{width:min(540px,100%);max-height:90vh;overflow:auto;padding:23px;border:1px solid #303945;border-radius:21px;background:#10161d;box-shadow:0 35px 120px #0009}
-.mhead{display:flex;justify-content:space-between;align-items:center;margin-bottom:22px}.close{width:36px;height:36px;border:1px solid var(--line);border-radius:10px;background:#151b22;color:#fff;font-size:18px}
-.entry{padding:14px;margin-bottom:18px;border:1px solid #a8ff3e38;border-radius:13px;background:#a8ff3e0b}.entry strong{color:var(--a)}.entry span{display:block;color:var(--muted);font-size:11px;margin-top:4px}
-.group{margin-bottom:15px}.group label{display:block;margin-bottom:7px;color:#aeb6c2;font-size:11px;font-weight:850}.group input,.group select,.group textarea{width:100%;padding:12px 13px;border:1px solid #29323d;border-radius:11px;outline:0;background:#0b1015;color:#fff}.group textarea{min-height:90px;resize:vertical}
-.group input:focus,.group select:focus,.group textarea:focus{border-color:var(--a)}.submit{width:100%;padding:14px;border:0;border-radius:12px;background:var(--a);color:#071000;font-weight:950}
-.authbox{display:grid;gap:10px}.smallbtn{padding:11px;border:1px solid var(--line);border-radius:11px;background:#151c24;color:#fff;font-weight:800}.smallbtn:hover{border-color:var(--a)}
-.success{display:none;text-align:center}.success.show{display:block}.successicon{font-size:52px}.success h2{margin-top:12px}.success p{margin-top:8px;color:var(--muted);font-size:13px}
-.successrank{margin-top:20px;padding:18px;border:1px solid var(--line);border-radius:14px}.successrank span{color:var(--muted);font-size:11px}.successrank strong{display:block;color:var(--a);font-size:32px}
-.toast{position:fixed;z-index:900;left:50%;bottom:24px;transform:translate(-50%,20px);opacity:0;pointer-events:none;padding:12px 17px;border-radius:12px;background:#fff;color:#090b0e;font-size:12px;font-weight:900;transition:.25s;max-width:90vw}.toast.show{opacity:1;transform:translate(-50%,0)}.toast.error{background:#ffdede;color:#5d0000}
-.loading{padding:25px;text-align:center;color:var(--muted);font-size:12px}.spinner{width:22px;height:22px;border:2px solid #2b3440;border-top-color:var(--a);border-radius:50%;margin:0 auto 9px;animation:spin .7s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}
-@media(max-width:760px){nav{height:60px}.links{display:none}.logo{font-size:22px}.add{padding:9px 12px;font-size:10px}.hero{padding:72px 0 55px}h1{font-size:50px;letter-spacing:-3.2px}.hero p{font-size:13px}.stats{grid-template-columns:1fr}.stat{border-right:0;border-bottom:1px solid var(--line)}.stat:last-child{border:0}.section{padding:58px 0}.head{display:block}.title{font-size:23px}.categories{grid-template-columns:repeat(2,1fr);gap:9px}.cat{min-height:96px;padding:14px}.row{grid-template-columns:34px 1fr;gap:9px;padding:14px 11px}.amount{grid-column:2;text-align:left;display:flex;align-items:center;gap:10px}.amount .boost{margin-top:0}.pricing,.how{grid-template-columns:1fr}.foot{flex-direction:column}.buttons{flex-direction:column}.primary,.secondary{width:100%}}
-</style>
-</head>
-<body>
-<nav><div class="nav">
-<a class="logo" href="#top">TOP<span>ME</span></a>
-<div class="links"><a href="#explore">Explore</a><a href="#categories">Categories</a><a href="#pricing">Pricing</a><a href="#how">How it works</a></div>
-<button class="add" onclick="openListingModal()">+ PUT ON TOP</button>
-</div></nav>
 
-<main id="top">
-<section class="hero">
-<div class="badge"><span class="dot"></span>TOPME is live</div>
-<h1>What deserves<br>to be <span class="gradient">on top?</span></h1>
-<p>Put anything worth noticing on the board. Get discovered, climb the rankings and keep your spot fresh.</p>
-<div class="buttons"><button class="primary" onclick="openListingModal()">+ Put Something on TOPME</button><button class="secondary" onclick="scrollToBoard()">Explore Rankings</button></div>
-</section>
+      if(currentFilter === 'All'){
+        return true;
+      }
 
-<div class="stats">
-<div class="stat"><strong id="listingCount">0</strong><span>Listings</span></div>
-<div class="stat"><strong id="countryCount">0</strong><span>Countries</span></div>
-<div class="stat"><strong id="viewCount">0</strong><span>Board Views</span></div>
-</div>
 
-<section class="section" id="categories">
-<div class="head"><div><div class="title">Explore categories</div><div class="sub">Find what people are putting on top.</div></div></div>
-<div class="categories" id="categoriesGrid"></div>
-</section>
+      if(
+        currentFilter === 'India'
+      ){
 
-<section class="section" id="explore">
-<div class="head"><div><div class="title">🔥 Trending right now</div><div class="sub">Live listings from the TOPME board.</div></div><div class="badge"><span class="dot"></span>LIVE BOARD</div></div>
-<div class="board">
-<div class="filters" id="filters"><button class="filter active" data-filter="All">All</button><button class="filter" data-filter="Creators">🎨 Creators</button><button class="filter" data-filter="Music">🎵 Music</button><button class="filter" data-filter="Videos">🎬 Videos</button><button class="filter" data-filter="Products">📦 Products</button><button class="filter" data-filter="Startups">🚀 Startups</button><button class="filter" data-filter="Businesses">💼 Businesses</button><button class="filter" data-filter="India">🇮🇳 India</button></div>
-<div id="loading" class="loading" style="display:none"><div class="spinner"></div>Loading live board…</div>
-<div id="leaderboard"></div>
-</div>
-</section>
+        return String(
+          item.country || ''
+        ).toLowerCase() === 'india';
 
-<section class="section" id="pricing">
-<div class="head"><div><div class="title">Simple pricing</div><div class="sub">One-time entry. Lifetime opportunity.</div></div></div>
-<div class="pricing">
-<div class="price highlight"><div class="label">LIST SOMETHING</div><div class="cost">₹49</div><div class="desc">One-time entry fee to create your TOPME listing.</div><button onclick="openListingModal()">List Something →</button></div>
-<div class="price"><div class="label">BOOST LISTING</div><div class="cost">₹49</div><div class="desc">Give an existing listing another visibility push.</div><button onclick="showToast('Boost payment will be connected next.')">Boost a Listing →</button></div>
-<div class="price"><div class="label">FEATURED</div><div class="cost">Soon</div><div class="desc">Premium visibility options for creators, products and businesses.</div><button onclick="showToast('Featured listings are coming soon 🚀')">Coming Soon</button></div>
-</div>
-</section>
+      }
 
-<section class="section" id="how">
-<div class="head"><div><div class="title">How TOPME works</div><div class="sub">Three simple steps.</div></div></div>
-<div class="how">
-<div class="howcard"><div class="step">01</div><h3>Put something on TOPME</h3><p>Add yourself, your music, product, business, video, website or anything worth attention.</p></div>
-<div class="howcard"><div class="step">02</div><h3>Get on the board</h3><p>After payment, your listing goes live in the right category and becomes discoverable.</p></div>
-<div class="howcard"><div class="step">03</div><h3>Compete for the top</h3><p>Boost your listing and compete for stronger visibility and higher ranking.</p></div>
-</div>
-</section>
-</main>
 
-<footer><div class="foot"><div>© 2026 TOPME</div><div class="footlinks"><a href="#top">Home</a><a href="#explore">Explore</a><a href="#categories">Categories</a><a href="#pricing">Pricing</a><a href="#how">How it works</a></div></div></footer>
+      return cat === currentFilter;
 
-<div class="modal" id="modal" onclick="outsideModal(event)">
-<div class="box">
-<div class="mhead"><h2 id="modalHeading">Put something on TOPME</h2><button class="close" onclick="closeListingModal()">×</button></div>
+    });
 
-<div id="authStep">
-<div class="entry"><strong>₹49 one-time entry</strong><span>Sign in first so your listing is connected to your TOPME profile.</span></div>
-<div class="group"><label>Email</label><input id="email" type="email" placeholder="you@example.com"></div>
-<div class="group"><label>Password</label><input id="password" type="password" placeholder="Minimum 6 characters"></div>
-<div class="authbox">
-<button class="submit" onclick="signIn()">Sign in & continue</button>
-<button class="smallbtn" onclick="signUp()">Create account</button>
-</div>
-</div>
 
-<form id="listingForm" style="display:none" onsubmit="submitListing(event)">
-<div class="entry"><strong>Listing entry: ₹49</strong><span>Your listing is linked to your profile. Real payment verification must be completed server-side before activation.</span></div>
-<div class="group"><label>What are you listing?</label><input id="title" maxlength="120" placeholder="e.g. My new song" required></div>
-<div class="group"><label>Category</label><select id="category" required><option value="">Loading categories…</option></select></div>
-<div class="group"><label>Country</label><input id="country" maxlength="80" placeholder="India" required></div>
-<div class="group"><label>Public link</label><input id="external_url" type="url" maxlength="500" placeholder="https://example.com" required></div>
-<div class="group"><label>Image URL <span style="color:#6f7985">(optional)</span></label><input id="image_url" type="url" maxlength="500" placeholder="https://..."></div>
-<div class="group"><label>Short description</label><textarea id="description" maxlength="500" placeholder="Tell people what makes this worth noticing..."></textarea></div>
-<button class="submit" id="submit" type="submit">Continue — ₹49</button>
-</form>
+  const board =
+    document.getElementById('leaderboard');
 
-<div class="success" id="success">
-<div class="successicon">🚀</div><h2>Listing created</h2><p>Your listing has been saved. Payment activation can now be connected securely on the server.</p>
-<div class="successrank"><span>Current board position</span><strong id="rankResult">#—</strong></div>
-<button class="primary" style="width:100%;margin-top:18px" onclick="closeListingModal()">Back to TOPME</button>
-</div>
-</div></div>
 
-<div class="toast" id="toast"></div>
+  if(!filtered.length){
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script>
-const TOPME_CONFIG={
-  supabaseUrl:'https://mrwpaznoqdrrrrqzntre.supabase.co',
-  supabaseAnonKey:'sb_publishable_NcFD_bxuHt6qnst0PZ8c7A_YKATads2',
-  listingPrice:49
-};
-const sb=window.supabase.createClient(TOPME_CONFIG.supabaseUrl,TOPME_CONFIG.supabaseAnonKey);
-let categories=[], listings=[], currentFilter='All', toastTimer;
+    board.innerHTML =
+      '<div class="loading">' +
+      'Nothing here yet. Be the first one on TOPME.' +
+      '</div>';
 
-const icons={Creators:'🎨',Music:'🎵',Videos:'🎬',Products:'📦',Startups:'🚀',Businesses:'💼',Websites:'🌐',Art:'🖼️'};
-function esc(v){return String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c]))}
-function iconFor(name){return icons[name]||'✨'}
+    return;
 
-async function loadCategories(){
-  const {data,error}=await sb.from('categories').select('id,name,slug').order('name');
-  if(error){console.error(error);return showToast('Could not load categories.',true)}
-  categories=data||[];
-  const grid=document.getElementById('categoriesGrid');
-  grid.innerHTML=categories.map(c=>`<div class="cat" onclick="selectCategory('${esc(c.name)}',this)"><div class="icon">${iconFor(c.name)}</div><div class="catname">${esc(c.name)}</div><div class="count">TOPME category</div></div>`).join('');
-  const select=document.getElementById('category');
-  select.innerHTML='<option value="">Select category</option>'+categories.map(c=>`<option value="${esc(c.id)}">${esc(c.name)}</option>`).join('');
-}
-
-async function loadListings(){
-  document.getElementById('loading').style.display='block';
-  const {data,error}=await sb.from('listings')
-    .select('id,title,description,category_id,owner_id,creator_name,image_url,external_url,country,status,views,boosts,created_at')
-    .order('boosts',{ascending:false})
-    .order('views',{ascending:false})
-    .order('created_at',{ascending:false})
-    .limit(50);
-  if(error){
-    console.error(error);
-    document.getElementById('leaderboard').innerHTML='<div class="loading">No live listings yet.</div>';
-  }else{
-    listings=data||[];
-    renderBoard();
-    updateStats();
   }
-  document.getElementById('loading').style.display='none';
+
+
+  board.innerHTML =
+    filtered.map(function(item,index){
+
+      const cat =
+        categoryName(item.category_id);
+
+
+      const image =
+        item.image_url
+          ? `
+            <img
+              src="${esc(item.image_url)}"
+              alt=""
+              style="
+                width:100%;
+                height:100%;
+                object-fit:cover;
+                border-radius:12px
+              "
+            >
+          `
+          : iconFor(cat);
+
+
+      return `
+
+        <div class="row">
+
+          <div class="rank ${index === 0 ? 'top' : ''}">
+            #${index + 1}
+          </div>
+
+
+          <div class="item">
+
+            <div class="avatar">
+              ${image}
+            </div>
+
+            <div>
+
+              <div class="name">
+                ${esc(item.title)}
+              </div>
+
+              <div class="meta">
+                ${esc(cat)}
+                ·
+                ${esc(item.country || 'Worldwide')}
+                ·
+                ${Number(item.views || 0).toLocaleString()}
+                views
+              </div>
+
+            </div>
+
+          </div>
+
+
+          <div class="amount">
+
+            <strong>
+              TOP
+            </strong>
+
+            <button
+              class="boost"
+              type="button"
+              onclick="showToast('Boost payment will be connected securely next.')"
+            >
+              ⚡ ₹49 Boost
+            </button>
+
+          </div>
+
+        </div>
+
+      `;
+
+    }).join('');
+
 }
 
-function categoryName(id){
-  const c=categories.find(x=>x.id===id);
-  return c?c.name:'Other';
-}
-function renderBoard(){
-  const filtered=listings.filter(x=>{
-    const cat=categoryName(x.category_id);
-    return currentFilter==='All'||(currentFilter==='India'&&String(x.country).toLowerCase()==='india')||cat===currentFilter;
-  });
-  const board=document.getElementById('leaderboard');
-  if(!filtered.length){board.innerHTML='<div class="loading">Nothing here yet. Be the first one on TOPME.</div>';return}
-  board.innerHTML=filtered.map((x,i)=>`
-    <div class="row" data-category="${esc(categoryName(x.category_id))}" data-country="${esc(x.country)}">
-      <div class="rank ${i===0?'top':''}">#${i+1}</div>
-      <div class="item">
-        <div class="avatar">${x.image_url?`<img src="${esc(x.image_url)}" alt="" style="width:100%;height:100%;object-fit:cover;border-radius:12px">`:iconFor(categoryName(x.category_id))}</div>
-        <div>
-          <div class="name">${esc(x.title)}</div>
-          <div class="meta">${esc(categoryName(x.category_id))} · ${esc(x.country||'Worldwide')} · ${Number(x.views||0).toLocaleString()} views</div>
-        </div>
-      </div>
-      <div class="amount"><strong>TOP</strong><button class="boost" onclick="showToast('Boost payment will be connected securely next.')">⚡ ₹49 Boost</button></div>
-    </div>`).join('');
-}
+
+/* -----------------------------
+   STATS
+----------------------------- */
+
 function updateStats(){
-  document.getElementById('listingCount').textContent=listings.length.toLocaleString();
-  const countries=new Set(listings.map(x=>String(x.country||'').trim()).filter(Boolean));
-  document.getElementById('countryCount').textContent=countries.size.toLocaleString();
-  document.getElementById('viewCount').textContent=listings.reduce((n,x)=>n+Number(x.views||0),0).toLocaleString();
+
+  document
+    .getElementById('listingCount')
+    .textContent =
+    listings.length.toLocaleString();
+
+
+  const countries =
+    new Set(
+
+      listings
+
+        .map(function(item){
+
+          return String(
+            item.country || ''
+          ).trim();
+
+        })
+
+        .filter(Boolean)
+
+    );
+
+
+  document
+    .getElementById('countryCount')
+    .textContent =
+    countries.size.toLocaleString();
+
+
+  const views =
+    listings.reduce(
+      function(total,item){
+
+        return total +
+          Number(item.views || 0);
+
+      },
+      0
+    );
+
+
+  document
+    .getElementById('viewCount')
+    .textContent =
+    views.toLocaleString();
+
 }
-function filterBoard(f){
-  currentFilter=f;
-  document.querySelectorAll('.filter').forEach(b=>b.classList.toggle('active',b.dataset.filter===f));
+
+
+/* -----------------------------
+   FILTERS
+----------------------------- */
+
+function filterBoard(filter){
+
+  currentFilter = filter;
+
+
+  document
+    .querySelectorAll('.filter')
+    .forEach(function(button){
+
+      button.classList.toggle(
+        'active',
+        button.dataset.filter === filter
+      );
+
+    });
+
+
   renderBoard();
+
 }
-document.getElementById('filters').addEventListener('click',e=>{
-  const b=e.target.closest('.filter');if(b)filterBoard(b.dataset.filter);
-});
-function selectCategory(c,el){
-  document.querySelectorAll('.cat').forEach(x=>x.classList.remove('selected'));
-  el.classList.add('selected');
-  filterBoard(c);
-  document.getElementById('explore').scrollIntoView({behavior:'smooth'});
+
+
+document
+  .getElementById('filters')
+  .addEventListener(
+    'click',
+    function(event){
+
+      const button =
+        event.target.closest('.filter');
+
+
+      if(button){
+
+        filterBoard(
+          button.dataset.filter
+        );
+
+      }
+
+    }
+  );
+
+
+function selectCategory(category,element){
+
+  document
+    .querySelectorAll('.cat')
+    .forEach(function(item){
+
+      item.classList.remove('selected');
+
+    });
+
+
+  element.classList.add('selected');
+
+
+  filterBoard(category);
+
+
+  document
+    .getElementById('explore')
+    .scrollIntoView({
+      behavior:'smooth'
+    });
+
 }
-function scrollToBoard(){document.getElementById('explore').scrollIntoView({behavior:'smooth'})}
+
+
+function scrollToBoard(){
+
+  document
+    .getElementById('explore')
+    .scrollIntoView({
+      behavior:'smooth'
+    });
+
+}
+
+
+/* -----------------------------
+   AUTH
+----------------------------- */
 
 async function currentUser(){
-  const {data}=await sb.auth.getUser();
-  return data.user||null;
+
+  const {
+    data,
+    error
+  } = await sb.auth.getUser();
+
+
+  if(error){
+
+    console.error('User error:',error);
+    return null;
+
+  }
+
+
+  return data.user || null;
+
 }
+
+
+/* -----------------------------
+   MODAL
+----------------------------- */
+
 function openListingModal(){
-  document.getElementById('modal').classList.add('open');
-  document.body.style.overflow='hidden';
-  document.getElementById('listingForm').style.display='none';
-  document.getElementById('success').classList.remove('show');
-  document.getElementById('authStep').style.display='block';
-  currentUser().then(u=>{if(u) showListingForm()});
+
+  document
+    .getElementById('modal')
+    .classList.add('open');
+
+
+  document.body.style.overflow = 'hidden';
+
+
+  document
+    .getElementById('listingForm')
+    .style.display = 'none';
+
+
+  document
+    .getElementById('success')
+    .classList.remove('show');
+
+
+  document
+    .getElementById('authStep')
+    .style.display = 'block';
+
+
+  currentUser().then(function(user){
+
+    if(user){
+
+      showListingForm();
+
+    }
+
+  });
+
 }
+
+
 function showListingForm(){
-  document.getElementById('authStep').style.display='none';
-  document.getElementById('listingForm').style.display='block';
-  setTimeout(()=>document.getElementById('title').focus(),80);
+
+  document
+    .getElementById('authStep')
+    .style.display = 'none';
+
+
+  document
+    .getElementById('listingForm')
+    .style.display = 'block';
+
+
+  setTimeout(function(){
+
+    document
+      .getElementById('title')
+      .focus();
+
+  },80);
+
 }
-function closeListingModal(){document.getElementById('modal').classList.remove('open');document.body.style.overflow=''}
-function outsideModal(e){if(e.target.id==='modal')closeListingModal()}
-document.addEventListener('keydown',e=>{if(e.key==='Escape')closeListingModal()});
+
+
+function closeListingModal(){
+
+  document
+    .getElementById('modal')
+    .classList.remove('open');
+
+
+  document.body.style.overflow = '';
+
+}
+
+
+function outsideModal(event){
+
+  if(event.target.id === 'modal'){
+
+    closeListingModal();
+
+  }
+
+}
+
+
+document.addEventListener(
+  'keydown',
+  function(event){
+
+    if(event.key === 'Escape'){
+
+      closeListingModal();
+
+    }
+
+  }
+);
+
+
+/* -----------------------------
+   SIGN IN
+----------------------------- */
 
 async function signIn(){
-  const email=document.getElementById('email').value.trim(), password=document.getElementById('password').value;
-  if(!email||!password)return showToast('Enter email and password.',true);
-  const {error}=await sb.auth.signInWithPassword({email,password});
-  if(error)return showToast(error.message,true);
-  showToast('Signed in ✓');showListingForm();
-}
-async function signUp(){
-  const email=document.getElementById('email').value.trim(), password=document.getElementById('password').value;
-  if(!email||password.length<6)return showToast('Enter email and a 6+ character password.',true);
-  const {error}=await sb.auth.signUp({email,password});
-  if(error)return showToast(error.message,true);
-  showToast('Account created. If email confirmation is enabled, confirm your email first.');
-  const u=await currentUser();if(u)showListingForm();
+
+  const email =
+    document
+      .getElementById('email')
+      .value
+      .trim();
+
+
+  const password =
+    document
+      .getElementById('password')
+      .value;
+
+
+  if(!email || !password){
+
+    showToast(
+      'Enter email and password.',
+      true
+    );
+
+    return;
+
+  }
+
+
+  const {
+    error
+  } = await sb.auth.signInWithPassword({
+
+    email:email,
+    password:password
+
+  });
+
+
+  if(error){
+
+    console.error('Sign in error:',error);
+
+    showToast(
+      error.message,
+      true
+    );
+
+    return;
+
+  }
+
+
+  showToast('Signed in ✓');
+
+  showListingForm();
+
 }
 
-async function submitListing(e){
-  e.preventDefault();
-  const user=await currentUser();
-  if(!user)return showToast('Please sign in first.',true);
-  const btn=document.getElementById('submit');btn.disabled=true;btn.textContent='Saving…';
-  const categoryId=document.getElementById('category').value;
-  const category=categories.find(x=>x.id===categoryId);
-  const {data:profile}=await sb.from('profiles').select('full_name,username').eq('id',user.id).maybeSingle();
-  const creatorName=profile?.full_name||profile?.username||user.email?.split('@')[0]||'TOPME User';
-  const payload={
-    title:document.getElementById('title').value.trim(),
-    description:document.getElementById('description').value.trim(),
-    category_id:categoryId,
-    owner_id:user.id,
-    creator_name:creatorName,
-    image_url:document.getElementById('image_url').value.trim()||null,
-    external_url:document.getElementById('external_url').value.trim(),
-    country:document.getElementById('country').value.trim(),
-    status:'pending',
-    views:0,
-    boosts:0
-  };
-  const {data,error}=await sb.from('listings').insert(payload).select().single();
+
+/* -----------------------------
+   SIGN UP
+----------------------------- */
+
+async function signUp(){
+
+  const email =
+    document
+      .getElementById('email')
+      .value
+      .trim();
+
+
+  const password =
+    document
+      .getElementById('password')
+      .value;
+
+
+  if(!email){
+
+    showToast(
+      'Enter your email.',
+      true
+    );
+
+    return;
+
+  }
+
+
+  if(password.length < 6){
+
+    showToast(
+      'Password must be at least 6 characters.',
+      true
+    );
+
+    return;
+
+  }
+
+
+  const {
+    data,
+    error
+  } = await sb.auth.signUp({
+
+    email:email,
+    password:password
+
+  });
+
+
   if(error){
-    console.error(error);
-    showToast(error.message||'Could not save listing.',true);
-  }else{
-    document.getElementById('listingForm').style.display='none';
-    document.getElementById('success').classList.add('show');
-    document.getElementById('rankResult').textContent='#'+(listings.length+1);
-    showToast('Listing saved to TOPME ✓');
+
+    console.error('Sign up error:',error);
+
+    showToast(
+      error.message,
+      true
+    );
+
+    return;
+
+  }
+
+
+  if(data.user && data.session){
+
+    showToast(
+      'Account created ✓'
+    );
+
+    showListingForm();
+
+    return;
+
+  }
+
+
+  showToast(
+    'Account created. Check your email to confirm your account.'
+  );
+
+}
+
+
+/* -----------------------------
+   CREATE LISTING
+----------------------------- */
+
+async function submitListing(event){
+
+  event.preventDefault();
+
+
+  const user =
+    await currentUser();
+
+
+  if(!user){
+
+    showToast(
+      'Please sign in first.',
+      true
+    );
+
+    return;
+
+  }
+
+
+  const button =
+    document.getElementById('submit');
+
+
+  button.disabled = true;
+  button.textContent = 'Saving…';
+
+
+  try{
+
+    const categoryId =
+      document
+        .getElementById('category')
+        .value;
+
+
+    if(!categoryId){
+
+      throw new Error(
+        'Please select a category.'
+      );
+
+    }
+
+
+    /*
+      Profile is optional.
+      If profile exists, use its name.
+      Otherwise use email username.
+    */
+
+    let creatorName =
+      user.email
+        ? user.email.split('@')[0]
+        : 'TOPME User';
+
+
+    const {
+      data:profile,
+      error:profileError
+    } = await sb
+      .from('profiles')
+      .select('full_name,username')
+      .eq('id',user.id)
+      .maybeSingle();
+
+
+    /*
+      A missing profile should NOT block
+      listing creation.
+    */
+
+    if(!profileError && profile){
+
+      creatorName =
+        profile.full_name ||
+        profile.username ||
+        creatorName;
+
+    }
+
+
+    const payload = {
+
+      title:
+        document
+          .getElementById('title')
+          .value
+          .trim(),
+
+      description:
+        document
+          .getElementById('description')
+          .value
+          .trim(),
+
+      category_id:
+        categoryId,
+
+      owner_id:
+        user.id,
+
+      creator_name:
+        creatorName,
+
+      image_url:
+        document
+          .getElementById('image_url')
+          .value
+          .trim() || null,
+
+      external_url:
+        document
+          .getElementById('external_url')
+          .value
+          .trim(),
+
+      country:
+        document
+          .getElementById('country')
+          .value
+          .trim(),
+
+      /*
+        IMPORTANT:
+        Only use a status allowed by
+        your current database policies.
+      */
+      status:'active',
+
+      views:0,
+
+      boosts:0
+
+    };
+
+
+    const {
+      data,
+      error
+    } = await sb
+      .from('listings')
+      .insert(payload)
+      .select()
+      .single();
+
+
+    if(error){
+
+      console.error(
+        'Listing insert error:',
+        error
+      );
+
+      throw new Error(
+        error.message ||
+        'Could not save listing.'
+      );
+
+    }
+
+
+    /*
+      Success
+    */
+
+    document
+      .getElementById('listingForm')
+      .style.display = 'none';
+
+
+    document
+      .getElementById('success')
+      .classList.add('show');
+
+
+    /*
+      Reload board so newly-created
+      active listing appears immediately.
+    */
+
     await loadListings();
+
+
+    const position =
+      listings.findIndex(
+        function(item){
+
+          return item.id === data.id;
+
+        }
+      );
+
+
+    document
+      .getElementById('rankResult')
+      .textContent =
+      position >= 0
+        ? '#' + (position + 1)
+        : '#—';
+
+
+    showToast(
+      'Listing created successfully ✓'
+    );
+
+
+  }catch(error){
+
+    console.error(
+      'Create listing failed:',
+      error
+    );
+
+
+    showToast(
+      error.message ||
+      'Could not create listing.',
+      true
+    );
+
+
+  }finally{
+
+    button.disabled = false;
+    button.textContent = 'Continue — ₹49';
+
   }
-  btn.disabled=false;btn.textContent='Continue — ₹49';
-}
-function showToast(msg,error=false){
-  const t=document.getElementById('toast');clearTimeout(toastTimer);
-  t.textContent=msg;t.classList.toggle('error',error);t.classList.add('show');
-  toastTimer=setTimeout(()=>t.classList.remove('show'),3000);
+
 }
 
-window.addEventListener('load',async()=>{await loadCategories();await loadListings()});
+
+/* -----------------------------
+   TOAST
+----------------------------- */
+
+function showToast(message,isError=false){
+
+  const toast =
+    document.getElementById('toast');
+
+
+  clearTimeout(toastTimer);
+
+
+  toast.textContent = message;
+
+
+  toast.classList.toggle(
+    'error',
+    isError
+  );
+
+
+  toast.classList.add('show');
+
+
+  toastTimer =
+    setTimeout(function(){
+
+      toast.classList.remove('show');
+
+    },3500);
+
+}
+
+
+/* -----------------------------
+   START
+----------------------------- */
+
+window.addEventListener(
+  'load',
+  async function(){
+
+    await loadCategories();
+
+    await loadListings();
+
+  }
+);
+
 </script>
+
 </body>
 </html>
-
