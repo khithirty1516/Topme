@@ -689,7 +689,9 @@ footer{
     letter-spacing:-3.2px
   }
 
-  .hero p{font-size:13px}
+  .hero p{
+    font-size:13px
+  }
 
   .stats{
     grid-template-columns:1fr
@@ -700,56 +702,34 @@ footer{
     border-bottom:1px solid var(--line)
   }
 
-  .stat:last-child{border:0}
-
-  .section{padding:58px 0}
-
-  .head{display:block}
-
-  .title{font-size:23px}
+  .stat:last-child{
+    border-bottom:0
+  }
 
   .categories{
-    grid-template-columns:repeat(2,1fr);
-    gap:9px
+    grid-template-columns:repeat(2,1fr)
   }
-
-  .cat{
-    min-height:96px;
-    padding:14px
-  }
-
-  .row{
-    grid-template-columns:34px 1fr;
-    gap:9px;
-    padding:14px 11px
-  }
-
-  .amount{
-    grid-column:2;
-    text-align:left;
-    display:flex;
-    align-items:center;
-    gap:10px
-  }
-
-  .amount .boost{margin-top:0}
 
   .pricing,
   .how{
     grid-template-columns:1fr
   }
 
+  .row{
+    grid-template-columns:35px 1fr;
+  }
+
+  .amount{
+    grid-column:2;
+    text-align:left
+  }
+
+  .amount strong{
+    display:none
+  }
+
   .foot{
     flex-direction:column
-  }
-
-  .buttons{
-    flex-direction:column
-  }
-
-  .primary,
-  .secondary{
-    width:100%
   }
 }
 </style>
@@ -758,644 +738,363 @@ footer{
 <body>
 
 <nav>
-  <div class="nav">
+<div class="nav">
+<div class="logo">TOP<span>ME</span></div>
 
-    <a class="logo" href="#top">
-      TOP<span>ME</span>
-    </a>
+<div class="links">
+<a href="#explore">Explore</a>
+<a href="#categories">Categories</a>
+<a href="#trending">Trending</a>
+<a href="#how">How it works</a>
+<a href="#pricing">Pricing</a>
+</div>
 
-    <div class="links">
-      <a href="#explore">Explore</a>
-      <a href="#categories">Categories</a>
-      <a href="#pricing">Pricing</a>
-      <a href="#how">How it works</a>
-    </div>
-
-    <button class="add" onclick="openListingModal()">
-      + PUT ON TOP
-    </button>
-
-  </div>
+<button class="add" onclick="openListingModal()">+ Put on TOPME</button>
+</div>
 </nav>
-
-
-<main id="top">
 
 <section class="hero">
 
-  <div class="badge">
-    <span class="dot"></span>
-    TOPME is live
-  </div>
+<div class="badge">
+<div class="dot"></div>
+Live ranking platform
+</div>
 
-  <h1>
-    What deserves<br>
-    to be <span class="gradient">on top?</span>
-  </h1>
+<h1>
+Put what<br>
+<span class="gradient">deserves to be on top.</span>
+</h1>
 
-  <p>
-    Put anything worth noticing on the board.
-    Get discovered, climb the rankings and keep your spot fresh.
-  </p>
+<p>
+TOPME is where creators, products, businesses, websites and ideas
+compete for attention and earn their place on the board.
+</p>
 
-  <div class="buttons">
-
-    <button class="primary" onclick="openListingModal()">
-      + Put Something on TOPME
-    </button>
-
-    <button class="secondary" onclick="scrollToBoard()">
-      Explore Rankings
-    </button>
-
-  </div>
+<div class="buttons">
+<button class="primary" onclick="openListingModal()">Put something on TOPME — ₹49</button>
+<button class="secondary" onclick="scrollToBoard()">Explore the board</button>
+</div>
 
 </section>
-
 
 <div class="stats">
 
-  <div class="stat">
-    <strong id="listingCount">0</strong>
-    <span>Listings</span>
-  </div>
-
-  <div class="stat">
-    <strong id="countryCount">0</strong>
-    <span>Countries</span>
-  </div>
-
-  <div class="stat">
-    <strong id="viewCount">0</strong>
-    <span>Board Views</span>
-  </div>
-
+<div class="stat">
+<strong id="listingCount">0</strong>
+<span>Live listings</span>
 </div>
 
+<div class="stat">
+<strong id="countryCount">0</strong>
+<span>Countries represented</span>
+</div>
+
+<div class="stat">
+<strong id="viewCount">0</strong>
+<span>Total views</span>
+</div>
+
+</div>
 
 <section class="section" id="categories">
 
-  <div class="head">
-    <div>
-      <div class="title">Explore categories</div>
-      <div class="sub">
-        Find what people are putting on top.
-      </div>
-    </div>
-  </div>
+<div class="head">
+<div>
+<div class="title">Explore categories</div>
+<div class="sub">Find what's already making noise.</div>
+</div>
+</div>
 
-  <div class="categories" id="categoriesGrid"></div>
+<div class="categories" id="categoriesGrid">
+<div class="loading">
+<div class="spinner"></div>
+Loading categories…
+</div>
+</div>
 
 </section>
-
 
 <section class="section" id="explore">
 
-  <div class="head">
-
-    <div>
-      <div class="title">🔥 Trending right now</div>
-      <div class="sub">
-        Live listings from the TOPME board.
-      </div>
-    </div>
-
-    <div class="badge">
-      <span class="dot"></span>
-      LIVE BOARD
-    </div>
-
-  </div>
-
-
-  <div class="board">
-
-    <div class="filters" id="filters">
-
-      <button class="filter active" data-filter="All">
-        All
-      </button>
-
-      <button class="filter" data-filter="Creators">
-        🎨 Creators
-      </button>
-
-      <button class="filter" data-filter="Music">
-        🎵 Music
-      </button>
-
-      <button class="filter" data-filter="Videos">
-        🎬 Videos
-      </button>
-
-      <button class="filter" data-filter="Products">
-        📦 Products
-      </button>
-
-      <button class="filter" data-filter="Startups">
-        🚀 Startups
-      </button>
-
-      <button class="filter" data-filter="Businesses">
-        💼 Businesses
-      </button>
-
-      <button class="filter" data-filter="India">
-        🇮🇳 India
-      </button>
-
-    </div>
-
-    <div id="loading" class="loading" style="display:none">
-      <div class="spinner"></div>
-      Loading live board…
-    </div>
-
-    <div id="leaderboard"></div>
-
-  </div>
-
-</section>
-
-
-<section class="section" id="pricing">
-
-  <div class="head">
-
-    <div>
-      <div class="title">Simple pricing</div>
-      <div class="sub">
-        One-time entry. Lifetime opportunity.
-      </div>
-    </div>
-
-  </div>
-
-
-  <div class="pricing">
-
-    <div class="price highlight">
-
-      <div class="label">
-        LIST SOMETHING
-      </div>
-
-      <div class="cost">
-        ₹49
-      </div>
-
-      <div class="desc">
-        One-time entry fee to create your TOPME listing.
-      </div>
-
-      <button onclick="openListingModal()">
-        List Something →
-      </button>
-
-    </div>
-
-
-    <div class="price">
-
-      <div class="label">
-        BOOST LISTING
-      </div>
-
-      <div class="cost">
-        ₹49
-      </div>
-
-      <div class="desc">
-        Give an existing listing another visibility push.
-      </div>
-
-      <button onclick="showToast('Boost payment will be connected next.')">
-        Boost a Listing →
-      </button>
-
-    </div>
-
-
-    <div class="price">
-
-      <div class="label">
-        FEATURED
-      </div>
-
-      <div class="cost">
-        Soon
-      </div>
-
-      <div class="desc">
-        Premium visibility options for creators,
-        products and businesses.
-      </div>
-
-      <button onclick="showToast('Featured listings are coming soon 🚀')">
-        Coming Soon
-      </button>
-
-    </div>
-
-  </div>
-
-</section>
-
-
-<section class="section" id="how">
-
-  <div class="head">
-
-    <div>
-      <div class="title">How TOPME works</div>
-      <div class="sub">
-        Three simple steps.
-      </div>
-    </div>
-
-  </div>
-
-
-  <div class="how">
-
-    <div class="howcard">
-
-      <div class="step">01</div>
-
-      <h3>
-        Put something on TOPME
-      </h3>
-
-      <p>
-        Add yourself, your music, product, business,
-        video, website or anything worth attention.
-      </p>
-
-    </div>
-
-
-    <div class="howcard">
-
-      <div class="step">02</div>
-
-      <h3>
-        Get on the board
-      </h3>
-
-      <p>
-        After payment, your listing goes live in
-        the right category and becomes discoverable.
-      </p>
-
-    </div>
-
-
-    <div class="howcard">
-
-      <div class="step">03</div>
-
-      <h3>
-        Compete for the top
-      </h3>
-
-      <p>
-        Boost your listing and compete for stronger
-        visibility and higher ranking.
-      </p>
-
-    </div>
-
-  </div>
-
-</section>
-
-</main>
-
-
-<footer>
-
-  <div class="foot">
-
-    <div>
-      © 2026 TOPME
-    </div>
-
-    <div class="footlinks">
-      <a href="#top">Home</a>
-      <a href="#explore">Explore</a>
-      <a href="#categories">Categories</a>
-      <a href="#pricing">Pricing</a>
-      <a href="#how">How it works</a>
-    </div>
-
-  </div>
-
-</footer>
-
-
-<!-- LISTING MODAL -->
-
-<div class="modal" id="modal" onclick="outsideModal(event)">
-
-  <div class="box">
-
-    <div class="mhead">
-
-      <h2>
-        Put something on TOPME
-      </h2>
-
-      <button class="close" onclick="closeListingModal()">
-        ×
-      </button>
-
-    </div>
-
-
-    <!-- AUTH -->
-
-    <div id="authStep">
-
-      <div class="entry">
-
-        <strong>
-          ₹49 one-time entry
-        </strong>
-
-        <span>
-          Sign in first so your listing is connected
-          to your TOPME profile.
-        </span>
-
-      </div>
-
-
-      <div class="group">
-
-        <label>Email</label>
-
-        <input
-          id="email"
-          type="email"
-          autocomplete="email"
-          placeholder="you@example.com"
-        >
-
-      </div>
-
-
-      <div class="group">
-
-        <label>Password</label>
-
-        <input
-          id="password"
-          type="password"
-          autocomplete="current-password"
-          placeholder="Minimum 6 characters"
-        >
-
-      </div>
-
-
-      <div class="authbox">
-
-        <button
-          class="submit"
-          type="button"
-          onclick="signIn()"
-        >
-          Sign in & continue
-        </button>
-
-        <button
-          class="smallbtn"
-          type="button"
-          onclick="signUp()"
-        >
-          Create account
-        </button>
-
-      </div>
-
-    </div>
-
-
-    <!-- LISTING FORM -->
-
-    <form
-      id="listingForm"
-      style="display:none"
-      onsubmit="submitListing(event)"
-    >
-
-      <div class="entry">
-
-        <strong>
-          Listing entry: ₹49
-        </strong>
-
-        <span>
-          Your listing is linked to your profile.
-          Payment activation will be connected securely.
-        </span>
-
-      </div>
-
-
-      <div class="group">
-
-        <label>
-          What are you listing?
-        </label>
-
-        <input
-          id="title"
-          maxlength="120"
-          placeholder="e.g. My new song"
-          required
-        >
-
-      </div>
-
-
-      <div class="group">
-
-        <label>
-          Category
-        </label>
-
-        <select id="category" required>
-
-          <option value="">
-            Loading categories…
-          </option>
-
-        </select>
-
-      </div>
-
-
-      <div class="group">
-
-        <label>
-          Country
-        </label>
-
-        <input
-          id="country"
-          maxlength="80"
-          placeholder="India"
-          required
-        >
-
-      </div>
-
-
-      <div class="group">
-
-        <label>
-          Public link
-        </label>
-
-        <input
-          id="external_url"
-          type="url"
-          maxlength="500"
-          placeholder="https://example.com"
-          required
-        >
-
-      </div>
-
-
-      <div class="group">
-
-        <label>
-          Image URL
-          <span style="color:#6f7985">
-            (optional)
-          </span>
-        </label>
-
-        <input
-          id="image_url"
-          type="url"
-          maxlength="500"
-          placeholder="https://..."
-        >
-
-      </div>
-
-
-      <div class="group">
-
-        <label>
-          Short description
-        </label>
-
-        <textarea
-          id="description"
-          maxlength="500"
-          placeholder="Tell people what makes this worth noticing..."
-        ></textarea>
-
-      </div>
-
-
-      <button
-        class="submit"
-        id="submit"
-        type="submit"
-      >
-        Continue — ₹49
-      </button>
-
-    </form>
-
-
-    <!-- SUCCESS -->
-
-    <div class="success" id="success">
-
-      <div class="successicon">
-        🚀
-      </div>
-
-      <h2>
-        Listing created
-      </h2>
-
-      <p>
-        Your listing has been saved successfully.
-      </p>
-
-      <div class="successrank">
-
-        <span>
-          Current board position
-        </span>
-
-        <strong id="rankResult">
-          #—
-        </strong>
-
-      </div>
-
-
-      <button
-        class="primary"
-        style="width:100%;margin-top:18px"
-        onclick="closeListingModal()"
-      >
-        Back to TOPME
-      </button>
-
-    </div>
-
-  </div>
+<div class="head">
+<div>
+<div class="title">TOPME board</div>
+<div class="sub">The things people are putting on top right now.</div>
+</div>
+</div>
+
+<div class="board" id="trending">
+
+<div class="filters" id="filters">
+
+<button class="filter active" data-filter="All">All</button>
+<button class="filter" data-filter="India">India</button>
 
 </div>
 
+<div id="loading" class="loading">
+<div class="spinner"></div>
+Loading the live board…
+</div>
+
+<div id="leaderboard"></div>
+
+</div>
+
+</section>
+
+<section class="section" id="how">
+
+<div class="head">
+<div>
+<div class="title">How it works</div>
+<div class="sub">Simple. Public. Competitive.</div>
+</div>
+</div>
+
+<div class="how">
+
+<div class="howcard">
+<div class="step">01</div>
+<h3 style="margin-top:10px">Create</h3>
+<p>
+Create your account and submit the thing you want people to discover.
+</p>
+</div>
+
+<div class="howcard">
+<div class="step">02</div>
+<h3 style="margin-top:10px">Get on the board</h3>
+<p>
+Pay the ₹49 listing entry and your listing becomes live after payment verification.
+</p>
+</div>
+
+<div class="howcard">
+<div class="step">03</div>
+<h3 style="margin-top:10px">Rise</h3>
+<p>
+Collect attention, views and boosts and fight your way toward #1.
+</p>
+</div>
+
+</div>
+
+</section>
+
+<section class="section" id="pricing">
+
+<div class="head">
+<div>
+<div class="title">Simple pricing</div>
+<div class="sub">Start small. Get discovered.</div>
+</div>
+</div>
+
+<div class="pricing">
+
+<div class="price highlight">
+<div class="label">LISTING</div>
+<div class="cost">₹49</div>
+<div class="desc">
+Put your creation, business, product or idea on the TOPME board.
+</div>
+<button onclick="openListingModal()">Get listed</button>
+</div>
+
+<div class="price">
+<div class="label">BOOST</div>
+<div class="cost">₹49</div>
+<div class="desc">
+Give your existing listing an extra push and improve visibility.
+</div>
+<button onclick="showToast('Boost payment will be connected securely next.')">
+Boost
+</button>
+</div>
+
+<div class="price">
+<div class="label">PRO</div>
+<div class="cost">Soon</div>
+<div class="desc">
+Advanced creator tools, analytics and promotional features are coming.
+</div>
+<button onclick="showToast('PRO is coming soon.')">
+Coming soon
+</button>
+</div>
+
+</div>
+
+</section>
+
+<footer>
+
+<div class="foot">
+
+<div>
+<div class="logo">TOP<span>ME</span></div>
+<div style="margin-top:7px;font-size:11px">
+Put what deserves to be on top.
+</div>
+</div>
+
+<div class="footlinks">
+<a href="#explore">Explore</a>
+<a href="#categories">Categories</a>
+<a href="#how">How it works</a>
+<a href="#pricing">Pricing</a>
+</div>
+
+</div>
+
+</footer>
+
+<div class="modal" id="modal" onclick="outsideModal(event)">
+
+<div class="box">
+
+<div class="mhead">
+<h2>Put something on TOPME</h2>
+<button class="close" onclick="closeListingModal()">×</button>
+</div>
+
+<div id="authStep">
+
+<div class="entry">
+<strong>Listing entry: ₹49</strong>
+<span>
+Sign in or create an account to continue.
+</span>
+</div>
+
+<div class="group">
+<label>Email</label>
+<input id="email" type="email" placeholder="you@example.com">
+</div>
+
+<div class="group">
+<label>Password</label>
+<input id="password" type="password" placeholder="Minimum 6 characters">
+</div>
+
+<div class="authbox">
+
+<button class="submit" onclick="signIn()">
+Sign in & continue
+</button>
+
+<button class="smallbtn" onclick="signUp()">
+Create account
+</button>
+
+</div>
+
+</div>
+
+<form id="listingForm" style="display:none" onsubmit="submitListing(event)">
+
+<div class="entry">
+<strong>Listing entry: ₹49</strong>
+<span>
+Your listing will be created after successful Razorpay payment verification.
+</span>
+</div>
+
+<div class="group">
+<label>What are you listing?</label>
+<input id="title" maxlength="120" placeholder="e.g. My new song" required>
+</div>
+
+<div class="group">
+<label>Category</label>
+<select id="category" required>
+<option value="">Loading categories…</option>
+</select>
+</div>
+
+<div class="group">
+<label>Country</label>
+<input id="country" maxlength="80" placeholder="India" required>
+</div>
+
+<div class="group">
+<label>Public link</label>
+<input id="external_url" type="url" maxlength="500" placeholder="https://example.com" required>
+</div>
+
+<div class="group">
+<label>
+Image URL
+<span style="color:#6f7985">(optional)</span>
+</label>
+<input id="image_url" type="url" maxlength="500" placeholder="https://...">
+</div>
+
+<div class="group">
+<label>Short description</label>
+<textarea id="description" maxlength="500" placeholder="Tell people what makes this worth noticing..."></textarea>
+</div>
+
+<button class="submit" id="submit" type="submit">
+Continue — ₹49
+</button>
+
+</form>
+
+<div class="success" id="success">
+
+<div class="successicon">🚀</div>
+
+<h2>Listing created</h2>
+
+<p>
+Your ₹49 payment was verified and your listing is now live on the TOPME board.
+</p>
+
+<div class="successrank">
+<span>Current board position</span>
+<strong id="rankResult">#—</strong>
+</div>
+
+<button
+class="primary"
+style="width:100%;margin-top:18px"
+onclick="closeListingModal()">
+Back to TOPME
+</button>
+
+</div>
+
+</div>
+</div>
 
 <div class="toast" id="toast"></div>
 
-
-<!-- SUPABASE -->
-
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
+<!-- Razorpay Checkout -->
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 
 <script>
 
-const TOPME_CONFIG = {
-
-  supabaseUrl:
-    'https://mrwpaznoqdrrrrqzntre.supabase.co',
-
-  supabaseAnonKey:
-    'sb_publishable_NcFD_bxuHt6qnst0PZ8c7A_YKATads2',
-
+const TOPME_CONFIG={
+  supabaseUrl:'https://mrwpaznoqdrrrrqzntre.supabase.co',
+  supabaseAnonKey:'sb_publishable_NcFD_bxuHt6qnst0PZ8c7A_YKATads2',
   listingPrice:49
-
 };
 
+const sb=window.supabase.createClient(
+  TOPME_CONFIG.supabaseUrl,
+  TOPME_CONFIG.supabaseAnonKey
+);
 
-const sb =
-  window.supabase.createClient(
-    TOPME_CONFIG.supabaseUrl,
-    TOPME_CONFIG.supabaseAnonKey
-  );
-
-
-let categories = [];
-let listings = [];
-let currentFilter = 'All';
+let categories=[];
+let listings=[];
+let currentFilter='All';
 let toastTimer;
 
-
-const icons = {
-
+const icons={
   Creators:'🎨',
   Music:'🎵',
   Videos:'🎬',
@@ -1404,138 +1103,74 @@ const icons = {
   Businesses:'💼',
   Websites:'🌐',
   Art:'🖼️'
-
 };
 
-
-function esc(value){
-
-  return String(value ?? '').replace(
+function esc(v){
+  return String(v??'').replace(
     /[&<>"']/g,
-    function(char){
-
-      return {
-
-        '&':'&amp;',
-        '<':'&lt;',
-        '>':'&gt;',
-        '"':'&quot;',
-        "'":'&#039;'
-
-      }[char];
-
-    }
-  );
-
+    c=>({
+      '&':'&amp;',
+      '<':'&lt;',
+      '>':'&gt;',
+      '"':'&quot;',
+      "'":'&#039;'
+    }[c])
+  )
 }
-
 
 function iconFor(name){
-
-  return icons[name] || '✨';
-
+  return icons[name]||'✨'
 }
-
-
-/* -----------------------------
-   CATEGORIES
------------------------------ */
 
 async function loadCategories(){
 
   const {
     data,
     error
-  } = await sb
+  }=await sb
     .from('categories')
     .select('id,name,slug')
     .order('name');
 
-
   if(error){
-
-    console.error('Categories error:',error);
-
-    showToast(
-      'Could not load categories.',
-      true
-    );
-
-    return;
-
+    console.error(error);
+    return showToast('Could not load categories.',true);
   }
 
+  categories=data||[];
 
-  categories = data || [];
+  const grid=document.getElementById('categoriesGrid');
 
+  grid.innerHTML=categories.map(c=>`
+    <div
+      class="cat"
+      onclick="selectCategory('${esc(c.name)}',this)"
+    >
+      <div class="icon">${iconFor(c.name)}</div>
+      <div class="catname">${esc(c.name)}</div>
+      <div class="count">TOPME category</div>
+    </div>
+  `).join('');
 
-  const grid =
-    document.getElementById('categoriesGrid');
+  const select=document.getElementById('category');
 
-
-  grid.innerHTML =
-    categories.map(function(c){
-
-      return `
-        <div
-          class="cat"
-          data-category="${esc(c.name)}"
-          onclick="selectCategory('${esc(c.name)}',this)"
-        >
-
-          <div class="icon">
-            ${iconFor(c.name)}
-          </div>
-
-          <div class="catname">
-            ${esc(c.name)}
-          </div>
-
-          <div class="count">
-            TOPME category
-          </div>
-
-        </div>
-      `;
-
-    }).join('');
-
-
-  const select =
-    document.getElementById('category');
-
-
-  select.innerHTML =
-    '<option value="">Select category</option>' +
-
-    categories.map(function(c){
-
-      return `
-        <option value="${esc(c.id)}">
-          ${esc(c.name)}
-        </option>
-      `;
-
-    }).join('');
-
+  select.innerHTML=
+    '<option value="">Select category</option>'+
+    categories.map(c=>`
+      <option value="${esc(c.id)}">
+        ${esc(c.name)}
+      </option>
+    `).join('');
 }
-
-
-/* -----------------------------
-   LISTINGS
------------------------------ */
 
 async function loadListings(){
 
-  document
-    .getElementById('loading')
-    .style.display = 'block';
-
+  document.getElementById('loading').style.display='block';
 
   const {
     data,
     error
-  } = await sb
+  }=await sb
     .from('listings')
     .select(
       'id,title,description,category_id,owner_id,creator_name,image_url,external_url,country,status,views,boosts,created_at'
@@ -1546,359 +1181,197 @@ async function loadListings(){
     .order('created_at',{ascending:false})
     .limit(50);
 
-
   if(error){
 
-    console.error('Listings error:',error);
+    console.error('TOPME board error:',error);
 
-    listings = [];
-
-    document
-      .getElementById('leaderboard')
-      .innerHTML =
-      '<div class="loading">No live listings yet.</div>';
+    document.getElementById('leaderboard').innerHTML=
+      '<div class="loading">Could not load the live board.</div>';
 
   }else{
 
-    listings = data || [];
+    listings=data||[];
 
     renderBoard();
     updateStats();
 
   }
 
-
-  document
-    .getElementById('loading')
-    .style.display = 'none';
-
+  document.getElementById('loading').style.display='none';
 }
-
-
-/* -----------------------------
-   CATEGORY HELPERS
------------------------------ */
 
 function categoryName(id){
 
-  const category =
-    categories.find(function(item){
+  const c=categories.find(x=>x.id===id);
 
-      return item.id === id;
-
-    });
-
-
-  return category
-    ? category.name
-    : 'Other';
-
+  return c?c.name:'Other';
 }
-
-
-/* -----------------------------
-   BOARD
------------------------------ */
 
 function renderBoard(){
 
-  const filtered =
-    listings.filter(function(item){
+  const filtered=listings.filter(x=>{
 
-      const cat =
-        categoryName(item.category_id);
+    const cat=categoryName(x.category_id);
 
+    return currentFilter==='All'||
+      (
+        currentFilter==='India' &&
+        String(x.country).toLowerCase()==='india'
+      )||
+      cat===currentFilter;
 
-      if(currentFilter === 'All'){
-        return true;
-      }
+  });
 
-
-      if(
-        currentFilter === 'India'
-      ){
-
-        return String(
-          item.country || ''
-        ).toLowerCase() === 'india';
-
-      }
-
-
-      return cat === currentFilter;
-
-    });
-
-
-  const board =
-    document.getElementById('leaderboard');
-
+  const board=document.getElementById('leaderboard');
 
   if(!filtered.length){
 
-    board.innerHTML =
-      '<div class="loading">' +
-      'Nothing here yet. Be the first one on TOPME.' +
-      '</div>';
+    board.innerHTML=
+      '<div class="loading">Nothing here yet. Be the first one on TOPME.</div>';
 
     return;
-
   }
 
+  board.innerHTML=filtered.map((x,i)=>`
 
-  board.innerHTML =
-    filtered.map(function(item,index){
+    <div
+      class="row"
+      data-category="${esc(categoryName(x.category_id))}"
+      data-country="${esc(x.country)}"
+    >
 
-      const cat =
-        categoryName(item.category_id);
+      <div class="rank ${i===0?'top':''}">
+        #${i+1}
+      </div>
 
+      <div class="item">
 
-      const image =
-        item.image_url
-          ? `
-            <img
-              src="${esc(item.image_url)}"
+        <div class="avatar">
+          ${
+            x.image_url
+            ?
+            `<img
+              src="${esc(x.image_url)}"
               alt=""
-              style="
-                width:100%;
-                height:100%;
-                object-fit:cover;
-                border-radius:12px
-              "
-            >
-          `
-          : iconFor(cat);
+              style="width:100%;height:100%;object-fit:cover;border-radius:12px"
+            >`
+            :
+            iconFor(categoryName(x.category_id))
+          }
+        </div>
 
+        <div>
 
-      return `
-
-        <div class="row">
-
-          <div class="rank ${index === 0 ? 'top' : ''}">
-            #${index + 1}
+          <div class="name">
+            ${esc(x.title)}
           </div>
 
-
-          <div class="item">
-
-            <div class="avatar">
-              ${image}
-            </div>
-
-            <div>
-
-              <div class="name">
-                ${esc(item.title)}
-              </div>
-
-              <div class="meta">
-                ${esc(cat)}
-                ·
-                ${esc(item.country || 'Worldwide')}
-                ·
-                ${Number(item.views || 0).toLocaleString()}
-                views
-              </div>
-
-            </div>
-
-          </div>
-
-
-          <div class="amount">
-
-            <strong>
-              TOP
-            </strong>
-
-            <button
-              class="boost"
-              type="button"
-              onclick="showToast('Boost payment will be connected securely next.')"
-            >
-              ⚡ ₹49 Boost
-            </button>
-
+          <div class="meta">
+            ${esc(categoryName(x.category_id))}
+            ·
+            ${esc(x.country||'Worldwide')}
+            ·
+            ${Number(x.views||0).toLocaleString()}
+            views
           </div>
 
         </div>
 
-      `;
+      </div>
 
-    }).join('');
+      <div class="amount">
 
+        <strong>TOP</strong>
+
+        <button
+          class="boost"
+          onclick="showToast('Boost payment will be connected securely next.')"
+        >
+          ⚡ ₹49 Boost
+        </button>
+
+      </div>
+
+    </div>
+
+  `).join('');
 }
-
-
-/* -----------------------------
-   STATS
------------------------------ */
 
 function updateStats(){
 
-  document
-    .getElementById('listingCount')
-    .textContent =
+  document.getElementById('listingCount').textContent=
     listings.length.toLocaleString();
 
+  const countries=new Set(
+    listings
+      .map(x=>String(x.country||'').trim())
+      .filter(Boolean)
+  );
 
-  const countries =
-    new Set(
-
-      listings
-
-        .map(function(item){
-
-          return String(
-            item.country || ''
-          ).trim();
-
-        })
-
-        .filter(Boolean)
-
-    );
-
-
-  document
-    .getElementById('countryCount')
-    .textContent =
+  document.getElementById('countryCount').textContent=
     countries.size.toLocaleString();
 
-
-  const views =
-    listings.reduce(
-      function(total,item){
-
-        return total +
-          Number(item.views || 0);
-
-      },
-      0
-    );
-
-
-  document
-    .getElementById('viewCount')
-    .textContent =
-    views.toLocaleString();
-
+  document.getElementById('viewCount').textContent=
+    listings
+      .reduce((n,x)=>n+Number(x.views||0),0)
+      .toLocaleString();
 }
 
+function filterBoard(f){
 
-/* -----------------------------
-   FILTERS
------------------------------ */
-
-function filterBoard(filter){
-
-  currentFilter = filter;
-
+  currentFilter=f;
 
   document
     .querySelectorAll('.filter')
-    .forEach(function(button){
-
-      button.classList.toggle(
+    .forEach(b=>{
+      b.classList.toggle(
         'active',
-        button.dataset.filter === filter
+        b.dataset.filter===f
       );
-
     });
 
-
   renderBoard();
-
 }
 
+document.getElementById('filters').addEventListener(
+  'click',
+  e=>{
+    const b=e.target.closest('.filter');
 
-document
-  .getElementById('filters')
-  .addEventListener(
-    'click',
-    function(event){
-
-      const button =
-        event.target.closest('.filter');
-
-
-      if(button){
-
-        filterBoard(
-          button.dataset.filter
-        );
-
-      }
-
+    if(b){
+      filterBoard(b.dataset.filter);
     }
-  );
+  }
+);
 
-
-function selectCategory(category,element){
+function selectCategory(c,el){
 
   document
     .querySelectorAll('.cat')
-    .forEach(function(item){
+    .forEach(x=>x.classList.remove('selected'));
 
-      item.classList.remove('selected');
+  el.classList.add('selected');
 
-    });
-
-
-  element.classList.add('selected');
-
-
-  filterBoard(category);
-
+  filterBoard(c);
 
   document
     .getElementById('explore')
-    .scrollIntoView({
-      behavior:'smooth'
-    });
-
+    .scrollIntoView({behavior:'smooth'});
 }
-
 
 function scrollToBoard(){
 
   document
     .getElementById('explore')
-    .scrollIntoView({
-      behavior:'smooth'
-    });
-
+    .scrollIntoView({behavior:'smooth'});
 }
-
-
-/* -----------------------------
-   AUTH
------------------------------ */
 
 async function currentUser(){
 
-  const {
-    data,
-    error
-  } = await sb.auth.getUser();
+  const {data}=await sb.auth.getUser();
 
-
-  if(error){
-
-    console.error('User error:',error);
-    return null;
-
-  }
-
-
-  return data.user || null;
-
+  return data.user||null;
 }
-
-
-/* -----------------------------
-   MODAL
------------------------------ */
 
 function openListingModal(){
 
@@ -1906,60 +1379,35 @@ function openListingModal(){
     .getElementById('modal')
     .classList.add('open');
 
+  document.body.style.overflow='hidden';
 
-  document.body.style.overflow = 'hidden';
-
-
-  document
-    .getElementById('listingForm')
-    .style.display = 'none';
-
+  document.getElementById('listingForm').style.display='none';
 
   document
     .getElementById('success')
     .classList.remove('show');
 
-
   document
     .getElementById('authStep')
-    .style.display = 'block';
+    .style.display='block';
 
-
-  currentUser().then(function(user){
-
-    if(user){
-
+  currentUser().then(u=>{
+    if(u){
       showListingForm();
-
     }
-
   });
-
 }
-
 
 function showListingForm(){
 
-  document
-    .getElementById('authStep')
-    .style.display = 'none';
+  document.getElementById('authStep').style.display='none';
 
+  document.getElementById('listingForm').style.display='block';
 
-  document
-    .getElementById('listingForm')
-    .style.display = 'block';
-
-
-  setTimeout(function(){
-
-    document
-      .getElementById('title')
-      .focus();
-
+  setTimeout(()=>{
+    document.getElementById('title').focus();
   },80);
-
 }
-
 
 function closeListingModal(){
 
@@ -1967,471 +1415,450 @@ function closeListingModal(){
     .getElementById('modal')
     .classList.remove('open');
 
-
-  document.body.style.overflow = '';
-
+  document.body.style.overflow='';
 }
 
+function outsideModal(e){
 
-function outsideModal(event){
-
-  if(event.target.id === 'modal'){
-
+  if(e.target.id==='modal'){
     closeListingModal();
-
   }
-
 }
-
 
 document.addEventListener(
   'keydown',
-  function(event){
-
-    if(event.key === 'Escape'){
-
+  e=>{
+    if(e.key==='Escape'){
       closeListingModal();
-
     }
-
   }
 );
 
-
-/* -----------------------------
-   SIGN IN
------------------------------ */
-
 async function signIn(){
 
-  const email =
-    document
-      .getElementById('email')
-      .value
-      .trim();
+  const email=
+    document.getElementById('email').value.trim();
 
+  const password=
+    document.getElementById('password').value;
 
-  const password =
-    document
-      .getElementById('password')
-      .value;
+  if(!email||!password){
 
-
-  if(!email || !password){
-
-    showToast(
+    return showToast(
       'Enter email and password.',
       true
     );
-
-    return;
-
   }
 
-
-  const {
-    error
-  } = await sb.auth.signInWithPassword({
-
-    email:email,
-    password:password
-
+  const {error}=await sb.auth.signInWithPassword({
+    email,
+    password
   });
-
 
   if(error){
 
-    console.error('Sign in error:',error);
-
-    showToast(
+    return showToast(
       error.message,
       true
     );
-
-    return;
-
   }
-
 
   showToast('Signed in ✓');
 
   showListingForm();
-
 }
-
-
-/* -----------------------------
-   SIGN UP
------------------------------ */
 
 async function signUp(){
 
-  const email =
-    document
-      .getElementById('email')
-      .value
-      .trim();
+  const email=
+    document.getElementById('email').value.trim();
 
+  const password=
+    document.getElementById('password').value;
 
-  const password =
-    document
-      .getElementById('password')
-      .value;
+  if(!email||password.length<6){
 
-
-  if(!email){
-
-    showToast(
-      'Enter your email.',
+    return showToast(
+      'Enter email and a 6+ character password.',
       true
     );
-
-    return;
-
   }
 
-
-  if(password.length < 6){
-
-    showToast(
-      'Password must be at least 6 characters.',
-      true
-    );
-
-    return;
-
-  }
-
-
-  const {
-    data,
-    error
-  } = await sb.auth.signUp({
-
-    email:email,
-    password:password
-
+  const {error}=await sb.auth.signUp({
+    email,
+    password
   });
-
 
   if(error){
 
-    console.error('Sign up error:',error);
-
-    showToast(
+    return showToast(
       error.message,
       true
     );
-
-    return;
-
   }
 
+  const u=await currentUser();
 
-  if(data.user && data.session){
+  if(u){
 
-    showToast(
-      'Account created ✓'
-    );
+    showToast('Account created ✓');
 
     showListingForm();
 
-    return;
-
-  }
-
-
-  showToast(
-    'Account created. Check your email to confirm your account.'
-  );
-
-}
-
-
-/* -----------------------------
-   CREATE LISTING
------------------------------ */
-
-async function submitListing(event){
-
-  event.preventDefault();
-
-
-  const user =
-    await currentUser();
-
-
-  if(!user){
+  }else{
 
     showToast(
-      'Please sign in first.',
+      'Account created. Check your email, confirm it, then sign in.',
       true
     );
 
-    return;
+  }
+}
 
+async function submitListing(e){
+
+  e.preventDefault();
+
+  const user=await currentUser();
+
+  if(!user){
+
+    return showToast(
+      'Please sign in first.',
+      true
+    );
   }
 
+  const btn=document.getElementById('submit');
 
-  const button =
-    document.getElementById('submit');
+  btn.disabled=true;
 
-
-  button.disabled = true;
-  button.textContent = 'Saving…';
-
+  btn.textContent='Starting payment…';
 
   try{
 
-    const categoryId =
-      document
-        .getElementById('category')
-        .value;
+    const categoryId=
+      document.getElementById('category').value;
 
+    const category=
+      categories.find(x=>x.id===categoryId);
 
-    if(!categoryId){
+    if(!category){
 
       throw new Error(
         'Please select a category.'
       );
-
     }
 
+    const payload={
 
-    /*
-      Profile is optional.
-      If profile exists, use its name.
-      Otherwise use email username.
-    */
-
-    let creatorName =
-      user.email
-        ? user.email.split('@')[0]
-        : 'TOPME User';
-
-
-    const {
-      data:profile,
-      error:profileError
-    } = await sb
-      .from('profiles')
-      .select('full_name,username')
-      .eq('id',user.id)
-      .maybeSingle();
-
-
-    /*
-      A missing profile should NOT block
-      listing creation.
-    */
-
-    if(!profileError && profile){
-
-      creatorName =
-        profile.full_name ||
-        profile.username ||
-        creatorName;
-
-    }
-
-
-    const payload = {
+      action:'create_order',
 
       title:
-        document
-          .getElementById('title')
-          .value
-          .trim(),
+        document.getElementById('title')
+        .value
+        .trim(),
 
       description:
-        document
-          .getElementById('description')
-          .value
-          .trim(),
+        document.getElementById('description')
+        .value
+        .trim(),
 
       category_id:
         categoryId,
 
-      owner_id:
-        user.id,
-
-      creator_name:
-        creatorName,
-
       image_url:
-        document
-          .getElementById('image_url')
-          .value
-          .trim() || null,
+        document.getElementById('image_url')
+        .value
+        .trim()||null,
 
       external_url:
-        document
-          .getElementById('external_url')
-          .value
-          .trim(),
+        document.getElementById('external_url')
+        .value
+        .trim(),
 
       country:
-        document
-          .getElementById('country')
-          .value
-          .trim(),
-
-      /*
-        IMPORTANT:
-        Only use a status allowed by
-        your current database policies.
-      */
-      status:'active',
-
-      views:0,
-
-      boosts:0
+        document.getElementById('country')
+        .value
+        .trim()
 
     };
 
-
-    const {
-      data,
-      error
-    } = await sb
-      .from('listings')
-      .insert(payload)
-      .select()
-      .single();
-
-
-    if(error){
-
-      console.error(
-        'Listing insert error:',
-        error
-      );
+    if(
+      !payload.title||
+      !payload.country||
+      !payload.external_url
+    ){
 
       throw new Error(
-        error.message ||
-        'Could not save listing.'
+        'Please complete all required listing fields.'
       );
-
     }
 
+    const {
+      data:orderData,
+      error:orderError
+    }=await sb.functions.invoke(
+      'listing-payment',
+      {
+        body:payload
+      }
+    );
 
-    /*
-      Success
-    */
+    if(orderError){
 
-    document
-      .getElementById('listingForm')
-      .style.display = 'none';
+      throw new Error(
+        orderError.message||
+        'Could not start payment.'
+      );
+    }
 
+    if(!orderData||orderData.error){
 
-    document
-      .getElementById('success')
-      .classList.add('show');
+      throw new Error(
+        orderData?.error||
+        'Could not start payment.'
+      );
+    }
 
+    btn.textContent='Waiting for payment…';
 
-    /*
-      Reload board so newly-created
-      active listing appears immediately.
-    */
+    const options={
 
-    await loadListings();
+      key:orderData.key_id,
 
+      amount:orderData.amount,
 
-    const position =
-      listings.findIndex(
-        function(item){
+      currency:orderData.currency,
 
-          return item.id === data.id;
+      name:'TOPME',
+
+      description:
+        'TOPME listing entry — ₹49',
+
+      order_id:
+        orderData.order_id,
+
+      prefill:{
+        name:
+          orderData.name||'',
+
+        email:
+          orderData.email||
+          user.email||
+          ''
+      },
+
+      theme:{
+        color:'#a8ff3e'
+      },
+
+      modal:{
+
+        ondismiss:function(){
+
+          btn.disabled=false;
+
+          btn.textContent='Continue — ₹49';
+
+          showToast(
+            'Payment cancelled. Your listing was not activated.',
+            true
+          );
 
         }
+
+      },
+
+      handler:async function(response){
+
+        try{
+
+          btn.disabled=true;
+
+          btn.textContent='Verifying payment…';
+
+          const {
+            data:verifyData,
+            error:verifyError
+          }=await sb.functions.invoke(
+            'listing-payment',
+            {
+              body:{
+
+                action:'verify_payment',
+
+                payment_record_id:
+                  orderData.payment_id,
+
+                razorpay_payment_id:
+                  response.razorpay_payment_id,
+
+                razorpay_signature:
+                  response.razorpay_signature
+
+              }
+            }
+          );
+
+          if(verifyError){
+
+            throw new Error(
+              verifyError.message||
+              'Payment verification failed.'
+            );
+          }
+
+          if(
+            !verifyData||
+            verifyData.error
+          ){
+
+            throw new Error(
+              verifyData?.error||
+              'Payment verification failed.'
+            );
+          }
+
+          if(!verifyData.ok){
+
+            throw new Error(
+              'Payment could not be verified.'
+            );
+          }
+
+          document.getElementById(
+            'listingForm'
+          ).style.display='none';
+
+          document
+            .getElementById('success')
+            .classList.add('show');
+
+          await loadListings();
+
+          const position=
+            listings.findIndex(
+              x=>x.id===verifyData.listing_id
+            );
+
+          document.getElementById(
+            'rankResult'
+          ).textContent=
+            position>=0
+            ?
+            '#'+(position+1)
+            :
+            '#—';
+
+          showToast(
+            'Payment verified. Listing is live ✓'
+          );
+
+        }catch(err){
+
+          console.error(
+            'TOPME payment verification error:',
+            err
+          );
+
+          showToast(
+            err?.message||
+            'Payment verification failed.',
+            true
+          );
+
+          btn.disabled=false;
+
+          btn.textContent='Continue — ₹49';
+
+        }
+
+      }
+
+    };
+
+    if(!window.Razorpay){
+
+      throw new Error(
+        'Razorpay checkout could not load. Please refresh and try again.'
       );
+    }
 
+    const razorpay=
+      new window.Razorpay(options);
 
-    document
-      .getElementById('rankResult')
-      .textContent =
-      position >= 0
-        ? '#' + (position + 1)
-        : '#—';
+    razorpay.on(
+      'payment.failed',
+      function(response){
 
+        console.error(
+          'Razorpay payment failed:',
+          response?.error
+        );
 
-    showToast(
-      'Listing created successfully ✓'
+        showToast(
+          response?.error?.description||
+          'Payment failed. Please try again.',
+          true
+        );
+
+        btn.disabled=false;
+
+        btn.textContent='Continue — ₹49';
+
+      }
     );
 
+    razorpay.open();
 
-  }catch(error){
+  }catch(err){
 
     console.error(
-      'Create listing failed:',
-      error
+      'TOPME payment error:',
+      err
     );
 
-
     showToast(
-      error.message ||
-      'Could not create listing.',
+      err?.message||
+      'Could not start payment.',
       true
     );
 
+    btn.disabled=false;
 
-  }finally{
-
-    button.disabled = false;
-    button.textContent = 'Continue — ₹49';
+    btn.textContent='Continue — ₹49';
 
   }
-
 }
 
+function showToast(msg,error=false){
 
-/* -----------------------------
-   TOAST
------------------------------ */
-
-function showToast(message,isError=false){
-
-  const toast =
+  const t=
     document.getElementById('toast');
-
 
   clearTimeout(toastTimer);
 
+  t.textContent=msg;
 
-  toast.textContent = message;
-
-
-  toast.classList.toggle(
+  t.classList.toggle(
     'error',
-    isError
+    error
   );
 
+  t.classList.add('show');
 
-  toast.classList.add('show');
-
-
-  toastTimer =
-    setTimeout(function(){
-
-      toast.classList.remove('show');
-
-    },3500);
-
+  toastTimer=setTimeout(
+    ()=>t.classList.remove('show'),
+    3000
+  );
 }
-
-
-/* -----------------------------
-   START
------------------------------ */
 
 window.addEventListener(
   'load',
-  async function(){
-
+  async()=>{
     await loadCategories();
-
     await loadListings();
-
   }
 );
 
