@@ -9,26 +9,47 @@
 <style>
 :root{
   --bg:#070a0e;
-  --card:#10161d;
-  --line:#252e38;
-  --muted:#929dac;
+  --panel:#0d1319;
+  --card:#10171e;
+  --card2:#111a21;
+  --line:#26313b;
+  --muted:#8995a3;
   --text:#fff;
-  --a:#a8ff3e
+  --a:#a8ff3e;
+  --gold:#ffd84d;
+  --silver:#c8d0d8;
+  --bronze:#d99a62;
 }
 
-*{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth}
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0
+}
+
+html{
+  scroll-behavior:smooth
+}
 
 body{
   background:var(--bg);
   color:var(--text);
-  font-family:Inter,system-ui,-apple-system,sans-serif;
+  font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
   overflow-x:hidden
 }
 
-button,input,select,textarea{font:inherit}
-button{cursor:pointer}
-a{text-decoration:none;color:inherit}
+button,input,select,textarea{
+  font:inherit
+}
+
+button{
+  cursor:pointer
+}
+
+a{
+  text-decoration:none;
+  color:inherit
+}
 
 body:before{
   content:"";
@@ -36,8 +57,9 @@ body:before{
   inset:0;
   z-index:-2;
   background:
-    radial-gradient(circle at 15% 10%,#a8ff3e18,transparent 27%),
-    radial-gradient(circle at 85% 20%,#62a8ff12,transparent 24%)
+    radial-gradient(circle at 12% 5%,#a8ff3e20,transparent 27%),
+    radial-gradient(circle at 88% 18%,#4d8dff13,transparent 25%),
+    radial-gradient(circle at 50% 60%,#a8ff3e08,transparent 35%)
 }
 
 body:after{
@@ -46,20 +68,22 @@ body:after{
   inset:0;
   z-index:-1;
   pointer-events:none;
-  opacity:.18;
+  opacity:.13;
   background-image:
-    linear-gradient(#fff000 1px,transparent 1px),
-    linear-gradient(90deg,#fff000 1px,transparent 1px);
+    linear-gradient(#a8ff3e 1px,transparent 1px),
+    linear-gradient(90deg,#a8ff3e 1px,transparent 1px);
   background-size:55px 55px;
-  mask-image:linear-gradient(#000,transparent 90%)
+  mask-image:linear-gradient(#000 10%,transparent 90%);
 }
+
+/* NAV */
 
 nav{
   height:68px;
   position:sticky;
   top:0;
   z-index:100;
-  background:#070a0ecc;
+  background:#070a0ee8;
   backdrop-filter:blur(18px);
   border-bottom:1px solid #ffffff10
 }
@@ -76,10 +100,12 @@ nav{
 .logo{
   font-size:25px;
   font-weight:950;
-  letter-spacing:-1.5px
+  letter-spacing:-1.7px
 }
 
-.logo span{color:var(--a)}
+.logo span{
+  color:var(--a)
+}
 
 .links{
   display:flex;
@@ -89,10 +115,13 @@ nav{
 .links a{
   font-size:13px;
   color:#aeb6c2;
-  font-weight:700
+  font-weight:700;
+  transition:.2s
 }
 
-.links a:hover{color:#fff}
+.links a:hover{
+  color:#fff
+}
 
 .add{
   border:0;
@@ -101,14 +130,22 @@ nav{
   background:var(--a);
   color:#071000;
   font-weight:950;
-  font-size:12px
+  font-size:12px;
+  transition:.2s
 }
+
+.add:hover{
+  transform:translateY(-2px);
+  box-shadow:0 8px 25px #a8ff3e25
+}
+
+/* HERO */
 
 .hero{
   width:min(1050px,92%);
   margin:auto;
   text-align:center;
-  padding:100px 0 70px
+  padding:105px 0 72px
 }
 
 .badge{
@@ -133,10 +170,10 @@ nav{
 }
 
 h1{
-  margin-top:23px;
-  font-size:clamp(52px,8.3vw,92px);
-  line-height:.93;
-  letter-spacing:-5.5px;
+  margin-top:24px;
+  font-size:clamp(54px,8.4vw,94px);
+  line-height:.92;
+  letter-spacing:-5.8px;
   font-weight:950
 }
 
@@ -149,8 +186,8 @@ h1{
 }
 
 .hero p{
-  max-width:650px;
-  margin:25px auto 0;
+  max-width:680px;
+  margin:27px auto 0;
   color:var(--muted);
   font-size:15px;
   line-height:1.75
@@ -161,10 +198,11 @@ h1{
   justify-content:center;
   gap:12px;
   flex-wrap:wrap;
-  margin-top:30px
+  margin-top:31px
 }
 
-.primary,.secondary{
+.primary,
+.secondary{
   padding:14px 22px;
   border-radius:13px;
   font-size:13px;
@@ -185,10 +223,11 @@ h1{
 }
 
 .primary:hover,
-.secondary:hover,
-.add:hover{
+.secondary:hover{
   transform:translateY(-2px)
 }
+
+/* STATS */
 
 .stats{
   width:min(950px,92%);
@@ -196,20 +235,25 @@ h1{
   display:grid;
   grid-template-columns:repeat(3,1fr);
   border:1px solid var(--line);
-  border-radius:18px;
+  border-radius:19px;
   overflow:hidden;
   background:#0d1319
 }
 
 .stat{
   text-align:center;
-  padding:22px;
+  padding:23px;
   border-right:1px solid var(--line)
 }
 
-.stat:last-child{border:0}
+.stat:last-child{
+  border:0
+}
 
-.stat strong{font-size:25px}
+.stat strong{
+  font-size:27px;
+  font-weight:950
+}
 
 .stat span{
   display:block;
@@ -218,10 +262,12 @@ h1{
   margin-top:5px
 }
 
+/* SECTIONS */
+
 .section{
   width:min(1180px,92%);
   margin:auto;
-  padding:86px 0
+  padding:90px 0
 }
 
 .head{
@@ -233,9 +279,9 @@ h1{
 }
 
 .title{
-  font-size:29px;
+  font-size:31px;
   font-weight:950;
-  letter-spacing:-.8px
+  letter-spacing:-1px
 }
 
 .sub{
@@ -244,6 +290,8 @@ h1{
   margin-top:7px
 }
 
+/* CATEGORIES */
+
 .categories{
   display:grid;
   grid-template-columns:repeat(4,1fr);
@@ -251,7 +299,7 @@ h1{
 }
 
 .cat{
-  min-height:110px;
+  min-height:115px;
   padding:19px;
   border:1px solid var(--line);
   border-radius:18px;
@@ -265,10 +313,12 @@ h1{
 .cat.selected{
   transform:translateY(-4px);
   border-color:var(--a);
-  box-shadow:0 0 0 1px #a8ff3e1f
+  box-shadow:0 0 0 1px #a8ff3e1f,0 18px 40px #0005
 }
 
-.icon{font-size:25px}
+.icon{
+  font-size:25px
+}
 
 .catname{
   margin-top:12px;
@@ -281,12 +331,14 @@ h1{
   font-size:11px
 }
 
+/* BOARD */
+
 .board{
   border:1px solid var(--line);
-  border-radius:19px;
+  border-radius:21px;
   overflow:hidden;
-  background:#0b1015;
-  box-shadow:0 25px 80px #0006
+  background:#0a1015;
+  box-shadow:0 25px 90px #0007
 }
 
 .filters{
@@ -297,13 +349,15 @@ h1{
   border-bottom:1px solid var(--line)
 }
 
-.filters::-webkit-scrollbar{display:none}
+.filters::-webkit-scrollbar{
+  display:none
+}
 
 .filter{
   white-space:nowrap;
   border:1px solid var(--line);
   border-radius:99px;
-  padding:9px 13px;
+  padding:9px 14px;
   background:#11171e;
   color:#aab3c0;
   font-size:11px;
@@ -316,33 +370,194 @@ h1{
   color:#071000
 }
 
-.row{
+/* PODIUM */
+
+.podium{
+  min-height:380px;
+  padding:42px 28px 30px;
   display:grid;
-  grid-template-columns:55px 1fr 125px;
-  gap:15px;
-  align-items:center;
-  padding:16px;
-  border-bottom:1px solid #ffffff08
+  grid-template-columns:1fr 1.15fr 1fr;
+  align-items:end;
+  gap:14px;
+  border-bottom:1px solid var(--line);
+  background:
+    radial-gradient(circle at 50% 5%,#a8ff3e0d,transparent 42%),
+    #0b1116
 }
 
-.row:last-child{border:0}
-
-.rank{
+.podium-card{
+  position:relative;
+  min-width:0;
+  padding:22px 18px;
+  border:1px solid var(--line);
+  border-radius:19px 19px 13px 13px;
+  background:
+    linear-gradient(180deg,#141c23,#0d1319);
   text-align:center;
-  color:#8b95a3;
+  overflow:hidden
+}
+
+.podium-card:before{
+  content:"";
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  background:radial-gradient(circle at 50% 0,#ffffff08,transparent 55%)
+}
+
+.podium-card.first{
+  min-height:290px;
+  border-color:#a8ff3e55;
+  box-shadow:0 -12px 55px #a8ff3e0b
+}
+
+.podium-card.second{
+  min-height:245px
+}
+
+.podium-card.third{
+  min-height:220px
+}
+
+.podium-rank{
+  position:absolute;
+  top:13px;
+  left:13px;
+  min-width:32px;
+  height:28px;
+  padding:0 8px;
+  display:grid;
+  place-items:center;
+  border-radius:9px;
+  background:#182029;
+  color:#9aa5b2;
+  font-size:11px;
   font-weight:950
 }
 
-.rank.top{color:var(--a)}
+.first .podium-rank{
+  background:#a8ff3e;
+  color:#071000
+}
 
-.item{
+.podium-crown{
+  font-size:30px;
+  margin-bottom:8px
+}
+
+.podium-avatar{
+  width:65px;
+  height:65px;
+  margin:0 auto 13px;
+  display:grid;
+  place-items:center;
+  border:1px solid #34404c;
+  border-radius:18px;
+  background:linear-gradient(135deg,#17212a,#27323d);
+  overflow:hidden;
+  font-size:28px
+}
+
+.first .podium-avatar{
+  width:78px;
+  height:78px;
+  border-color:#a8ff3e66;
+  box-shadow:0 0 30px #a8ff3e12
+}
+
+.podium-avatar img{
+  width:100%;
+  height:100%;
+  object-fit:cover
+}
+
+.podium-name{
+  font-size:14px;
+  font-weight:950;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis
+}
+
+.first .podium-name{
+  font-size:17px
+}
+
+.podium-meta{
+  margin-top:5px;
+  color:var(--muted);
+  font-size:10px;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis
+}
+
+.podium-score{
+  margin-top:15px;
+  font-size:12px;
+  color:#c5cdd6
+}
+
+.podium-score strong{
+  color:var(--a);
+  font-size:16px
+}
+
+.podium-boost{
+  margin-top:13px;
+  border:1px solid #34404c;
+  border-radius:9px;
+  padding:7px 10px;
+  background:#151c24;
+  color:#fff;
+  font-size:10px;
+  font-weight:900
+}
+
+.podium-boost:hover{
+  border-color:var(--a);
+  color:var(--a)
+}
+
+/* RANKING */
+
+.ranking-head{
+  padding:20px 22px 12px;
+  color:#778391;
+  font-size:10px;
+  font-weight:900;
+  letter-spacing:.7px;
+  text-transform:uppercase
+}
+
+.rank-row{
+  display:grid;
+  grid-template-columns:58px 1fr 120px;
+  gap:15px;
+  align-items:center;
+  padding:17px 20px;
+  border-top:1px solid #ffffff08;
+  transition:.2s
+}
+
+.rank-row:hover{
+  background:#ffffff03
+}
+
+.rank-number{
+  color:#8b95a3;
+  font-weight:950;
+  text-align:center
+}
+
+.rank-item{
   display:flex;
   align-items:center;
-  gap:12px;
+  gap:13px;
   min-width:0
 }
 
-.avatar{
+.rank-avatar{
   width:46px;
   height:46px;
   display:grid;
@@ -354,7 +569,17 @@ h1{
   overflow:hidden
 }
 
-.name{
+.rank-avatar img{
+  width:100%;
+  height:100%;
+  object-fit:cover
+}
+
+.rank-info{
+  min-width:0
+}
+
+.rank-name{
   font-size:14px;
   font-weight:900;
   white-space:nowrap;
@@ -362,15 +587,23 @@ h1{
   text-overflow:ellipsis
 }
 
-.meta{
+.rank-meta{
   margin-top:4px;
   color:var(--muted);
-  font-size:11px
+  font-size:11px;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis
 }
 
-.amount{text-align:right}
+.rank-right{
+  text-align:right
+}
 
-.amount strong{display:block}
+.rank-right strong{
+  display:block;
+  font-size:12px
+}
 
 .boost{
   margin-top:7px;
@@ -388,6 +621,17 @@ h1{
   color:var(--a)
 }
 
+/* EMPTY */
+
+.empty{
+  padding:45px 20px;
+  text-align:center;
+  color:var(--muted);
+  font-size:12px
+}
+
+/* PRICING / HOW */
+
 .pricing,
 .how{
   display:grid;
@@ -397,15 +641,23 @@ h1{
 
 .price,
 .howcard{
-  padding:25px;
+  padding:26px;
   border:1px solid var(--line);
   border-radius:19px;
   background:
     radial-gradient(circle at 50% 0,#a8ff3e12,transparent 45%),
-    var(--card)
+    var(--card);
+  transition:.2s
 }
 
-.price.highlight{border-color:#a8ff3e80}
+.price:hover,
+.howcard:hover{
+  transform:translateY(-3px)
+}
+
+.price.highlight{
+  border-color:#a8ff3e80
+}
 
 .label,
 .step{
@@ -439,6 +691,8 @@ h1{
   font-weight:950
 }
 
+/* FOOTER */
+
 footer{
   padding:42px 0;
   border-top:1px solid var(--line);
@@ -460,6 +714,8 @@ footer{
   font-size:11px
 }
 
+/* MODAL */
+
 .modal{
   position:fixed;
   inset:0;
@@ -467,11 +723,13 @@ footer{
   display:none;
   place-items:center;
   padding:18px;
-  background:#000c;
+  background:#000d;
   backdrop-filter:blur(10px)
 }
 
-.modal.open{display:grid}
+.modal.open{
+  display:grid
+}
 
 .box{
   width:min(540px,100%);
@@ -489,6 +747,10 @@ footer{
   justify-content:space-between;
   align-items:center;
   margin-bottom:22px
+}
+
+.mhead h2{
+  font-size:21px
 }
 
 .close{
@@ -509,7 +771,9 @@ footer{
   background:#a8ff3e0b
 }
 
-.entry strong{color:var(--a)}
+.entry strong{
+  color:var(--a)
+}
 
 .entry span{
   display:block;
@@ -518,7 +782,9 @@ footer{
   margin-top:4px
 }
 
-.group{margin-bottom:15px}
+.group{
+  margin-bottom:15px
+}
 
 .group label{
   display:block;
@@ -580,18 +846,26 @@ footer{
   font-weight:800
 }
 
-.smallbtn:hover{border-color:var(--a)}
+.smallbtn:hover{
+  border-color:var(--a)
+}
 
 .success{
   display:none;
   text-align:center
 }
 
-.success.show{display:block}
+.success.show{
+  display:block
+}
 
-.successicon{font-size:52px}
+.successicon{
+  font-size:52px
+}
 
-.success h2{margin-top:12px}
+.success h2{
+  margin-top:12px
+}
 
 .success p{
   margin-top:8px;
@@ -616,6 +890,8 @@ footer{
   color:var(--a);
   font-size:32px
 }
+
+/* TOAST */
 
 .toast{
   position:fixed;
@@ -646,6 +922,8 @@ footer{
   color:#5d0000
 }
 
+/* LOADING */
+
 .loading{
   padding:25px;
   text-align:center;
@@ -664,16 +942,26 @@ footer{
 }
 
 @keyframes spin{
-  to{transform:rotate(360deg)}
+  to{
+    transform:rotate(360deg)
+  }
 }
+
+/* MOBILE */
 
 @media(max-width:760px){
 
-  nav{height:60px}
+  nav{
+    height:60px
+  }
 
-  .links{display:none}
+  .links{
+    display:none
+  }
 
-  .logo{font-size:22px}
+  .logo{
+    font-size:22px
+  }
 
   .add{
     padding:9px 12px;
@@ -686,7 +974,7 @@ footer{
 
   h1{
     font-size:50px;
-    letter-spacing:-3.2px
+    letter-spacing:-3.3px
   }
 
   .hero p{
@@ -706,26 +994,77 @@ footer{
     border-bottom:0
   }
 
+  .section{
+    padding:68px 0
+  }
+
+  .title{
+    font-size:28px
+  }
+
   .categories{
     grid-template-columns:repeat(2,1fr)
+  }
+
+  .podium{
+    min-height:0;
+    padding:28px 12px 22px;
+    grid-template-columns:1fr;
+    align-items:stretch
+  }
+
+  .podium-card.first,
+  .podium-card.second,
+  .podium-card.third{
+    min-height:0
+  }
+
+  .podium-card.first{
+    order:1
+  }
+
+  .podium-card.second{
+    order:2
+  }
+
+  .podium-card.third{
+    order:3
+  }
+
+  .podium-card{
+    padding:20px
+  }
+
+  .podium-avatar,
+  .first .podium-avatar{
+    width:58px;
+    height:58px
+  }
+
+  .first .podium-name{
+    font-size:15px
+  }
+
+  .rank-row{
+    grid-template-columns:35px 1fr
+  }
+
+  .rank-right{
+    grid-column:2;
+    text-align:left
+  }
+
+  .rank-right strong{
+    display:none
+  }
+
+  .ranking-head{
+    display:none
   }
 
   .pricing,
   .how{
     grid-template-columns:1fr
-  }
-
-  .row{
-    grid-template-columns:35px 1fr;
-  }
-
-  .amount{
-    grid-column:2;
-    text-align:left
-  }
-
-  .amount strong{
-    display:none
   }
 
   .foot{
@@ -738,363 +1077,517 @@ footer{
 <body>
 
 <nav>
-<div class="nav">
-<div class="logo">TOP<span>ME</span></div>
+  <div class="nav">
 
-<div class="links">
-<a href="#explore">Explore</a>
-<a href="#categories">Categories</a>
-<a href="#trending">Trending</a>
-<a href="#how">How it works</a>
-<a href="#pricing">Pricing</a>
-</div>
+    <div class="logo">
+      TOP<span>ME</span>
+    </div>
 
-<button class="add" onclick="openListingModal()">+ Put on TOPME</button>
-</div>
+    <div class="links">
+      <a href="#explore">Explore</a>
+      <a href="#categories">Categories</a>
+      <a href="#trending">Trending</a>
+      <a href="#how">How it works</a>
+      <a href="#pricing">Pricing</a>
+    </div>
+
+    <button class="add" onclick="openListingModal()">
+      + Put on TOPME
+    </button>
+
+  </div>
 </nav>
 
 <section class="hero">
 
-<div class="badge">
-<div class="dot"></div>
-Live ranking platform
-</div>
+  <div class="badge">
+    <div class="dot"></div>
+    Live ranking platform
+  </div>
 
-<h1>
-Put what<br>
-<span class="gradient">deserves to be on top.</span>
-</h1>
+  <h1>
+    Put what<br>
+    <span class="gradient">deserves to be on top.</span>
+  </h1>
 
-<p>
-TOPME is where creators, products, businesses, websites and ideas
-compete for attention and earn their place on the board.
-</p>
+  <p>
+    TOPME is where creators, products, businesses, websites and ideas
+    compete for attention and earn their place on the board.
+  </p>
 
-<div class="buttons">
-<button class="primary" onclick="openListingModal()">Put something on TOPME — ₹49</button>
-<button class="secondary" onclick="scrollToBoard()">Explore the board</button>
-</div>
+  <div class="buttons">
+    <button class="primary" onclick="openListingModal()">
+      Put something on TOPME — ₹49
+    </button>
+
+    <button class="secondary" onclick="scrollToBoard()">
+      Explore the board
+    </button>
+  </div>
 
 </section>
 
 <div class="stats">
 
-<div class="stat">
-<strong id="listingCount">0</strong>
-<span>Live listings</span>
-</div>
+  <div class="stat">
+    <strong id="listingCount">0</strong>
+    <span>Live listings</span>
+  </div>
 
-<div class="stat">
-<strong id="countryCount">0</strong>
-<span>Countries represented</span>
-</div>
+  <div class="stat">
+    <strong id="countryCount">0</strong>
+    <span>Countries represented</span>
+  </div>
 
-<div class="stat">
-<strong id="viewCount">0</strong>
-<span>Total views</span>
-</div>
+  <div class="stat">
+    <strong id="viewCount">0</strong>
+    <span>Total views</span>
+  </div>
 
 </div>
 
 <section class="section" id="categories">
 
-<div class="head">
-<div>
-<div class="title">Explore categories</div>
-<div class="sub">Find what's already making noise.</div>
-</div>
-</div>
+  <div class="head">
+    <div>
+      <div class="title">Explore categories</div>
+      <div class="sub">Find what's already making noise.</div>
+    </div>
+  </div>
 
-<div class="categories" id="categoriesGrid">
-<div class="loading">
-<div class="spinner"></div>
-Loading categories…
-</div>
-</div>
+  <div class="categories" id="categoriesGrid">
+    <div class="loading">
+      <div class="spinner"></div>
+      Loading categories…
+    </div>
+  </div>
 
 </section>
 
 <section class="section" id="explore">
 
-<div class="head">
-<div>
-<div class="title">TOPME board</div>
-<div class="sub">The things people are putting on top right now.</div>
-</div>
-</div>
+  <div class="head">
+    <div>
+      <div class="title">TOPME board</div>
+      <div class="sub">
+        The things people are putting on top right now.
+      </div>
+    </div>
+  </div>
 
-<div class="board" id="trending">
+  <div class="board" id="trending">
 
-<div class="filters" id="filters">
+    <div class="filters" id="filters">
 
-<button class="filter active" data-filter="All">All</button>
-<button class="filter" data-filter="India">India</button>
+      <button class="filter active" data-filter="All">
+        All
+      </button>
 
-</div>
+      <button class="filter" data-filter="India">
+        India
+      </button>
 
-<div id="loading" class="loading">
-<div class="spinner"></div>
-Loading the live board…
-</div>
+    </div>
 
-<div id="leaderboard"></div>
+    <div id="loading" class="loading">
+      <div class="spinner"></div>
+      Loading the live board…
+    </div>
 
-</div>
+    <div id="leaderboard"></div>
+
+  </div>
 
 </section>
 
 <section class="section" id="how">
 
-<div class="head">
-<div>
-<div class="title">How it works</div>
-<div class="sub">Simple. Public. Competitive.</div>
-</div>
-</div>
+  <div class="head">
+    <div>
+      <div class="title">How it works</div>
+      <div class="sub">
+        Simple. Public. Competitive.
+      </div>
+    </div>
+  </div>
 
-<div class="how">
+  <div class="how">
 
-<div class="howcard">
-<div class="step">01</div>
-<h3 style="margin-top:10px">Create</h3>
-<p>
-Create your account and submit the thing you want people to discover.
-</p>
-</div>
+    <div class="howcard">
+      <div class="step">01</div>
+      <h3 style="margin-top:10px">Create</h3>
+      <p>
+        Create your account and submit the thing you want people
+        to discover.
+      </p>
+    </div>
 
-<div class="howcard">
-<div class="step">02</div>
-<h3 style="margin-top:10px">Get on the board</h3>
-<p>
-Pay the ₹49 listing entry and your listing becomes live after payment verification.
-</p>
-</div>
+    <div class="howcard">
+      <div class="step">02</div>
+      <h3 style="margin-top:10px">Get on the board</h3>
+      <p>
+        Pay the ₹49 listing entry and your listing becomes live
+        after payment verification.
+      </p>
+    </div>
 
-<div class="howcard">
-<div class="step">03</div>
-<h3 style="margin-top:10px">Rise</h3>
-<p>
-Collect attention, views and boosts and fight your way toward #1.
-</p>
-</div>
+    <div class="howcard">
+      <div class="step">03</div>
+      <h3 style="margin-top:10px">Rise</h3>
+      <p>
+        Collect attention, views and boosts and fight your way
+        toward #1.
+      </p>
+    </div>
 
-</div>
+  </div>
 
 </section>
 
 <section class="section" id="pricing">
 
-<div class="head">
-<div>
-<div class="title">Simple pricing</div>
-<div class="sub">Start small. Get discovered.</div>
-</div>
-</div>
+  <div class="head">
+    <div>
+      <div class="title">Simple pricing</div>
+      <div class="sub">
+        Start small. Get discovered.
+      </div>
+    </div>
+  </div>
 
-<div class="pricing">
+  <div class="pricing">
 
-<div class="price highlight">
-<div class="label">LISTING</div>
-<div class="cost">₹49</div>
-<div class="desc">
-Put your creation, business, product or idea on the TOPME board.
-</div>
-<button onclick="openListingModal()">Get listed</button>
-</div>
+    <div class="price highlight">
 
-<div class="price">
-<div class="label">BOOST</div>
-<div class="cost">₹49</div>
-<div class="desc">
-Give your existing listing an extra push and improve visibility.
-</div>
-<button onclick="showToast('Boost payment will be connected securely next.')">
-Boost
-</button>
-</div>
+      <div class="label">LISTING</div>
 
-<div class="price">
-<div class="label">PRO</div>
-<div class="cost">Soon</div>
-<div class="desc">
-Advanced creator tools, analytics and promotional features are coming.
-</div>
-<button onclick="showToast('PRO is coming soon.')">
-Coming soon
-</button>
-</div>
+      <div class="cost">₹49</div>
 
-</div>
+      <div class="desc">
+        Put your creation, business, product or idea on the
+        TOPME board.
+      </div>
+
+      <button onclick="openListingModal()">
+        Get listed
+      </button>
+
+    </div>
+
+    <div class="price">
+
+      <div class="label">BOOST</div>
+
+      <div class="cost">₹49</div>
+
+      <div class="desc">
+        Give your existing listing an extra push and improve
+        visibility.
+      </div>
+
+      <button onclick="showToast('Boost payment will be connected securely next.')">
+        Boost
+      </button>
+
+    </div>
+
+    <div class="price">
+
+      <div class="label">PRO</div>
+
+      <div class="cost">Soon</div>
+
+      <div class="desc">
+        Advanced creator tools, analytics and promotional
+        features are coming.
+      </div>
+
+      <button onclick="showToast('PRO is coming soon.')">
+        Coming soon
+      </button>
+
+    </div>
+
+  </div>
 
 </section>
 
 <footer>
 
-<div class="foot">
+  <div class="foot">
 
-<div>
-<div class="logo">TOP<span>ME</span></div>
-<div style="margin-top:7px;font-size:11px">
-Put what deserves to be on top.
-</div>
-</div>
+    <div>
 
-<div class="footlinks">
-<a href="#explore">Explore</a>
-<a href="#categories">Categories</a>
-<a href="#how">How it works</a>
-<a href="#pricing">Pricing</a>
-</div>
+      <div class="logo">
+        TOP<span>ME</span>
+      </div>
 
-</div>
+      <div style="margin-top:7px;font-size:11px">
+        Put what deserves to be on top.
+      </div>
+
+    </div>
+
+    <div class="footlinks">
+      <a href="#explore">Explore</a>
+      <a href="#categories">Categories</a>
+      <a href="#how">How it works</a>
+      <a href="#pricing">Pricing</a>
+    </div>
+
+  </div>
 
 </footer>
 
+<!-- LISTING MODAL -->
+
 <div class="modal" id="modal" onclick="outsideModal(event)">
 
-<div class="box">
+  <div class="box">
 
-<div class="mhead">
-<h2>Put something on TOPME</h2>
-<button class="close" onclick="closeListingModal()">×</button>
-</div>
+    <div class="mhead">
 
-<div id="authStep">
+      <h2>Put something on TOPME</h2>
 
-<div class="entry">
-<strong>Listing entry: ₹49</strong>
-<span>
-Sign in or create an account to continue.
-</span>
-</div>
+      <button class="close" onclick="closeListingModal()">
+        ×
+      </button>
 
-<div class="group">
-<label>Email</label>
-<input id="email" type="email" placeholder="you@example.com">
-</div>
+    </div>
 
-<div class="group">
-<label>Password</label>
-<input id="password" type="password" placeholder="Minimum 6 characters">
-</div>
+    <!-- AUTH -->
 
-<div class="authbox">
+    <div id="authStep">
 
-<button class="submit" onclick="signIn()">
-Sign in & continue
-</button>
+      <div class="entry">
+        <strong>Listing entry: ₹49</strong>
+        <span>
+          Sign in or create an account to continue.
+        </span>
+      </div>
 
-<button class="smallbtn" onclick="signUp()">
-Create account
-</button>
+      <div class="group">
+        <label>Email</label>
 
-</div>
+        <input
+          id="email"
+          type="email"
+          placeholder="you@example.com"
+        >
+      </div>
 
-</div>
+      <div class="group">
+        <label>Password</label>
 
-<form id="listingForm" style="display:none" onsubmit="submitListing(event)">
+        <input
+          id="password"
+          type="password"
+          placeholder="Minimum 6 characters"
+        >
+      </div>
 
-<div class="entry">
-<strong>Listing entry: ₹49</strong>
-<span>
-Your listing will be created after successful Razorpay payment verification.
-</span>
-</div>
+      <div class="authbox">
 
-<div class="group">
-<label>What are you listing?</label>
-<input id="title" maxlength="120" placeholder="e.g. My new song" required>
-</div>
+        <button class="submit" onclick="signIn()">
+          Sign in & continue
+        </button>
 
-<div class="group">
-<label>Category</label>
-<select id="category" required>
-<option value="">Loading categories…</option>
-</select>
-</div>
+        <button class="smallbtn" onclick="signUp()">
+          Create account
+        </button>
 
-<div class="group">
-<label>Country</label>
-<input id="country" maxlength="80" placeholder="India" required>
-</div>
+      </div>
 
-<div class="group">
-<label>Public link</label>
-<input id="external_url" type="url" maxlength="500" placeholder="https://example.com" required>
-</div>
+    </div>
 
-<div class="group">
-<label>
-Image URL
-<span style="color:#6f7985">(optional)</span>
-</label>
-<input id="image_url" type="url" maxlength="500" placeholder="https://...">
-</div>
+    <!-- LISTING -->
 
-<div class="group">
-<label>Short description</label>
-<textarea id="description" maxlength="500" placeholder="Tell people what makes this worth noticing..."></textarea>
-</div>
+    <form
+      id="listingForm"
+      style="display:none"
+      onsubmit="submitListing(event)"
+    >
 
-<button class="submit" id="submit" type="submit">
-Continue — ₹49
-</button>
+      <div class="entry">
+        <strong>Listing entry: ₹49</strong>
+        <span>
+          Your listing will be created after successful Razorpay
+          payment verification.
+        </span>
+      </div>
 
-</form>
+      <div class="group">
 
-<div class="success" id="success">
+        <label>What are you listing?</label>
 
-<div class="successicon">🚀</div>
+        <input
+          id="title"
+          maxlength="120"
+          placeholder="e.g. My new song"
+          required
+        >
 
-<h2>Listing created</h2>
+      </div>
 
-<p>
-Your ₹49 payment was verified and your listing is now live on the TOPME board.
-</p>
+      <div class="group">
 
-<div class="successrank">
-<span>Current board position</span>
-<strong id="rankResult">#—</strong>
-</div>
+        <label>Category</label>
 
-<button
-class="primary"
-style="width:100%;margin-top:18px"
-onclick="closeListingModal()">
-Back to TOPME
-</button>
+        <select id="category" required>
+          <option value="">Loading categories…</option>
+        </select>
 
-</div>
+      </div>
 
-</div>
+      <div class="group">
+
+        <label>Country</label>
+
+        <input
+          id="country"
+          maxlength="80"
+          placeholder="India"
+          required
+        >
+
+      </div>
+
+      <div class="group">
+
+        <label>Public link</label>
+
+        <input
+          id="external_url"
+          type="url"
+          maxlength="500"
+          placeholder="https://example.com"
+          required
+        >
+
+      </div>
+
+      <div class="group">
+
+        <label>
+          Image URL
+          <span style="color:#6f7985">(optional)</span>
+        </label>
+
+        <input
+          id="image_url"
+          type="url"
+          maxlength="500"
+          placeholder="https://..."
+        >
+
+      </div>
+
+      <div class="group">
+
+        <label>Short description</label>
+
+        <textarea
+          id="description"
+          maxlength="500"
+          placeholder="Tell people what makes this worth noticing..."
+        ></textarea>
+
+      </div>
+
+      <button
+        class="submit"
+        id="submit"
+        type="submit"
+      >
+        Continue — ₹49
+      </button>
+
+    </form>
+
+    <!-- SUCCESS -->
+
+    <div class="success" id="success">
+
+      <div class="successicon">🚀</div>
+
+      <h2>Listing created</h2>
+
+      <p>
+        Your ₹49 payment was verified and your listing is now
+        live on the TOPME board.
+      </p>
+
+      <div class="successrank">
+
+        <span>Current board position</span>
+
+        <strong id="rankResult">
+          #—
+        </strong>
+
+      </div>
+
+      <button
+        class="primary"
+        style="width:100%;margin-top:18px"
+        onclick="closeListingModal()"
+      >
+        Back to TOPME
+      </button>
+
+    </div>
+
+  </div>
+
 </div>
 
 <div class="toast" id="toast"></div>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-<!-- Razorpay Checkout -->
 <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 
 <script>
 
-const TOPME_CONFIG={
-  supabaseUrl:'https://mrwpaznoqdrrrrqzntre.supabase.co',
-  supabaseAnonKey:'sb_publishable_NcFD_bxuHt6qnst0PZ8c7A_YKATads2',
+/* =========================================================
+   TOPME CONFIG
+========================================================= */
+
+const TOPME_CONFIG = {
+
+  supabaseUrl:
+    'https://mrwpaznoqdrrrrqzntre.supabase.co',
+
+  supabaseAnonKey:
+    'sb_publishable_NcFD_bxuHt6qnst0PZ8c7A_YKATads2',
+
   listingPrice:49
+
 };
 
-const sb=window.supabase.createClient(
-  TOPME_CONFIG.supabaseUrl,
-  TOPME_CONFIG.supabaseAnonKey
-);
+const sb =
+  window.supabase.createClient(
+    TOPME_CONFIG.supabaseUrl,
+    TOPME_CONFIG.supabaseAnonKey
+  );
 
-let categories=[];
-let listings=[];
-let currentFilter='All';
+
+/* =========================================================
+   STATE
+========================================================= */
+
+let categories = [];
+let listings = [];
+let currentFilter = 'All';
 let toastTimer;
 
-const icons={
+
+/* =========================================================
+   CATEGORY ICONS
+========================================================= */
+
+const icons = {
+
   Creators:'🎨',
   Music:'🎵',
   Videos:'🎬',
@@ -1103,252 +1596,285 @@ const icons={
   Businesses:'💼',
   Websites:'🌐',
   Art:'🖼️'
+
 };
 
+
+/* =========================================================
+   HELPERS
+========================================================= */
+
 function esc(v){
-  return String(v??'').replace(
+
+  return String(v ?? '').replace(
     /[&<>"']/g,
-    c=>({
+    c => ({
       '&':'&amp;',
       '<':'&lt;',
       '>':'&gt;',
       '"':'&quot;',
       "'":'&#039;'
     }[c])
-  )
+  );
+
 }
 
+
 function iconFor(name){
-  return icons[name]||'✨'
+
+  return icons[name] || '✨';
+
 }
+
+
+function categoryName(id){
+
+  const c =
+    categories.find(
+      x => x.id === id
+    );
+
+  return c ? c.name : 'Other';
+
+}
+
+
+/* =========================================================
+   CATEGORIES
+========================================================= */
 
 async function loadCategories(){
 
   const {
     data,
     error
-  }=await sb
+  } = await sb
     .from('categories')
     .select('id,name,slug')
     .order('name');
 
   if(error){
+
     console.error(error);
-    return showToast('Could not load categories.',true);
+
+    showToast(
+      'Could not load categories.',
+      true
+    );
+
+    return;
+
   }
 
-  categories=data||[];
+  categories = data || [];
 
-  const grid=document.getElementById('categoriesGrid');
+  const grid =
+    document.getElementById(
+      'categoriesGrid'
+    );
 
-  grid.innerHTML=categories.map(c=>`
-    <div
-      class="cat"
-      onclick="selectCategory('${esc(c.name)}',this)"
-    >
-      <div class="icon">${iconFor(c.name)}</div>
-      <div class="catname">${esc(c.name)}</div>
-      <div class="count">TOPME category</div>
-    </div>
-  `).join('');
+  grid.innerHTML =
+    categories.map(c => `
 
-  const select=document.getElementById('category');
+      <div
+        class="cat"
+        onclick="selectCategory('${esc(c.name)}',this)"
+      >
 
-  select.innerHTML=
-    '<option value="">Select category</option>'+
-    categories.map(c=>`
+        <div class="icon">
+          ${iconFor(c.name)}
+        </div>
+
+        <div class="catname">
+          ${esc(c.name)}
+        </div>
+
+        <div class="count">
+          TOPME category
+        </div>
+
+      </div>
+
+    `).join('');
+
+  const select =
+    document.getElementById(
+      'category'
+    );
+
+  select.innerHTML =
+    '<option value="">Select category</option>' +
+
+    categories.map(c => `
+
       <option value="${esc(c.id)}">
         ${esc(c.name)}
       </option>
+
     `).join('');
+
 }
+
+
+/* =========================================================
+   LOAD LISTINGS
+========================================================= */
 
 async function loadListings(){
 
-  document.getElementById('loading').style.display='block';
+  document.getElementById(
+    'loading'
+  ).style.display = 'block';
 
   const {
     data,
     error
-  }=await sb
+  } = await sb
     .from('listings')
     .select(
       'id,title,description,category_id,owner_id,creator_name,image_url,external_url,country,status,views,boosts,created_at'
     )
     .eq('status','active')
-    .order('boosts',{ascending:false})
-    .order('views',{ascending:false})
-    .order('created_at',{ascending:false})
+    .order(
+      'boosts',
+      {ascending:false}
+    )
+    .order(
+      'views',
+      {ascending:false}
+    )
+    .order(
+      'created_at',
+      {ascending:false}
+    )
     .limit(50);
 
   if(error){
 
-    console.error('TOPME board error:',error);
+    console.error(
+      'TOPME board error:',
+      error
+    );
 
-    document.getElementById('leaderboard').innerHTML=
-      '<div class="loading">Could not load the live board.</div>';
+    document.getElementById(
+      'leaderboard'
+    ).innerHTML = `
+      <div class="empty">
+        Could not load the live board.
+      </div>
+    `;
 
   }else{
 
-    listings=data||[];
+    listings = data || [];
 
     renderBoard();
     updateStats();
 
   }
 
-  document.getElementById('loading').style.display='none';
+  document.getElementById(
+    'loading'
+  ).style.display = 'none';
+
 }
 
-function categoryName(id){
 
-  const c=categories.find(x=>x.id===id);
+/* =========================================================
+   FILTER
+========================================================= */
 
-  return c?c.name:'Other';
-}
+function getFilteredListings(){
 
-function renderBoard(){
+  return listings.filter(x => {
 
-  const filtered=listings.filter(x=>{
+    const cat =
+      categoryName(
+        x.category_id
+      );
 
-    const cat=categoryName(x.category_id);
+    return (
 
-    return currentFilter==='All'||
+      currentFilter === 'All'
+
+      ||
+
       (
-        currentFilter==='India' &&
-        String(x.country).toLowerCase()==='india'
-      )||
-      cat===currentFilter;
+        currentFilter === 'India' &&
+        String(
+          x.country || ''
+        ).toLowerCase() === 'india'
+      )
+
+      ||
+
+      cat === currentFilter
+
+    );
 
   });
 
-  const board=document.getElementById('leaderboard');
-
-  if(!filtered.length){
-
-    board.innerHTML=
-      '<div class="loading">Nothing here yet. Be the first one on TOPME.</div>';
-
-    return;
-  }
-
-  board.innerHTML=filtered.map((x,i)=>`
-
-    <div
-      class="row"
-      data-category="${esc(categoryName(x.category_id))}"
-      data-country="${esc(x.country)}"
-    >
-
-      <div class="rank ${i===0?'top':''}">
-        #${i+1}
-      </div>
-
-      <div class="item">
-
-        <div class="avatar">
-          ${
-            x.image_url
-            ?
-            `<img
-              src="${esc(x.image_url)}"
-              alt=""
-              style="width:100%;height:100%;object-fit:cover;border-radius:12px"
-            >`
-            :
-            iconFor(categoryName(x.category_id))
-          }
-        </div>
-
-        <div>
-
-          <div class="name">
-            ${esc(x.title)}
-          </div>
-
-          <div class="meta">
-            ${esc(categoryName(x.category_id))}
-            ·
-            ${esc(x.country||'Worldwide')}
-            ·
-            ${Number(x.views||0).toLocaleString()}
-            views
-          </div>
-
-        </div>
-
-      </div>
-
-      <div class="amount">
-
-        <strong>TOP</strong>
-
-        <button
-          class="boost"
-          onclick="showToast('Boost payment will be connected securely next.')"
-        >
-          ⚡ ₹49 Boost
-        </button>
-
-      </div>
-
-    </div>
-
-  `).join('');
 }
 
-function updateStats(){
-
-  document.getElementById('listingCount').textContent=
-    listings.length.toLocaleString();
-
-  const countries=new Set(
-    listings
-      .map(x=>String(x.country||'').trim())
-      .filter(Boolean)
-  );
-
-  document.getElementById('countryCount').textContent=
-    countries.size.toLocaleString();
-
-  document.getElementById('viewCount').textContent=
-    listings
-      .reduce((n,x)=>n+Number(x.views||0),0)
-      .toLocaleString();
-}
 
 function filterBoard(f){
 
-  currentFilter=f;
+  currentFilter = f;
 
   document
     .querySelectorAll('.filter')
-    .forEach(b=>{
+    .forEach(b => {
+
       b.classList.toggle(
         'active',
-        b.dataset.filter===f
+        b.dataset.filter === f
       );
+
     });
 
   renderBoard();
+
 }
 
-document.getElementById('filters').addEventListener(
-  'click',
-  e=>{
-    const b=e.target.closest('.filter');
 
-    if(b){
-      filterBoard(b.dataset.filter);
+/* =========================================================
+   FILTER EVENT
+========================================================= */
+
+document
+  .getElementById('filters')
+  .addEventListener(
+    'click',
+    e => {
+
+      const b =
+        e.target.closest(
+          '.filter'
+        );
+
+      if(b){
+        filterBoard(
+          b.dataset.filter
+        );
+      }
+
     }
-  }
-);
+  );
+
+
+/* =========================================================
+   CATEGORY SELECT
+========================================================= */
 
 function selectCategory(c,el){
 
   document
     .querySelectorAll('.cat')
-    .forEach(x=>x.classList.remove('selected'));
+    .forEach(x =>
+      x.classList.remove(
+        'selected'
+      )
+    );
 
   el.classList.add('selected');
 
@@ -1356,22 +1882,374 @@ function selectCategory(c,el){
 
   document
     .getElementById('explore')
-    .scrollIntoView({behavior:'smooth'});
+    .scrollIntoView({
+      behavior:'smooth'
+    });
+
 }
+
+
+/* =========================================================
+   RENDER PODIUM CARD
+========================================================= */
+
+function podiumCard(x,position){
+
+  const name =
+    esc(x.title);
+
+  const category =
+    esc(
+      categoryName(
+        x.category_id
+      )
+    );
+
+  const country =
+    esc(
+      x.country || 'Worldwide'
+    );
+
+  const views =
+    Number(
+      x.views || 0
+    ).toLocaleString();
+
+  const boost =
+    Number(
+      x.boosts || 0
+    ).toLocaleString();
+
+  let medal = '';
+
+  if(position === 1){
+    medal = '👑';
+  }else if(position === 2){
+    medal = '🥈';
+  }else{
+    medal = '🥉';
+  }
+
+  const image = x.image_url
+    ? `
+      <img
+        src="${esc(x.image_url)}"
+        alt=""
+      >
+    `
+    : iconFor(
+        categoryName(
+          x.category_id
+        )
+      );
+
+  return `
+
+    <div class="podium-card ${
+      position === 1
+        ? 'first'
+        : position === 2
+          ? 'second'
+          : 'third'
+    }">
+
+      <div class="podium-rank">
+        #${position}
+      </div>
+
+      ${
+        position === 1
+        ? `
+          <div class="podium-crown">
+            ${medal}
+          </div>
+        `
+        : ''
+      }
+
+      <div class="podium-avatar">
+        ${image}
+      </div>
+
+      <div class="podium-name">
+        ${name}
+      </div>
+
+      <div class="podium-meta">
+        ${category} · ${country}
+      </div>
+
+      <div class="podium-score">
+        ${views} views
+        ·
+        <strong>${boost}</strong> boosts
+      </div>
+
+      <button
+        class="podium-boost"
+        onclick="showToast('Boost payment will be connected securely next.')"
+      >
+        ⚡ ₹49 Boost
+      </button>
+
+    </div>
+
+  `;
+
+}
+
+
+/* =========================================================
+   RENDER BOARD
+========================================================= */
+
+function renderBoard(){
+
+  const filtered =
+    getFilteredListings();
+
+  const board =
+    document.getElementById(
+      'leaderboard'
+    );
+
+  if(!filtered.length){
+
+    board.innerHTML = `
+      <div class="empty">
+        Nothing here yet.
+        Be the first one on TOPME.
+      </div>
+    `;
+
+    return;
+
+  }
+
+  const topThree =
+    filtered.slice(0,3);
+
+  const rest =
+    filtered.slice(3);
+
+  let html = '';
+
+  /* PODIUM */
+
+  if(topThree.length){
+
+    html += `
+      <div class="podium">
+    `;
+
+    if(topThree[1]){
+      html += podiumCard(
+        topThree[1],
+        2
+      );
+    }
+
+    if(topThree[0]){
+      html += podiumCard(
+        topThree[0],
+        1
+      );
+    }
+
+    if(topThree[2]){
+      html += podiumCard(
+        topThree[2],
+        3
+      );
+    }
+
+    html += `
+      </div>
+    `;
+
+  }
+
+  /* REST */
+
+  if(rest.length){
+
+    html += `
+      <div class="ranking-head">
+        More rankings
+      </div>
+    `;
+
+    html += rest.map(
+      (x,index) => {
+
+        const rank =
+          index + 4;
+
+        const category =
+          categoryName(
+            x.category_id
+          );
+
+        const image =
+          x.image_url
+          ?
+          `
+            <img
+              src="${esc(x.image_url)}"
+              alt=""
+            >
+          `
+          :
+          iconFor(
+            category
+          );
+
+        return `
+
+          <div class="rank-row">
+
+            <div class="rank-number">
+              #${rank}
+            </div>
+
+            <div class="rank-item">
+
+              <div class="rank-avatar">
+                ${image}
+              </div>
+
+              <div class="rank-info">
+
+                <div class="rank-name">
+                  ${esc(x.title)}
+                </div>
+
+                <div class="rank-meta">
+                  ${esc(category)}
+                  ·
+                  ${esc(x.country || 'Worldwide')}
+                  ·
+                  ${Number(
+                    x.views || 0
+                  ).toLocaleString()}
+                  views
+                </div>
+
+              </div>
+
+            </div>
+
+            <div class="rank-right">
+
+              <strong>
+                ${Number(
+                  x.boosts || 0
+                ).toLocaleString()}
+                boosts
+              </strong>
+
+              <button
+                class="boost"
+                onclick="showToast('Boost payment will be connected securely next.')"
+              >
+                ⚡ ₹49 Boost
+              </button>
+
+            </div>
+
+          </div>
+
+        `;
+
+      }
+    ).join('');
+
+  }
+
+  board.innerHTML = html;
+
+}
+
+
+/* =========================================================
+   STATS
+========================================================= */
+
+function updateStats(){
+
+  document.getElementById(
+    'listingCount'
+  ).textContent =
+    listings.length.toLocaleString();
+
+  const countries =
+    new Set(
+      listings
+        .map(
+          x =>
+            String(
+              x.country || ''
+            ).trim()
+        )
+        .filter(Boolean)
+    );
+
+  document.getElementById(
+    'countryCount'
+  ).textContent =
+    countries.size.toLocaleString();
+
+  document.getElementById(
+    'viewCount'
+  ).textContent =
+    listings
+      .reduce(
+        (n,x) =>
+          n +
+          Number(
+            x.views || 0
+          ),
+        0
+      )
+      .toLocaleString();
+
+}
+
+
+/* =========================================================
+   BOARD SCROLL
+========================================================= */
 
 function scrollToBoard(){
 
   document
     .getElementById('explore')
-    .scrollIntoView({behavior:'smooth'});
+    .scrollIntoView({
+      behavior:'smooth'
+    });
+
 }
+
+
+/* =========================================================
+   CURRENT USER
+========================================================= */
 
 async function currentUser(){
 
-  const {data}=await sb.auth.getUser();
+  const {
+    data
+  } =
+    await sb.auth.getUser();
 
-  return data.user||null;
+  return data.user || null;
+
 }
+
+
+/* =========================================================
+   OPEN MODAL
+========================================================= */
 
 function openListingModal(){
 
@@ -1379,9 +2257,12 @@ function openListingModal(){
     .getElementById('modal')
     .classList.add('open');
 
-  document.body.style.overflow='hidden';
+  document.body.style.overflow =
+    'hidden';
 
-  document.getElementById('listingForm').style.display='none';
+  document
+    .getElementById('listingForm')
+    .style.display = 'none';
 
   document
     .getElementById('success')
@@ -1389,25 +2270,47 @@ function openListingModal(){
 
   document
     .getElementById('authStep')
-    .style.display='block';
+    .style.display = 'block';
 
-  currentUser().then(u=>{
+  currentUser().then(u => {
+
     if(u){
       showListingForm();
     }
+
   });
+
 }
+
+
+/* =========================================================
+   SHOW FORM
+========================================================= */
 
 function showListingForm(){
 
-  document.getElementById('authStep').style.display='none';
+  document
+    .getElementById('authStep')
+    .style.display = 'none';
 
-  document.getElementById('listingForm').style.display='block';
+  document
+    .getElementById('listingForm')
+    .style.display = 'block';
 
-  setTimeout(()=>{
-    document.getElementById('title').focus();
+  setTimeout(() => {
+
+    document
+      .getElementById('title')
+      .focus();
+
   },80);
+
 }
+
+
+/* =========================================================
+   CLOSE MODAL
+========================================================= */
 
 function closeListingModal(){
 
@@ -1415,45 +2318,69 @@ function closeListingModal(){
     .getElementById('modal')
     .classList.remove('open');
 
-  document.body.style.overflow='';
+  document.body.style.overflow = '';
+
 }
+
+
+/* =========================================================
+   OUTSIDE MODAL
+========================================================= */
 
 function outsideModal(e){
 
-  if(e.target.id==='modal'){
+  if(e.target.id === 'modal'){
     closeListingModal();
   }
+
 }
+
 
 document.addEventListener(
   'keydown',
-  e=>{
-    if(e.key==='Escape'){
+  e => {
+
+    if(e.key === 'Escape'){
       closeListingModal();
     }
+
   }
 );
 
+
+/* =========================================================
+   SIGN IN
+========================================================= */
+
 async function signIn(){
 
-  const email=
-    document.getElementById('email').value.trim();
+  const email =
+    document
+      .getElementById('email')
+      .value
+      .trim();
 
-  const password=
-    document.getElementById('password').value;
+  const password =
+    document
+      .getElementById('password')
+      .value;
 
-  if(!email||!password){
+  if(!email || !password){
 
     return showToast(
       'Enter email and password.',
       true
     );
+
   }
 
-  const {error}=await sb.auth.signInWithPassword({
-    email,
-    password
-  });
+  const {
+    error
+  } =
+    await sb.auth.signInWithPassword({
+      email,
+      password
+    });
 
   if(error){
 
@@ -1461,33 +2388,54 @@ async function signIn(){
       error.message,
       true
     );
+
   }
 
-  showToast('Signed in ✓');
+  showToast(
+    'Signed in ✓'
+  );
 
   showListingForm();
+
 }
+
+
+/* =========================================================
+   SIGN UP
+========================================================= */
 
 async function signUp(){
 
-  const email=
-    document.getElementById('email').value.trim();
+  const email =
+    document
+      .getElementById('email')
+      .value
+      .trim();
 
-  const password=
-    document.getElementById('password').value;
+  const password =
+    document
+      .getElementById('password')
+      .value;
 
-  if(!email||password.length<6){
+  if(
+    !email ||
+    password.length < 6
+  ){
 
     return showToast(
       'Enter email and a 6+ character password.',
       true
     );
+
   }
 
-  const {error}=await sb.auth.signUp({
-    email,
-    password
-  });
+  const {
+    error
+  } =
+    await sb.auth.signUp({
+      email,
+      password
+    });
 
   if(error){
 
@@ -1495,13 +2443,17 @@ async function signUp(){
       error.message,
       true
     );
+
   }
 
-  const u=await currentUser();
+  const u =
+    await currentUser();
 
   if(u){
 
-    showToast('Account created ✓');
+    showToast(
+      'Account created ✓'
+    );
 
     showListingForm();
 
@@ -1513,13 +2465,20 @@ async function signUp(){
     );
 
   }
+
 }
+
+
+/* =========================================================
+   SUBMIT LISTING
+========================================================= */
 
 async function submitListing(e){
 
   e.preventDefault();
 
-  const user=await currentUser();
+  const user =
+    await currentUser();
 
   if(!user){
 
@@ -1527,111 +2486,139 @@ async function submitListing(e){
       'Please sign in first.',
       true
     );
+
   }
 
-  const btn=document.getElementById('submit');
+  const btn =
+    document.getElementById(
+      'submit'
+    );
 
-  btn.disabled=true;
-
-  btn.textContent='Starting payment…';
+  btn.disabled = true;
+  btn.textContent =
+    'Starting payment…';
 
   try{
 
-    const categoryId=
-      document.getElementById('category').value;
+    const categoryId =
+      document
+        .getElementById('category')
+        .value;
 
-    const category=
-      categories.find(x=>x.id===categoryId);
+    const category =
+      categories.find(
+        x =>
+          x.id === categoryId
+      );
 
     if(!category){
 
       throw new Error(
         'Please select a category.'
       );
+
     }
 
-    const payload={
+    const payload = {
 
-      action:'create_order',
+      action:
+        'create_order',
 
       title:
-        document.getElementById('title')
-        .value
-        .trim(),
+        document
+          .getElementById('title')
+          .value
+          .trim(),
 
       description:
-        document.getElementById('description')
-        .value
-        .trim(),
+        document
+          .getElementById('description')
+          .value
+          .trim(),
 
       category_id:
         categoryId,
 
       image_url:
-        document.getElementById('image_url')
-        .value
-        .trim()||null,
+        document
+          .getElementById('image_url')
+          .value
+          .trim() || null,
 
       external_url:
-        document.getElementById('external_url')
-        .value
-        .trim(),
+        document
+          .getElementById('external_url')
+          .value
+          .trim(),
 
       country:
-        document.getElementById('country')
-        .value
-        .trim()
+        document
+          .getElementById('country')
+          .value
+          .trim()
 
     };
 
     if(
-      !payload.title||
-      !payload.country||
+      !payload.title ||
+      !payload.country ||
       !payload.external_url
     ){
 
       throw new Error(
         'Please complete all required listing fields.'
       );
+
     }
 
     const {
       data:orderData,
       error:orderError
-    }=await sb.functions.invoke(
-      'listing-payment',
-      {
-        body:payload
-      }
-    );
+    } =
+      await sb.functions.invoke(
+        'listing-payment',
+        {
+          body:payload
+        }
+      );
 
     if(orderError){
 
       throw new Error(
-        orderError.message||
+        orderError.message ||
         'Could not start payment.'
       );
+
     }
 
-    if(!orderData||orderData.error){
+    if(
+      !orderData ||
+      orderData.error
+    ){
 
       throw new Error(
-        orderData?.error||
+        orderData?.error ||
         'Could not start payment.'
       );
+
     }
 
-    btn.textContent='Waiting for payment…';
+    btn.textContent =
+      'Waiting for payment…';
 
-    const options={
+    const options = {
 
-      key:orderData.key_id,
+      key:
+        orderData.key_id,
 
-      amount:orderData.amount,
+      amount:
+        orderData.amount,
 
-      currency:orderData.currency,
+      currency:
+        orderData.currency,
 
-      name:'TOPME',
+      name:
+        'TOPME',
 
       description:
         'TOPME listing entry — ₹49',
@@ -1640,13 +2627,15 @@ async function submitListing(e){
         orderData.order_id,
 
       prefill:{
+
         name:
-          orderData.name||'',
+          orderData.name || '',
 
         email:
-          orderData.email||
-          user.email||
+          orderData.email ||
+          user.email ||
           ''
+
       },
 
       theme:{
@@ -1657,9 +2646,10 @@ async function submitListing(e){
 
         ondismiss:function(){
 
-          btn.disabled=false;
+          btn.disabled = false;
 
-          btn.textContent='Continue — ₹49';
+          btn.textContent =
+            'Continue — ₹49';
 
           showToast(
             'Payment cancelled. Your listing was not activated.',
@@ -1670,111 +2660,120 @@ async function submitListing(e){
 
       },
 
-      handler:async function(response){
+      handler:
+        async function(response){
 
-        try{
+          try{
 
-          btn.disabled=true;
+            btn.disabled = true;
 
-          btn.textContent='Verifying payment…';
+            btn.textContent =
+              'Verifying payment…';
 
-          const {
-            data:verifyData,
-            error:verifyError
-          }=await sb.functions.invoke(
-            'listing-payment',
-            {
-              body:{
+            const {
+              data:verifyData,
+              error:verifyError
+            } =
+              await sb.functions.invoke(
+                'listing-payment',
+                {
+                  body:{
 
-                action:'verify_payment',
+                    action:
+                      'verify_payment',
 
-                payment_record_id:
-                  orderData.payment_id,
+                    payment_record_id:
+                      orderData.payment_id,
 
-                razorpay_payment_id:
-                  response.razorpay_payment_id,
+                    razorpay_payment_id:
+                      response.razorpay_payment_id,
 
-                razorpay_signature:
-                  response.razorpay_signature
+                    razorpay_signature:
+                      response.razorpay_signature
 
-              }
+                  }
+                }
+              );
+
+            if(verifyError){
+
+              throw new Error(
+                verifyError.message ||
+                'Payment verification failed.'
+              );
+
             }
-          );
 
-          if(verifyError){
+            if(
+              !verifyData ||
+              verifyData.error
+            ){
 
-            throw new Error(
-              verifyError.message||
-              'Payment verification failed.'
+              throw new Error(
+                verifyData?.error ||
+                'Payment verification failed.'
+              );
+
+            }
+
+            if(!verifyData.ok){
+
+              throw new Error(
+                'Payment could not be verified.'
+              );
+
+            }
+
+            document.getElementById(
+              'listingForm'
+            ).style.display =
+              'none';
+
+            document
+              .getElementById('success')
+              .classList.add('show');
+
+            await loadListings();
+
+            const position =
+              listings.findIndex(
+                x =>
+                  x.id ===
+                  verifyData.listing_id
+              );
+
+            document.getElementById(
+              'rankResult'
+            ).textContent =
+              position >= 0
+                ? '#' + (position + 1)
+                : '#—';
+
+            showToast(
+              'Payment verified. Listing is live ✓'
             );
+
+          }catch(err){
+
+            console.error(
+              'TOPME payment verification error:',
+              err
+            );
+
+            showToast(
+              err?.message ||
+              'Payment verification failed.',
+              true
+            );
+
+            btn.disabled = false;
+
+            btn.textContent =
+              'Continue — ₹49';
+
           }
-
-          if(
-            !verifyData||
-            verifyData.error
-          ){
-
-            throw new Error(
-              verifyData?.error||
-              'Payment verification failed.'
-            );
-          }
-
-          if(!verifyData.ok){
-
-            throw new Error(
-              'Payment could not be verified.'
-            );
-          }
-
-          document.getElementById(
-            'listingForm'
-          ).style.display='none';
-
-          document
-            .getElementById('success')
-            .classList.add('show');
-
-          await loadListings();
-
-          const position=
-            listings.findIndex(
-              x=>x.id===verifyData.listing_id
-            );
-
-          document.getElementById(
-            'rankResult'
-          ).textContent=
-            position>=0
-            ?
-            '#'+(position+1)
-            :
-            '#—';
-
-          showToast(
-            'Payment verified. Listing is live ✓'
-          );
-
-        }catch(err){
-
-          console.error(
-            'TOPME payment verification error:',
-            err
-          );
-
-          showToast(
-            err?.message||
-            'Payment verification failed.',
-            true
-          );
-
-          btn.disabled=false;
-
-          btn.textContent='Continue — ₹49';
 
         }
-
-      }
 
     };
 
@@ -1783,10 +2782,13 @@ async function submitListing(e){
       throw new Error(
         'Razorpay checkout could not load. Please refresh and try again.'
       );
+
     }
 
-    const razorpay=
-      new window.Razorpay(options);
+    const razorpay =
+      new window.Razorpay(
+        options
+      );
 
     razorpay.on(
       'payment.failed',
@@ -1798,14 +2800,15 @@ async function submitListing(e){
         );
 
         showToast(
-          response?.error?.description||
+          response?.error?.description ||
           'Payment failed. Please try again.',
           true
         );
 
-        btn.disabled=false;
+        btn.disabled = false;
 
-        btn.textContent='Continue — ₹49';
+        btn.textContent =
+          'Continue — ₹49';
 
       }
     );
@@ -1820,52 +2823,78 @@ async function submitListing(e){
     );
 
     showToast(
-      err?.message||
+      err?.message ||
       'Could not start payment.',
       true
     );
 
-    btn.disabled=false;
+    btn.disabled = false;
 
-    btn.textContent='Continue — ₹49';
+    btn.textContent =
+      'Continue — ₹49';
 
   }
+
 }
 
-function showToast(msg,error=false){
 
-  const t=
-    document.getElementById('toast');
+/* =========================================================
+   TOAST
+========================================================= */
 
-  clearTimeout(toastTimer);
+function showToast(
+  msg,
+  error = false
+){
 
-  t.textContent=msg;
+  const t =
+    document.getElementById(
+      'toast'
+    );
+
+  clearTimeout(
+    toastTimer
+  );
+
+  t.textContent = msg;
 
   t.classList.toggle(
     'error',
     error
   );
 
-  t.classList.add('show');
-
-  toastTimer=setTimeout(
-    ()=>t.classList.remove('show'),
-    3000
+  t.classList.add(
+    'show'
   );
+
+  toastTimer =
+    setTimeout(
+      () =>
+        t.classList.remove(
+          'show'
+        ),
+      3000
+    );
+
 }
+
+
+/* =========================================================
+   INITIAL LOAD
+========================================================= */
 
 window.addEventListener(
   'load',
-  async()=>{
+  async () => {
+
     await loadCategories();
+
     await loadListings();
+
   }
 );
 
 </script>
-
-<!-- TOPME Engagement Engine -->
-<script src="topme-engagement.js"></script>
 
 </body>
 </html>
