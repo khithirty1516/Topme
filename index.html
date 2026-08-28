@@ -186,8 +186,15 @@ nav{height:60px}.links{display:none}.logo{font-size:22px}.add{padding:9px 12px;f
 const TOPME_CONFIG={supabaseUrl:'https://mrwpaznoqdrrrrqzntre.supabase.co',supabaseAnonKey:'sb_publishable_NcFD_bxuHt6qnst0PZ8c7A_YKATads2',listingPrice:49};
 const sb=window.supabase.createClient(TOPME_CONFIG.supabaseUrl,TOPME_CONFIG.supabaseAnonKey);
 let categories=[],listings=[],currentFilter='All',toastTimer;
-const icons={Creator:'🎨',Music:'🎵',Reel / Short:'🎬',Product:'📦',Business:'🚀',Business:'💼',Website:'🌐',Art:'🖼️'};
-
+const icons={
+  Creator:'🎨',
+  Music:'🎵',
+  'Reel / Short':'🎬',
+  Product:'📦',
+  Business:'💼',
+  Website:'🌐',
+  Art:'🖼️'
+};
 function esc(v){return String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c]))}
 function iconFor(n){return icons[n]||'✨'}
 function categoryName(id){const c=categories.find(x=>x.id===id);return c?c.name:'Other'}
