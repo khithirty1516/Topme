@@ -1,0 +1,227 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>TOPME — Put what's worth noticing on top.</title>
+<style>
+:root{
+  --blue:#0877ee;--deep:#071b49;--text:#071a43;--muted:#6f7d92;
+  --line:#e7edf5;--pale:#eef7ff;--soft:#f7faff;--green:#16a67a;
+}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:var(--text);background:#fff}
+button,a{font:inherit}a{text-decoration:none;color:inherit}
+.container{width:min(930px,calc(100% - 80px));margin:auto}
+header{height:66px;border-bottom:1px solid #edf1f6;background:#fff;display:flex;align-items:center;position:sticky;top:0;z-index:10}
+.nav{display:flex;align-items:center;justify-content:space-between}
+.logo{font-size:27px;font-weight:800;letter-spacing:-1.8px}.logo span{color:#0877ee}
+.links{display:flex;gap:33px;font-size:13px;font-weight:650}
+.topbtn,.primary{border:0;background:var(--blue);color:#fff;border-radius:9px;padding:12px 19px;font-weight:750;box-shadow:0 8px 22px #0877ee22}
+.profile{width:40px;height:40px;border:1px solid #d9e2ef;border-radius:50%;display:grid;place-items:center}
+.profile svg{width:23px}.mobile-menu{display:none}
+
+.hero{background:linear-gradient(105deg,#f3f9ff 0%,#eaf5ff 56%,#dcefff 100%);min-height:455px;display:flex;align-items:center}
+.hero-grid{display:grid;grid-template-columns:1fr 1.08fr;gap:20px;align-items:center}
+.pill{display:inline-flex;align-items:center;gap:8px;border:1px solid #8fbbe9;color:#075fc8;border-radius:20px;padding:6px 12px;font-size:10px;font-weight:800}
+.dot{width:7px;height:7px;border-radius:50%;background:#1475e8}
+h1{font-size:50px;line-height:.99;letter-spacing:-3.2px;margin:20px 0 17px;max-width:470px}
+h1 span{color:#086ee6}
+.hero p{font-size:14px;line-height:1.55;max-width:410px;margin:0 0 22px}
+.actions{display:flex;gap:11px;align-items:center}
+.secondary{border:1px solid #7ba9d9;background:#fff;color:var(--text);border-radius:22px;padding:11px 17px;font-weight:700}
+.people{display:flex;align-items:center;gap:13px;margin-top:25px}
+.people img{width:143px;height:46px;object-fit:cover;border-radius:25px}
+.people b{font-size:12px}.people small{display:block;font-size:11px}
+.hero-art{position:relative;min-height:390px;display:flex;align-items:center;justify-content:center}
+.hero-art img{width:100%;max-width:530px;display:block}
+
+section{padding:42px 0}
+.eyebrow{font-size:10px;color:#086de0;font-weight:850;letter-spacing:.2px;margin-bottom:8px}
+.section-title{font-size:27px;line-height:1.05;letter-spacing:-1.4px;margin:0}
+.section-title span{color:#0877ee}
+.section-head{display:flex;justify-content:space-between;align-items:end;margin-bottom:20px}
+.view{font-size:11px;color:#0769dc;font-weight:750}
+
+.categories{display:grid;grid-template-columns:repeat(8,1fr);gap:10px;margin-top:10px}
+.cat{height:79px;border:1px solid #e7edf5;border-radius:10px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;background:#fff;box-shadow:0 4px 16px #071b4908}
+.cat svg{width:26px;height:26px;stroke:#096dde;stroke-width:1.7}.cat span{font-size:10px;font-weight:650}
+
+.trend{background:#fff}.tabs{display:flex;gap:9px;align-items:center;margin-bottom:18px}
+.tab{border:0;background:#f6f8fb;border-radius:20px;padding:9px 17px;font-size:10px;font-weight:700;color:#23314a}
+.tab.active{background:#0877ee;color:#fff}
+.board-select{margin-left:auto;border:1px solid #e6ebf2;border-radius:20px;background:#fff;padding:8px 13px;font-size:10px}
+.cards{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;position:relative}
+.card{border:1px solid #e2e8f1;border-radius:12px;overflow:hidden;background:#fff;box-shadow:0 7px 18px #071b490b;position:relative}
+.card-img{height:124px;width:100%;object-fit:cover;display:block}
+.rank{position:absolute;top:10px;left:10px;background:#ffd600;border-radius:6px;padding:5px 8px;font-weight:850;font-size:12px;z-index:2}
+.card-body{padding:11px 12px 14px}.tag{display:inline-block;border-radius:10px;background:#e8f6ff;color:#0670d8;padding:3px 7px;font-size:8px;font-weight:850}
+.card h3{font-size:14px;margin:9px 0 2px;letter-spacing:-.3px}.by{font-size:9px;color:#6d7a8d}.views{font-size:10px;color:var(--green);font-weight:800;margin-top:9px}
+
+.how{background:#f6faff}
+.steps{display:grid;grid-template-columns:repeat(3,1fr);margin-top:25px}
+.step{padding:0 25px;border-right:1px solid #e3ebf4}.step:last-child{border:0}
+.stepno{width:30px;height:30px;border-radius:50%;background:#0877ee;color:#fff;display:grid;place-items:center;font-weight:800;font-size:13px}
+.step h3{font-size:13px;margin:12px 0 7px}.step p{font-size:10px;line-height:1.6;color:#748196;margin:0}
+
+.price{padding-top:32px}.pricebox{display:grid;grid-template-columns:1.5fr 1fr 1fr 1.25fr;border-radius:12px;overflow:hidden;box-shadow:0 9px 25px #071b4912;border:1px solid #e3eaf4}
+.cta{background:linear-gradient(115deg,#0674ef,#0877ee);color:#fff;padding:26px 25px;position:relative;min-height:150px}
+.cta h2{font-size:25px;line-height:1.05;letter-spacing:-1.2px;margin:0 0 8px;max-width:245px}.cta p{font-size:10px}.cta img{position:absolute;right:5px;bottom:-3px;width:155px}
+.pricecol{padding:25px 20px;background:#fff}.pricecol h5{margin:0;color:#0877ee;font-size:9px}.pricecol strong{display:block;font-size:27px;margin:7px 0}.pricecol p{font-size:9px;color:#718096;line-height:1.5;min-height:29px}.pricecol button{border:0;background:#0877ee;color:#fff;border-radius:8px;padding:9px 14px;font-size:9px;font-weight:800}
+.perks{background:#edf5ff;padding:25px 20px}.perks div{font-size:9px;margin:0 0 15px}.perks div:last-child{margin:0}
+
+.why{padding-top:28px}.whygrid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:20px}.whycard{border:1px solid #e8edf4;border-radius:10px;padding:18px;background:#fff}.whycard svg{width:27px;stroke:#0877ee}.whycard h4{font-size:11px;margin:8px 0 4px}.whycard p{font-size:8px;color:#738094;margin:0;line-height:1.5}
+
+.bottom{margin-top:25px;background:linear-gradient(100deg,#063cb5,#0877ee);color:#fff;border-radius:10px;padding:18px 25px;display:grid;grid-template-columns:1.4fr repeat(3,.5fr) 1fr;align-items:center;gap:15px}.bottom h3{margin:0;font-size:16px}.bottom small{font-size:8px}.stat{text-align:center}.stat b{font-size:18px}.stat span{display:block;font-size:7px}.bottom button{background:#fff;color:#0867d8;border:0;border-radius:7px;padding:10px;font-weight:800;font-size:9px}
+
+footer{background:#062556;color:#fff;padding:20px 0;margin-top:0}.foot{display:flex;justify-content:space-between;align-items:center}.foot .logo{font-size:19px}.footlinks{display:flex;gap:24px;font-size:8px;color:#d7e5ff}
+
+@media(max-width:800px){
+ .container{width:min(100% - 42px,620px)}
+ header{height:76px}.links,.profile{display:none}.mobile-menu{display:block}
+ .nav .topbtn{position:absolute;left:50%;transform:translateX(-50%);white-space:nowrap;padding:12px 16px;font-size:12px}
+ .mobile-menu{width:26px;height:20px;border:0;background:transparent;margin-left:auto}.mobile-menu:before{content:"☰";font-size:23px}
+ .hero{min-height:740px}.hero-grid{grid-template-columns:1fr;gap:5px;padding-top:35px}.hero-art{order:2;min-height:360px}.hero-art img{max-width:600px}
+ h1{font-size:42px;letter-spacing:-2.6px}.hero p{font-size:13px}
+ .categories{grid-template-columns:repeat(4,1fr);gap:10px}.cat{height:105px}
+ .cards{grid-template-columns:repeat(2,1fr)}.card-img{height:160px}
+ .cards .card:last-child{grid-column:1/2}
+ .steps{grid-template-columns:1fr}.step{padding:20px 0;border-right:0;border-bottom:1px solid #e3ebf4}
+ .pricebox{grid-template-columns:1fr 1fr}.cta{grid-column:1/3}.perks{grid-column:1/3}
+ .whygrid{grid-template-columns:repeat(2,1fr)}
+ .bottom{grid-template-columns:1fr 1fr 1fr;gap:12px}.bottom .bottom-main{grid-column:1/4}.bottom button{grid-column:1/4}
+ .foot{align-items:flex-start;gap:18px}.footlinks{flex-wrap:wrap;justify-content:flex-end}
+}
+@media(max-width:470px){
+ .container{width:calc(100% - 42px)}.nav .topbtn{font-size:11px}.logo{font-size:23px}
+ h1{font-size:39px}.hero{min-height:760px}
+ .cards{grid-template-columns:1fr}.cards .card:last-child{grid-column:auto}.card-img{height:190px}
+ .pricebox{grid-template-columns:1fr}.cta,.perks{grid-column:auto}.pricecol{min-height:180px}
+ .bottom{grid-template-columns:1fr 1fr}.bottom .bottom-main{grid-column:1/3}.bottom button{grid-column:1/3}
+}
+</style>
+
+<style>
+.cards .card[href]{cursor:pointer; text-decoration:none;}
+.cards .card[href]:focus-visible{outline:2px solid #8cff00;outline-offset:3px;}
+</style>
+</head>
+<body>
+<header><div class="container nav">
+  <a class="logo" href="#explore">TOP<span>ME</span></a>
+  <nav class="links"><a href="#explore">Explore</a><a href="#categories">Categories</a><a href="#trending">Trending</a><a href="#how">How it works</a><a href="#pricing">Pricing</a></nav>
+  <button class="topbtn" data-action="pricing">✦ Put Something on TOPME</button><button class="profile" data-action="profile" aria-label="Account"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="8" r="3.5"/><path d="M4.5 21c.7-4.2 3.1-6.2 7.5-6.2s6.8 2 7.5 6.2"/></svg></button><button class="mobile-menu" aria-label="menu" aria-expanded="false"></button>
+</div></header>
+
+<main>
+<section class="hero" id="explore"><div class="container hero-grid">
+ <div>
+  <div class="pill"><span class="dot"></span> TOPME IS LIVE</div>
+  <h1>Put what’s worth noticing <span>on top.</span></h1>
+  <p>A public board where creators, artists, businesses, products and ideas compete for attention.<br>Get discovered. Climb the rankings. Be on top.</p>
+  <div class="actions"><button class="primary" data-action="pricing">✦ Put Something on TOPME</button><button class="secondary" data-action="trending">Explore Rankings →</button></div>
+  <div class="people"><img src="faces.png" alt=""><div><b>300+ creators &amp; businesses</b><small>already on the board</small></div></div>
+ </div>
+ <div class="hero-art"><img src="hero-board.png" alt="TOPME ranking board"></div>
+</div></section>
+
+<section id="categories"><div class="container">
+ <div class="section-head"><div><div class="eyebrow">EXPLORE CATEGORIES</div><h2 class="section-title">Find your space.<br><span>Be discovered.</span></h2></div><a class="view" href="#categories">View all categories →</a></div>
+ <div class="categories">
+  <div class="cat"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8" r="3"/><path d="M5 20c.7-4 2.8-6 7-6s6.3 2 7 6"/></svg><span>Creators</span></div>
+  <div class="cat"><svg viewBox="0 0 24 24" fill="none"><path d="M9 5v11.5a3.5 3.5 0 1 1-2-3.2V5l9-2v10.5a3.5 3.5 0 1 1-2-3.2V5l-5 1.1"/></svg><span>Music</span></div>
+  <div class="cat"><svg viewBox="0 0 24 24" fill="none"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m10 9 5 3-5 3z"/></svg><span>Videos</span></div>
+  <div class="cat"><svg viewBox="0 0 24 24" fill="none"><path d="m12 3 8 4.5v9L12 21l-8-4.5v-9z"/><path d="m4 7.5 8 4.5 8-4.5M12 12v9"/></svg><span>Products</span></div>
+  <div class="cat"><svg viewBox="0 0 24 24" fill="none"><path d="m13 2 8 8-10 10-4-4z"/><path d="M8 8 3 13l4 4"/></svg><span>Startups</span></div>
+  <div class="cat"><svg viewBox="0 0 24 24" fill="none"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5h8v2"/></svg><span>Businesses</span></div>
+  <div class="cat"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3.2 3 14.8 0 18M12 3c-3 3.2-3 14.8 0 18"/></svg><span>Websites</span></div>
+  <div class="cat"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="8"/><path d="M8 14c-2 0-3-1-3-2s1-2 3-2 3-1 3-2-1-2-3-2M16 10c2 0 3 1 3 2s-1 2-3 2-3 1-3 2 1 2 3 2"/></svg><span>Art</span></div>
+ </div>
+</div></section>
+
+<section id="trending" class="trend"><div class="container">
+ <div class="section-head"><div><div class="eyebrow">LIVE BOARD <span style="color:#e52d3d">●</span></div><h2 class="section-title">Trending right now</h2></div><a class="view" href="#trending">View Full Rankings →</a></div>
+ <div class="tabs"><button class="tab active" data-filter="all">All</button><button class="tab" data-filter="creators">Creators</button><button class="tab" data-filter="music">Music</button><button class="tab" data-filter="videos">Videos</button><button class="tab" data-filter="products">Products</button><button class="tab" data-filter="startups">Startups</button><button class="tab" data-filter="businesses">Businesses</button><button class="board-select" type="button" data-action="worldwide">◉ Worldwide⌄</button></div>
+ <div class="cards">
+  <a class="card" data-category="music" href="https://open.spotify.com/track/1rOYYC38egAo6KfqI7V5H3?si=HTn9zkPTSHuff8oNHcVSbg&utm_source=copy-link" target="_blank" rel="noopener noreferrer"><b class="rank">1</b><img class="card-img" src="The spirit of Bhagat Singh(4).png" alt="The Spirit of Bhagat Singh"><div class="card-body"><span class="tag">MUSIC</span><h3>THE SPIRIT OF BHAGAT SINGH</h3><div class="by">by Khitish</div><div class="views">↑ 12.4K &nbsp; ◉</div></div></a>
+  <a class="card" data-category="music" href="https://open.spotify.com/track/7Edz3NemRduPC1R47jbndy?si=frHhevIZQPaD9_yt1QfMWw&utm_source=copy-link" target="_blank" rel="noopener noreferrer" aria-label="Open TIK TIK on Spotify"><b class="rank">2</b><img class="card-img" src="card-2.png" alt="TIK TIK"><div class="card-body"><span class="tag">MUSIC</span><h3>TIK TIK</h3><div class="by">by Khitish</div><div class="views">↑ New &nbsp; ◉</div></div></a>
+  <article class="card" data-category="products"><b class="rank">2</b><img class="card-img" src="card-2.png"><div class="card-body"><span class="tag">PRODUCTS</span><h3>Kicks One Pro</h3><div class="by">by KicksLab</div><div class="views">↑ 9.8K &nbsp; ◉</div></div></article>
+  <article class="card" data-category="startups"><b class="rank">3</b><img class="card-img" src="card-3.png"><div class="card-body"><span class="tag">STARTUPS</span><h3>Pixora AI</h3><div class="by">by Pixora</div><div class="views">↑ 8.2K &nbsp; ◉</div></div></article>
+  <a class="card" data-category="music" href="https://www.instagram.com/projektpantomath?igsi=dXBnenFuZm9vOXR3" target="_blank" rel="noopener noreferrer"><b class="rank">4</b><img class="card-img" src="projekt-pantomath.png" alt="ProJekt Pantomath"><div class="card-body"><span class="tag">MUSIC</span><h3>ProJekt Pantomath</h3><div class="by">Composition &amp; Music Production Studio</div><div class="views">↑ 7.1K &nbsp; ◉</div></div></a>
+  <article class="card" data-category="videos"><b class="rank">5</b><img class="card-img" src="card-5.png"><div class="card-body"><span class="tag">VIDEOS</span><h3>The Hustle Story</h3><div class="by">by FrameBreak</div><div class="views">↑ 6.3K &nbsp; ◉</div></div></article>
+ </div>
+</div></section>
+
+<section id="how" class="how"><div class="container"><div class="eyebrow">HOW IT WORKS</div><h2 class="section-title">Three simple steps.</h2>
+ <div class="steps">
+  <div class="step"><div class="stepno">1</div><h3>Put something</h3><p>Add yourself, music, product, business, video, website or anything worth discovering.</p></div>
+  <div class="step"><div class="stepno">2</div><h3>Enter the board</h3><p>After payment, your listing goes live in the right category and becomes discoverable.</p></div>
+  <div class="step"><div class="stepno">3</div><h3>Compete for the top</h3><p>Boost your listing and compete for stronger visibility and higher ranking.</p></div>
+ </div>
+</div></section>
+
+<section id="pricing" class="price"><div class="container"><div class="pricebox">
+ <div class="cta"><h2>Start your journey on TOPME</h2><p>One-time entry. Lifetime opportunity.</p><button class="secondary" data-action="pricing">✦ Put Something on TOPME</button><img src="cta-rocket.png" alt=""></div>
+ <div class="pricecol"><h5>LIST SOMETHING</h5><strong>₹49</strong><p>One-time entry fee to create your TOPME listing.</p><button data-action="list">List Something →</button></div>
+ <div class="pricecol"><h5>BOOST LISTING</h5><strong>₹49</strong><p>Give an existing listing another visibility push.</p><button data-action="boost">Boost a Listing →</button></div>
+ <div class="perks"><div>♧ &nbsp; Secure payments</div><div>▣ &nbsp; Cancel anytime</div><div>⌁ &nbsp; No subscription</div><div>♟ &nbsp; Fair competition</div></div>
+ </div></div></section>
+
+<section class="why"><div class="container"><div class="eyebrow">WHY JOIN TOPME?</div><h2 class="section-title">Built to be simple.</h2>
+ <div class="whygrid">
+  <div class="whycard"><svg viewBox="0 0 24 24" fill="none"><path d="M12 3 20 6v5c0 5-3.2 8.5-8 10-4.8-1.5-8-5-8-10V6z"/><path d="m8 12 2.5 2.5L16 9"/></svg><h4>Trusted &amp; Secure</h4><p>Safe payments. Your data is always protected.</p></div>
+  <div class="whycard"><svg viewBox="0 0 24 24" fill="none"><circle cx="9" cy="8" r="3"/><path d="M3 20c.6-4 2.5-6 6-6s5.4 2 6 6M16 9c3.3.1 4.5 2 5 4.5"/></svg><h4>Open for Everyone</h4><p>Anyone can list. Anyone can be discovered.</p></div>
+  <div class="whycard"><svg viewBox="0 0 24 24" fill="none"><path d="M4 19V9M9 19V5M14 19v-8M19 19V3"/><path d="M3 21h18"/></svg><h4>Fair Competition</h4><p>Rankings based on real engagement and activity.</p></div>
+  <div class="whycard"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3.2 3 14.8 0 18"/></svg><h4>Global Exposure</h4><p>Get discovered locally or around the world.</p></div>
+ </div>
+ <div class="bottom"><div class="bottom-main"><h3>★ &nbsp; Ready to be on top?</h3><small>Put your story where it deserves to be seen.</small></div><div class="stat"><b>300+</b><span>Creators &amp; Businesses</span></div><div class="stat"><b>0</b><span>Listings Live</span></div><div class="stat"><b>0</b><span>Countries</span></div><button data-action="pricing">+ Put Something on TOPME</button></div>
+ </div></section>
+</main>
+<footer><div class="container foot"><div><div class="logo">TOP<span>ME</span></div><small style="font-size:7px">Put what’s worth noticing on top.</small></div><div class="footlinks"><a>Home</a><a>Explore</a><a>Categories</a><a>Trending</a><a>How it works</a><a>Pricing</a></div></div></footer>
+
+<div class="modal" id="actionModal" aria-hidden="true">
+  <div class="modal-backdrop" data-close="modal"></div>
+  <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <button class="modal-close" data-close="modal" aria-label="Close">×</button>
+    <h3 id="modalTitle">TOPME</h3><p id="modalText"></p>
+    <button class="primary modal-ok" data-close="modal">Got it</button>
+  </div>
+</div>
+<style>
+.modal{position:fixed;inset:0;display:none;align-items:center;justify-content:center;z-index:100}.modal.show{display:flex}.modal-backdrop{position:absolute;inset:0;background:#071b4966;backdrop-filter:blur(3px)}.modal-card{position:relative;width:min(390px,calc(100% - 36px));background:#fff;border:1px solid #e4eaf3;border-radius:16px;padding:24px;box-shadow:0 20px 60px #071b4933}.modal-card h3{margin:0 0 8px;font-size:20px}.modal-card p{margin:0 0 18px;color:#6f7d92;font-size:12px;line-height:1.6}.modal-close{position:absolute;right:12px;top:9px;border:0;background:transparent;font-size:25px;color:#6f7d92;cursor:pointer}.modal-ok{cursor:pointer}.mobile-menu{cursor:pointer}.profile{cursor:pointer;color:var(--text);background:#fff}.tab,.board-select,.pricecol button,.bottom button,.topbtn,.primary,.secondary{cursor:pointer}
+.mobile-drawer{display:none;position:absolute;top:76px;left:0;right:0;background:#fff;border-bottom:1px solid #e7edf5;box-shadow:0 10px 25px #071b4910;padding:14px 21px}.mobile-drawer.show{display:grid;gap:4px}.mobile-drawer a{padding:11px 8px;font-size:13px;font-weight:650;border-radius:8px}.mobile-drawer a:active,.mobile-drawer a:hover{background:#f4f8fd}
+@media(min-width:801px){.mobile-drawer{display:none!important}}
+</style>
+<script>
+(function(){
+  const $=(s,c=document)=>c.querySelector(s), $$=(s,c=document)=>Array.from(c.querySelectorAll(s));
+  const modal=$('#actionModal'), modalText=$('#modalText'), modalTitle=$('#modalTitle');
+  function openModal(title,text){modalTitle.textContent=title;modalText.textContent=text;modal.classList.add('show');modal.setAttribute('aria-hidden','false')}
+  function closeModal(){modal.classList.remove('show');modal.setAttribute('aria-hidden','true')}
+  function go(id){document.getElementById(id)?.scrollIntoView({behavior:'smooth',block:'start'})}
+  $$('[data-close="modal"]').forEach(x=>x.addEventListener('click',closeModal));
+  document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal()});
+  $$('[data-action]').forEach(el=>el.addEventListener('click',function(e){
+    const a=this.dataset.action;
+    if(a==='pricing'||a==='trending'){e.preventDefault();go(a);return}
+    if(a==='profile'){openModal('TOPME account','Account access is ready for the next step. This demo keeps the visual design intact without requiring a backend.');return}
+    if(a==='list'){openModal('List Something','Your TOPME listing flow is ready. Connect your payment/listing backend here when you are ready to accept real submissions.');return}
+    if(a==='boost'){openModal('Boost a Listing','Your boost flow is ready. Connect your payment/boost backend here when you are ready to process boosts.');return}
+    if(a==='worldwide'){openModal('Worldwide','Worldwide rankings are currently selected.');return}
+  }));
+  $$('.tab[data-filter]').forEach(tab=>tab.addEventListener('click',()=>{
+    $$('.tab[data-filter]').forEach(t=>t.classList.remove('active'));tab.classList.add('active');
+    const f=tab.dataset.filter;$$('.card[data-category]').forEach(card=>{card.style.display=(f==='all'||card.dataset.category===f)?'':'none'});
+  }));
+  // Mobile menu drawer
+  const menu=$('.mobile-menu');
+  if(menu){
+    const drawer=document.createElement('div');drawer.className='mobile-drawer';
+    drawer.innerHTML='<a href="#explore">Explore</a><a href="#categories">Categories</a><a href="#trending">Trending</a><a href="#how">How it works</a><a href="#pricing">Pricing</a>';
+    document.querySelector('header').appendChild(drawer);
+    menu.addEventListener('click',()=>{const show=drawer.classList.toggle('show');menu.setAttribute('aria-expanded',String(show))});
+    drawer.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{drawer.classList.remove('show');menu.setAttribute('aria-expanded','false')}));
+  }
+})();
+</script>
+</body></html>
